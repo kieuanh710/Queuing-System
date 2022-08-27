@@ -1,0 +1,51 @@
+
+
+.title-reset{
+    left: 14.51%;
+    right: 73.68%;
+    top: 39.51%;
+    bottom: 57.53%;
+}
+.title-newpw{
+    left: 13.75%;
+    right: 71.6%;
+    top: 36.51%;
+    bottom: 56.42%;
+    width: 100%;
+}
+.btn-cancel{
+    left: 118px;
+    top: 483px;
+    border: 1px solid #FF9138;
+    filter: drop-shadow(0px 0px 6px #E7E9F2);
+    background: #f6f6f6;
+}
+
+.btn-cancel span{
+    color: #FF9138;;
+}
+.btn-continue{
+    position: absolute;
+    left: 304px;
+    top: 483px;
+}
+.btn-confirm{
+    left: 219px;
+    top: 579px;
+}
+.img-login{
+    position: absolute;
+    width: 605px;
+    height: 614.06px;
+    left: calc(671px - 592px);
+    top: 112.94px;
+}
+.img{
+    position: absolute;
+    width: 711px;
+    height: 560px;
+    left: calc(635px - 592px);
+    top: 153px;
+
+}
+
