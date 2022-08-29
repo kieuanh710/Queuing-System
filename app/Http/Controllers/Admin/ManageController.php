@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class ManageController extends Controller
 {
     public function index(){
-        echo 'admin';
+        // return view('manage.dashboard');
+        return 'Admin';
     }
 }

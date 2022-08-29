@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\ManageController;
 /*
@@ -16,13 +15,20 @@ use App\Http\Controllers\Admin\ManageController;
 */
 
 
-Route::get('/login', [LoginController::class,'index']);
+Route::get('/login', [LoginController::class,'index'])->name('login');
+Route::get('/forgotpassword', [LoginController::class,'forgotpassword']);
+Route::get('/newpassword', [LoginController::class,'newpassword']);
+
+
 Route::post('/dashboard', [LoginController::class,'dashboard']);
 
-Route::get('/dashboard/detail', [ManageController::class,'index'])->name('admin');
+Route::middleware('auth')->group(function(){
+    Route::get('/dashboard/detail', [ManageController::class,'index'])->name('admin');
+});
 
 
 
+    
 
 
 

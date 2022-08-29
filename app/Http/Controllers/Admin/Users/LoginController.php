@@ -14,17 +14,19 @@ class LoginController extends Controller
         ]);
     }
     public function dashboard(Request $request){
-        // dd($request->input());
-        // $this->validate($request, [
-        //     'email' => 'required|email:filter',
-        //     'password' => 'required'
-        // ]);
         if(Auth::attempt([
             'email' => $request->input('email'),
             'password' => $request->input('password')]))
         {
             return redirect()->route('admin');
         }
+        $request->session()->flash('error', 'Sai mật khẩu hoặc tên đăng nhập');
         return redirect()->back();
+    }
+    public function forgotpassword(){
+        return view('forgotpassword');
+    }
+    public function newpassword(){
+        return view('newpassword');
     }
 }

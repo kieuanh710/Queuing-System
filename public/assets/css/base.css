@@ -35,7 +35,7 @@ html {
 }
 
 .form-login {
-    /* position: relative; */
+    position: relative;
 }
 
 .form {
@@ -48,18 +48,20 @@ html {
     position: absolute;
     width: 400px;
     height: 75px;
+    left: 94px;
+    top: 340px;
 }
 
 .form-1:first-child {
-    left: 94px;
-    top: 293px;
+    /* left: 94px;
+    top: 293px; */
     padding-bottom: 16px;
 }
 
-.form-1:last-child {
+/* .form-1:last-child {
     left: 94px;
-    top: 384px;
-}
+    top: 300px;
+} */
 
 .form-2:first-child {
     left: 94px;
