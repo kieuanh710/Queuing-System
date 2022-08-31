@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class ManageController extends Controller
 {
     public function index(){
-        // return view('manage.dashboard');
-        return 'Admin';
+        return view('manage.dashboard.home');
     }
 }

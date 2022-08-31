@@ -12,6 +12,17 @@
     top: 36.51%;
     bottom: 56.42%;
     width: 100%;
+
+}
+.title-des{
+    position: relative;
+    width: 396px;
+    height: 27px;
+    left: 94px;
+    top: 360px;
+    padding-bottom: 30px;
+    font-size: 18px;
+
 }
 .btn-cancel{
     left: 118px;
@@ -21,8 +32,9 @@
     background: #f6f6f6;
 }
 
-.btn-cancel span{
+.btn-cancel a{
     color: #FF9138;;
+    text-decoration: none;
 }
 .btn-continue{
     position: absolute;

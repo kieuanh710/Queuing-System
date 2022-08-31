@@ -36,6 +36,7 @@ html {
 
 .form-login {
     position: relative;
+    top: 0;
 }
 
 .form {
@@ -45,7 +46,7 @@ html {
     align-items: flex-start;
     padding: 0px;
     gap: 4px;
-    position: absolute;
+    position: relative;
     width: 400px;
     height: 75px;
     left: 94px;
@@ -62,17 +63,17 @@ html {
     left: 94px;
     top: 300px;
 } */
-
-.form-2:first-child {
-    left: 94px;
-    top: 365px;
-    padding-bottom: 16px;
+.form-2{
+    top: 370px;
 }
-
+.form-2:first-child {
+    /* top: 365px; */
+    padding-bottom: 32px;
+}
+/* 
 .form-2:last-child {
     top: 456px;
-    left: 94px;
-}
+} */
 
 .show {
     position: relative;
@@ -147,7 +148,7 @@ html {
     background: #FF9138;
 }
 
-.btn span {
+.btn span, .btn a {
     width: 82px;
     height: 24px;
     font-family: 'Nunito';
