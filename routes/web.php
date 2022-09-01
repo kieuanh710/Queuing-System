@@ -27,8 +27,12 @@ Route::post('/forgotpassword', [LoginController::class,'password']);
 Route::post('/dashboard', [LoginController::class,'dashboard']);
 
 Route::middleware('auth')->group(function(){
-    Route::get('/manage', [ManageController::class,'index'])->name('admin');
-    Route::get('/manage/dashboard', [ManageController::class,'index']);
+    Route::prefix('/admin')->group(function(){
+        Route::get('/', [ManageController::class,'index'])->name('admin');
+        Route::get('/manage', [ManageController::class,'index']);
+        Route::get('/manage/device', [ManageController::class,'device'])->name('device');
+
+    });
 
 });
 
