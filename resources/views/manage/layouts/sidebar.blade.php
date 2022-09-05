@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
         <div class="sidebar-brand-text mx-3">
             <img src="/assets/img/Logo alta.png" alt="Alta" class="logo">
         </div>
@@ -11,7 +11,7 @@
     <!-- <hr class="sidebar-divider my-0"> -->
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link active" href="{{route('admin')}}">
             <img src="/assets/img/element-4.png" alt="" class="icon">
             <span>Dashboard</span>
         </a>

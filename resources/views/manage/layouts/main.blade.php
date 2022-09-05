@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-   @include('manage.head')
+    @include('manage.layouts.head')
 </head>
 
 <body id="page-top">
@@ -12,7 +11,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-       @include('manage.sidebar')
+        @include('manage.layouts.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -69,29 +68,29 @@
                                         <div class="small text-gray-500">Thời gian nhận số: 12h20 ngày 30/11/2021</div>
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                                <!-- <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a> -->
                             </div>
                         </li>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item navbar-item dropdown no-arrow">
-                            <a class="nav-link navbar-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            
-                            <span class="name mr-2 d-none d-lg-inline text-gray-600 small">
-                                <p>Xin chào</p>
-                                Kieu Anh
-                            </span>
+                            <a class="nav-link navbar-link dropdown-toggle" href="{{route('info')}}" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+
+                                <span class="name mr-2 d-none d-lg-inline text-gray-600 small">
+                                    <p>Xin chào</p>
+                                    Kieu Anh
+                                </span>
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="detail-info">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                            </div>
+                            </div> -->
                         </li>
 
                     </ul>
@@ -100,14 +99,9 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1> -->
-                    <!-- Content -->
+                <div class="list-table">
                     @yield('content')
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
         </div>
@@ -140,7 +134,7 @@
         </div>
     </div>
 
-    @include('manage.footer')
+    @include('manage.layouts.footer')
 
 </body>
 

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\Users\ForgotPasswordController;
 use App\Http\Controllers\Admin\ManageController;
+use App\Http\Controllers\Admin\DeviceController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,9 +31,25 @@ Route::post('/dashboard', [LoginController::class,'dashboard']);
 Route::middleware('auth')->group(function(){
     Route::prefix('/admin')->group(function(){
         Route::get('/', [ManageController::class,'index'])->name('admin');
-        Route::get('/manage', [ManageController::class,'index']);
-        Route::get('/manage/device', [ManageController::class,'device'])->name('device');
+        // Route::get('/manage', [ManageController::class,'index']);
+        // Route::get('/manage/device', [ManageController::class,'device'])->name('device');
+        // Route::get('/manage/info', [ManageController::class,'info'])->name('info');
+        
+        Route::prefix('/manage')->group(function(){
+            Route::get('/', [ManageController::class,'index']);
 
+            Route::prefix('/device')->group(function(){
+                Route::get('/', [DeviceController::class,'index'])->name('device');
+                Route::get('/add', [DeviceController::class,'add'])->name('device.add');
+                Route::post('/add', [DeviceController::class,'postAdd']);
+                Route::get('/update/{id}', [DeviceController::class,'update'])->name('device.update');
+                Route::post('/update/{id}', [DeviceController::class,'postUpdate']);
+                Route::get('/detail', [DeviceController::class,'detail'])->name('device.detail');
+            });
+            
+            Route::get('/info', [ManageController::class,'info'])->name('info');
+    
+        });
     });
 
 });
