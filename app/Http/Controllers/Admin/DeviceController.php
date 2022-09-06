@@ -38,23 +38,46 @@ class DeviceController extends Controller
             $request -> username,
             $request -> password,
             $request -> service,
+            date('Y-m-d H:i:s')
         ];
         // dd($dataInsert);
         $this->devices->addDevice($dataInsert);
-        return redirect()->back();
+        return redirect()->route('device')->with('success', 'Thêm thiết bị thành công');
     }
 
     // Cập nhật thông tin thiết bị
-    public function update(){
-        return view('manage.device.updateDevice',[
-            'title' => 'Cập nhật thiết bị'
-        ]);
+    public function update($id){
+        $title = 'Cập nhật thiết bị';
+        if (!empty($id)){
+            $deviceDetail = $this->devices->getDetail($id);
+            if(!empty($deviceDetail[0])){
+                $deviceDetail = $deviceDetail[0];
+            }
+            else{
+                return redirect()->route('device')->with('success', 'Liên kết không tồn tại');
+            }
+        } 
+        else {
+            return redirect()->route('device')->with('success', 'Liên kết không tồn tại');
+        }
+        return view('manage.device.updateDevice',compact('title', 'deviceDetail'));
     }
-    public function postUpdate(){
-        return view('manage.device.updateDevice',[
-            'title' => 'Cập nhật thiết bị'
-        ]);
+    public function postUpdate(CreateFormRequest $request, $id){
+        $dataUpdate = [
+            $request -> idDevice,
+            $request -> nameDevice,
+            $request -> ip_address,
+            $request -> typeDevice,
+            $request -> username,
+            $request -> password,
+            $request -> service
+        ];
+        // dd($dataUpdate);
+        $this->devices->updateDevice($dataUpdate, $id);
+        return redirect()->route('device')->with('success', 'Cập nhật thiết bị thành công');
     }
+
+
     // Thông tin chi tiết
     public function detail(){
         return view('manage.device.detailDevice',[

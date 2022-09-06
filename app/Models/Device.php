@@ -27,4 +27,16 @@ class Device extends Model
         DB::insert('INSERT INTO devices (idDevice, nameDevice, ip_address, typeDevice, username, password, service) 
         VALUES(?, ?, ?, ?, ?, ?, ?)', $data);
     }
+
+    //Check id exist in table
+    public function getDetail($id){
+        return DB::select('SELECT * FROM '.$this->table.' WHERE id = ?',[$id]);
+    }
+    public function updateDevice($data, $id){
+        $data = array_merge($data, [$id]);
+        return DB::select('UPDATE '.$this->table.' 
+            SET idDevice=?, nameDevice=?, ip_address=?, typeDevice=?, username=?, password=?, service=?
+            WHERE id = ?',$data);
+
+    }
 }
