@@ -54,7 +54,7 @@
                             placeholder="Nhập dịch vụ sử dụng" value="{{old('service')}}">
                         </div>
                     </div>
-                    <span>* Là trường thông tin bắt buộc</span>
+                    <span class="col">* Là trường thông tin bắt buộc</span>
                 </div>
             </div>
             <div class="card-footer">

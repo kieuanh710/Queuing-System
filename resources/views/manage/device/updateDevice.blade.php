@@ -8,7 +8,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Thông tin thiết bị</h6>
         </div>
         @include('admin.alert')
-        <form action="" method="POST">
+        <form action="{{route('device.postUpdate')}}" method="POST">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
@@ -53,7 +53,7 @@
                             <input type="text" name="service" class="form-control last" placeholder="Nhập dịch vụ sử dụng" value="{{old('service') ?? $deviceDetail->service}}">
                         </div>
                     </div>
-                    <span>* Là trường thông tin bắt buộc</span>
+                    <span class="col">* Là trường thông tin bắt buộc</span>
                 </div>
             </div>
             <div class="card-footer">

@@ -4,37 +4,52 @@
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Danh sách thiết bị</h1>
 
-    <div class="filter">
-        <div class="active-status">
-            <span>Trạng thái hoạt động</span>
-            <select name="active" class="filter-active">
-                <div class="filter-active--item">
-                    <option value="0">Tất cả</option>
-                    <option value="connect">Hoạt động</option>
-                    <option value="disconnect">Ngừng hoạt động</option>
+    <form action="" method="GET">
+        <div class="filter">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group active-status">
+                        <span>Trạng thái hoạt động</span>
+                        <select name="active" class="form-control filter-active">
+                            <div class="filter-active--item">
+                                <option value="0">Tất cả</option>
+                                <option value="active" {{request()->active=='active'?'selected':false}}>Hoạt động</option>
+                                <option value="inactive" {{request()->active=='inactive'?'selected':false}}>Ngừng hoạt động</option>
+                             </div>
+                        </select>
+                    </div>
                 </div>
-            </select>
-        </div>
-        <div class="active-status">
-            <span>Trạng thái kết nối</span>
-            <select name="connect" class="filter-active">
-                <div class="filter-active--item">
-                    <option value="0">Tất cả</option>
-                    <option value="connect">Kết nối</option>
-                    <option value="disconnect">Mất kết nối</option>
-                </div>
-            </select>
-        </div>
 
-        <div class="active-status right">
-            <span>Từ khóa</span>
-            <div class="search-btn">
-                <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search">
-                <button class="btn btn-primary btn-block">Tìm kiếm</button>
-                    <i class="search-icon fas fa-search fa-sm"></i>
+                <div class="col-sm-3">
+                    <div class="form-group active-status">
+                        <span>Trạng thái kết nối</span>
+                        <select name="connect" class="form-control filter-active">
+                            <div class="filter-active--item">
+                                <option value="0">Tất cả</option>
+                                <option value="connect" {{request()->connect=='connect'?'selected':false}}>Kết nối</option>
+                                <option value="disconnect" {{request()->connect=='disconnect'?'selected':false}}>Ngừng kết nối</option>
+                            </div>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group"></div>
+                </div>
+        
+                <div class="col-sm-3">
+                    <div class="form-group active-status right">
+                        <span>Từ khóa</span>
+                        <div class="search-btn">
+                            <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
+                            <i class="search-icon fas fa-search fa-sm"></i>
+                        </div>
+                        <button class="btn btn-primary btn-block">Tìm kiếm</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+    </form>
 
     <!-- DataTales-->
     <div class="card shadow mb-4">
@@ -42,7 +57,7 @@
             @include('admin.alert')
             <div class="table-responsive">
                 <!-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> -->
-                <table class="table table-bordered" width="100%" cellspacing="0">
+                <table class="table table-bordered table-striped" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Mã thiết bị</th>
@@ -63,8 +78,20 @@
                             <th>{{$item->idDevice}}</th>
                             <th>{{$item->nameDevice}}</th>
                             <th>{{$item->ip_address}}</th>
-                            <th>Trạng thái hoạt động</th>
-                            <th>Trạng thái kết nối</th>
+                            <th>{!!$item->active==0?'
+                                <div class="circle circle-error"></div>
+                                    Ngưng hoạt động
+                                '
+                                :'<div class="circle circle-success"></div>
+                                    Hoạt động'!!}
+                            </th>
+                            <th>{!!$item->connect==0?'
+                                <div class="circle circle-error"></div>
+                                    Mất kết nối
+                                '
+                                :'<div class="circle circle-success"></div>
+                                    Kết nối'!!}
+                            </th>
                             <th>{{$item->service}}</th>
                             <th><a href="{{route('device.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
                             <th><a href="{{route('device.update', ['id'=>$item->id])}}">Cập nhật</a></th>
@@ -104,11 +131,12 @@
                 </li>
             </ul>
         </div>
+   
     </div>
 </div>
 <div class="add">
     <a href="{{route('device.add')}}">
-        <i class="fa-light fa-square-plus"></i>
+        <i class="fas fa-solid fa-plus"></i>
         <p>Thêm thiết bị</p>
     </a>
 </div>

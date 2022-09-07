@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function(){
                 Route::get('/add', [DeviceController::class,'add'])->name('device.add');
                 Route::post('/add', [DeviceController::class,'postAdd']);
                 Route::get('/update/{id}', [DeviceController::class,'update'])->name('device.update');
-                Route::post('/update/{id}', [DeviceController::class,'postUpdate']);
+                Route::post('/update', [DeviceController::class,'postUpdate'])->name('device.postUpdate');
                 Route::get('/detail', [DeviceController::class,'detail'])->name('device.detail');
             });
             

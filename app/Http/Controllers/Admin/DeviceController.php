@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Manage\CreateFormRequest;
 use App\Http\Services\Manage\DeviceService;
 use App\Models\Device;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class DeviceController extends Controller
 {
@@ -17,9 +17,43 @@ class DeviceController extends Controller
         $this->devices = new Device();
     }
     //Danh sách thiết bị
-    public function index(){
+    public function index(Request $request){
         $title = 'Danh sách thiết bị';
-        $deviceList = $this->devices->getAllDevice();
+
+        $filters = [];
+        $keyword = null;
+        // Check click active
+        if(!empty($request->active)){
+            $active = $request->active;
+            if($active=='active'){
+                $active = 1;
+            } else{
+                $active = 0;
+            }
+            $filters[] = ['devices.active', '=', $active];
+        }
+        // Check click connect
+        if(!empty($request->connect)){
+            $connect = $request->connect;
+            if($connect=='connect'){
+                $connect = 1;
+            } else{
+                $connect = 0;
+            }
+            $filters[] = ['devices.connect', '=', $connect];
+        }
+        //Search
+        if(!empty($request->keyword)){
+            $keyword = $request->keyword;
+            
+            
+        }
+        //echo $keyword;
+        // dd($filters);
+
+        $deviceList = $this->devices->getAllDevice($filters, $keyword);
+        //query builder
+        // $this->devices->QueryBuilder();
         return view('manage.device.main', compact('title', 'deviceList'));
     }
     // Thêm thiết bị
@@ -38,6 +72,7 @@ class DeviceController extends Controller
             $request -> username,
             $request -> password,
             $request -> service,
+            date('Y-m-d H:i:s'),
             date('Y-m-d H:i:s')
         ];
         // dd($dataInsert);
@@ -46,11 +81,14 @@ class DeviceController extends Controller
     }
 
     // Cập nhật thông tin thiết bị
-    public function update($id){
+    public function update(Request $request, $id){
         $title = 'Cập nhật thiết bị';
+        // Lưu id vào session
+
         if (!empty($id)){
             $deviceDetail = $this->devices->getDetail($id);
             if(!empty($deviceDetail[0])){
+                $request->session()->put('id', $id);
                 $deviceDetail = $deviceDetail[0];
             }
             else{
@@ -62,7 +100,11 @@ class DeviceController extends Controller
         }
         return view('manage.device.updateDevice',compact('title', 'deviceDetail'));
     }
-    public function postUpdate(CreateFormRequest $request, $id){
+    public function postUpdate(CreateFormRequest $request){
+        $id = session('id');
+        if(empty($id)){
+            return back()->with('error', 'Liên kết không tồn tại');
+        }
         $dataUpdate = [
             $request -> idDevice,
             $request -> nameDevice,
@@ -70,13 +112,13 @@ class DeviceController extends Controller
             $request -> typeDevice,
             $request -> username,
             $request -> password,
-            $request -> service
+            $request -> service,
+            date('Y-m-d H:i:s')
         ];
-        // dd($dataUpdate);
+        dd(session('id'));
         $this->devices->updateDevice($dataUpdate, $id);
         return redirect()->route('device')->with('success', 'Cập nhật thiết bị thành công');
     }
-
 
     // Thông tin chi tiết
     public function detail(){
