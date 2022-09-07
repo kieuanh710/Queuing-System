@@ -1,79 +1,24 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Manage\CreateFormRequest;
-use App\Http\Services\Manage\DeviceService;
-use App\Models\Device;
+use App\Models\Service;
 use Illuminate\Support\Facades\Session;
-
-class DeviceController extends Controller
+class ServiceController extends Controller
 {
-    private $devices;
-    protected $deviceService;
+    private $services;
+
     const _PER_PAGE = 4; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
-        $this->devices = new Device();
+        $this->services = new Service();
     }
     //Danh sách thiết bị
-    public function index(Request $request){
-        $title = 'Danh sách thiết bị';
-
-        $filters = [];
-        $keyword = null;
-
-        // Check click active
-        if(!empty($request->active)){
-            $active = $request->active;
-            if($active=='active'){
-                $active = 1;
-            } else{
-                $active = 0;
-            }
-            $filters[] = ['devices.active', '=', $active];
-        }
-
-        // Check click connect
-        if(!empty($request->connect)){
-            $connect = $request->connect;
-            if($connect=='connect'){
-                $connect = 1;
-            } else{
-                $connect = 0;
-            }
-            $filters[] = ['devices.connect', '=', $connect];
-        }
-
-        //Search
-        if(!empty($request->keyword)){
-            $keyword = $request->keyword;
-        }
-
-        //Handle sort by
-        $sortBy = $request->input('sort-by');
-        $sortType = $request->input('sort-type');
-        $allowSort = ['asc', 'desc'];
-
-        if(!empty($sortType) && in_array($sortType, $allowSort)){
-            if($sortType=='desc'){
-                $sortType = 'asc';
-            }else{
-                $sortType = 'desc';
-            }
-        }else {
-            $sortType = 'asc';
-        }
-        $sortArr = [
-            'sortBy' => $sortBy,
-            'sortType' => $sortType,
-        ];
-
-        $deviceList = $this->devices->getAllDevice($filters, $keyword, $sortArr, self::_PER_PAGE);
-        
-        //return view('manage.device.main', compact('title', 'deviceList'));
-        return view('manage.device.main', compact('title', 'deviceList', 'sortType'));
+    public function index(){
+        $title = 'Quản lý dịch vụ';
+        $serviceList = $this->services->getAllDevice();
+        return view('manage.service.main', compact('title','serviceList'));
     }
     // Thêm thiết bị
     public function add(){

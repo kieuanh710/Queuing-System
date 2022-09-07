@@ -19,11 +19,21 @@ class Device extends Model
         'service'
     ];
     protected $guarded = [];
-    public function getAllDevice($filters=[], $keyword=null){
+    public function getAllDevice($filters=[], $keyword=null, $sortBy=null, $perPage=null){
         //$devices = DB::select('SELECT * FROM devices ORDER BY id ASC');
         //DB::enableQueryLog();
-        $devices = DB::table($this->table)
-        ->orderBy ('id', 'ASC');
+        $devices = DB::table($this->table);
+
+        $orderBy='id';
+        $orderType = 'asc';
+
+        if(!empty($sortByArr) && is_array($sortByArr)){
+            if(!empty($sortByArr['sortBy']) && !empty($sortByArr['sortType'])){
+                $orderBy = trim($sortByArr['sortBy']);
+                $orderType = trim($sortByArr['sortType']);
+           }
+        }      
+        $devices = $devices->orderBy($orderBy, $orderType);
 
         if(!empty($filters)){
             $devices = $devices->where($filters);
@@ -35,14 +45,24 @@ class Device extends Model
                 $query->orWhere('service', 'like', '%'.$keyword.'%');
             });
         } 
-        $devices = $devices->get();
+        
+        //Pagination
+        if(!empty($perPage)){
+            $devices = $devices->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x
+        }else{
+            $devices = $devices->get(); // khong phan trang
+        }
+
         // $sql = DB::getQueryLog();
         // dd($sql);
         return $devices;
     }
+
     public function addDevice($data){
-        DB::insert('INSERT INTO devices (idDevice, nameDevice, ip_address, typeDevice, username, password, service, created_at, updated_at) 
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', $data);
+        // DB::insert('INSERT INTO devices (idDevice, nameDevice, ip_address, typeDevice, username, password, service, created_at, updated_at) 
+        // VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', $data);
+        // Insert thành công -> true
+        DB::table($this->table)->insert($data);
     }
 
     //Check id exist in table
@@ -55,16 +75,4 @@ class Device extends Model
             SET idDevice=?, nameDevice=?, ip_address=?, typeDevice=?, username=?, password=?, service=?, updated_at=?
             WHERE id = ?',$data);
     }
-    // public function QueryBuilder(){
-    //     //lấy tất cả data
-    //     $lists = DB::table($this->table)
-    //     ->select('idDevice', 'typeDevice')
-    //     ->where('id', '>', 2)
-    //     ->get();
-    //     dd($lists);
-    //     // lấy dât đầu tiên
-    //     $item = DB::table($this->table)->first();
-    //     // dd($item->nameDevice);
-    // }
-
 }

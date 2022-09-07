@@ -23,7 +23,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('service')}}">
             <img src="/assets/img/Frame 332.png" alt="" class="icon">
             <span>Dịch vụ</span>
         </a>

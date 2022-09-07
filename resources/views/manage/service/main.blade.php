@@ -20,15 +20,17 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="form-group active-status">
-                        <span>Trạng thái kết nối</span>
-                        <select name="connect" class="form-control filter-active">
-                            <div class="filter-active--item">
-                                <option value="0">Tất cả</option>
-                                <option value="connect" {{request()->connect=='connect'?'selected':false}}>Kết nối</option>
-                                <option value="disconnect" {{request()->connect=='disconnect'?'selected':false}}>Ngừng kết nối</option>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="" name=""  class="">
+                               
                             </div>
-                        </select>
+                            <div class="col-sm-6">
+                                <input type="" name=""  class=" ">
+                             
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -59,22 +61,20 @@
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Mã thiết bị</th>
+                            <th>Mã dịch vụ</th>
                             {{-- sort by
                             <th><a href="?sort-by=nameDevice&sort-type={{$sortType}}">Tên thiết bị</a></th> --}}
-                            <th>Tên thiết bị</th>
-                            <th>Địa chỉ Ip</th>
+                            <th>Tên dịch vụ</th>
+                            <th>Mô tả</th>
                             <th>Trạng thái hoạt động</th>
-                            <th>Trạng thái kết nối</th>
-                            <th>Dịch vụ sử dụng</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
 
                     <tbody> 
-                        @if(!empty($deviceList))
-                            @foreach ($deviceList as $key => $item)
+                        {{-- @if(!empty($serviceList))
+                            @foreach ($serviceList as $key => $item)
                         <tr>
                             <th>{{$item->idDevice}}</th>
                             <th>{{$item->nameDevice}}</th>
@@ -101,7 +101,7 @@
                                  @if($item->service > 1){
                                      <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
                                  }
-                                 @endif --}}
+                                 @endif 
                             </th>
 
                             <th><a href="{{route('device.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
@@ -112,7 +112,7 @@
                         <tr>
                             <td colspan="4">no data</td>
                         </tr>
-                        @endif
+                        @endif--}}
                     </tbody>
                 </table>
             </div>
@@ -146,15 +146,15 @@
         </div>
     --}}
     </div>
-    <div class="d-flex justify-content-end">
+    {{-- <div class="d-flex justify-content-end">
         {{$deviceList->Links()}}
-    </div>
+    </div> --}}
 </div>
-<div class="add">
+{{-- <div class="add">
     <a href="{{route('device.add')}}">
         <i class="fas fa-solid fa-plus"></i>
         <p>Thêm thiết bị</p>
     </a>
-</div>
+</div> --}}
 
 @endsection

@@ -166,7 +166,7 @@ a {
 
 a:hover {
   color: #224abe;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 a:not([href]):not([class]) {
@@ -1508,6 +1508,11 @@ pre code {
   color: #535261;
   font-weight: 500;
   font-size: 14px;
+  max-width: 265px;
+
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis */
 }
 .table-sm th,
 .table-sm td {
@@ -1868,9 +1873,9 @@ pre code {
 .form-control:focus {
   color: #6e707e;
   background-color: #fff;
-  border-color: #bac8f3;
+  border-color: #000;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+  /* box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); */
 }
 
 .form-control::-webkit-input-placeholder {
@@ -4548,6 +4553,9 @@ input[type="button"].btn-block {
   min-height: 1px;
   padding: 1.25rem;
 }
+.card-body.main{
+  padding: 0;
+}
 
 .card-title {
   margin-bottom: 0.75rem;
@@ -4783,17 +4791,18 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #4e73df;
-  background-color: #fff;
-  border: 1px solid #dddfeb;
+  color: #7E7D88;
+  /* background-color: #fff;
+  border: 1px solid #dddfeb; */
 }
 
 .page-link:hover {
   z-index: 2;
-  color: #224abe;
+  color: #fff;
   text-decoration: none;
-  background-color: #eaecf4;
+  background-color: #FF7506;
   border-color: #dddfeb;
+  border-radius: 4px;
 }
 
 .page-link:focus {
@@ -4824,8 +4833,9 @@ input[type="button"].btn-block {
   color: #858796;
   pointer-events: none;
   cursor: auto;
-  background-color: #fff;
+  background-color: #f7f7f7;
   border-color: #dddfeb;
+  font-size: 1.6rem ;
 }
 
 .pagination-lg .page-link {
@@ -9896,6 +9906,7 @@ a:focus {
   animation-duration: 200ms;
   -webkit-animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
   animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
+  	
 }
 
 @-webkit-keyframes fadeIn {

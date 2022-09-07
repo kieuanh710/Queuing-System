@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Users\LoginController;
 use App\Http\Controllers\Admin\Users\ForgotPasswordController;
 use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\Admin\DeviceController;
+use App\Http\Controllers\Admin\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,14 @@ Route::middleware('auth')->group(function(){
                 Route::get('/detail', [DeviceController::class,'detail'])->name('device.detail');
             });
             
+            Route::prefix('/service')->group(function(){
+                Route::get('/', [ServiceController::class,'index'])->name('service');
+                Route::get('/add', [DeviceController::class,'add'])->name('device.add');
+                Route::post('/add', [DeviceController::class,'postAdd']);
+                Route::get('/update/{id}', [DeviceController::class,'update'])->name('device.update');
+                Route::post('/update', [DeviceController::class,'postUpdate'])->name('device.postUpdate');
+                Route::get('/detail', [DeviceController::class,'detail'])->name('device.detail');
+            });
             Route::get('/info', [ManageController::class,'info'])->name('info');
     
         });

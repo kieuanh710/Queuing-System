@@ -32,7 +32,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Loại thiết bị *</label>
-                            <input type="text" name="typeDevice" class="form-control" placeholder="Chọn loại thiết bị">
+                            <select name="typeDevice" class="form-control">
+                                <option selected>Chọn loại thiết bị</option>
+                                <option value="Kiosk">Kiosk</option>
+                                <option value="Display counter">Display Counter</option>
+                            </select>
+                              
+                        {{-- <input type="text" name="typeDevice" class="form-control" placeholder="Chọn loại thiết bị"> --}}
                         </div>
                     </div>
                     <div class="col-sm-6">
