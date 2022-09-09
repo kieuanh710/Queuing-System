@@ -10,8 +10,8 @@
     <!-- Divider -->
     <!-- <hr class="sidebar-divider my-0"> -->
 
-    <li class="nav-item">
-        <a class="nav-link active" href="{{route('admin')}}">
+    <li class="nav-item active">
+        <a class="nav-link " href="{{route('admin')}}">
             <img src="/assets/img/element-4.png" alt="" class="icon">
             <span>Dashboard</span>
         </a>
@@ -29,24 +29,32 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('boardcast')}}">
             <img src="/assets/img/icon dasboard03.png" alt="" class="icon">
             <span>Cấp số</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('report')}}">
             <img src="/assets/img/Frame (1).png" alt="" class="icon">
             <span>Báo cáo</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <img src="/assets/img/setting.png" alt="" class="icon">
             <span>Cài đặt hệ thống</span>
-            <img class="setting" src="/assets/img/fi_more-vertical.png" alt="" class="icon">
+            <i class="setting fas fa-solid fa-ellipsis-vertical"></i>
         </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="bg-white collapse-inner">
+                <a class="collapse-item" href="#">Quản lý vai trò</a>
+                <a class="collapse-item" href="#">Quản lý tài khoản</a>
+                <a class="collapse-item" href="#">Nhật kí người dùng</a>
+            </div>
+        </div>
     </li>
+    
     <button type="submit" name="" class="logout ">
         <div class="btn-logout">
             <img src="/assets/img/fi_log-out.png" alt="">

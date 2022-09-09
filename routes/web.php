@@ -6,6 +6,10 @@ use App\Http\Controllers\Admin\Users\ForgotPasswordController;
 use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\BoardCastController;
+use App\Http\Controllers\Admin\RuleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +36,7 @@ Route::post('/dashboard', [LoginController::class,'dashboard']);
 Route::middleware('auth')->group(function(){
     Route::prefix('/admin')->group(function(){
         Route::get('/', [ManageController::class,'index'])->name('admin');
-        // Route::get('/manage', [ManageController::class,'index']);
-        // Route::get('/manage/device', [ManageController::class,'device'])->name('device');
-        // Route::get('/manage/info', [ManageController::class,'info'])->name('info');
-        
+        Route::get('/info', [ManageController::class,'info'])->name('info');
         Route::prefix('/manage')->group(function(){
             Route::get('/', [ManageController::class,'index']);
 
@@ -50,14 +51,32 @@ Route::middleware('auth')->group(function(){
             
             Route::prefix('/service')->group(function(){
                 Route::get('/', [ServiceController::class,'index'])->name('service');
-                Route::get('/add', [DeviceController::class,'add'])->name('device.add');
-                Route::post('/add', [DeviceController::class,'postAdd']);
-                Route::get('/update/{id}', [DeviceController::class,'update'])->name('device.update');
-                Route::post('/update', [DeviceController::class,'postUpdate'])->name('device.postUpdate');
-                Route::get('/detail', [DeviceController::class,'detail'])->name('device.detail');
+                Route::get('/add', [ServiceController::class,'add'])->name('service.add');
+                Route::post('/add', [ServiceController::class,'postAdd']);
+                Route::get('/update', [ServiceController::class,'update'])->name('service.update');
+                // Route::post('/update', [ServiceController::class,'postUpdate'])->name('service.postUpdate');
+                Route::get('/detail', [ServiceController::class,'detail'])->name('service.detail');
             });
-            Route::get('/info', [ManageController::class,'info'])->name('info');
-    
+
+            Route::prefix('/boardcast')->group(function(){
+                Route::get('/', [BoardCastController::class,'index'])->name('boardcast');
+                Route::get('/add', [BoardCastController::class,'add'])->name('boardcast.add');
+                // Route::post('/add', [BoardCastController::class,'postAdd']);
+                // Route::get('/update', [BoardCastController::class,'update'])->name('service.update');
+                // // Route::post('/update', [ServiceController::class,'postUpdate'])->name('service.postUpdate');
+                Route::get('/detail', [BoardCastController::class,'detail'])->name('boardcast.detail');
+            });
+
+            Route::prefix('/report')->group(function(){
+                Route::get('/', [ReportController::class,'index'])->name('report');
+            });
+            Route::prefix('/system')->group(function(){
+                Route::prefix('/rule')->group(function(){
+                    Route::get('/', [RuleController::class,'index'])->name('rule');
+                    Route::get('/add', [RuleController::class,'add'])->name('rule.add');
+                    Route::get('/detail', [BoardCastController::class,'detail'])->name('boardcast.detail');
+                });
+            });
         });
     });
 

@@ -63,7 +63,9 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" name="" class="btn btn-primary btn-cancel">Hủy bỏ</button>
+                <a href="{{route('device')}}" class="btn btn-primary btn-cancel">
+                    <span> Hủy bỏ</span>
+                </a>
                 <button type="submit" name="" class="btn btn-primary">Cập nhật</button>
             </div>
             @csrf

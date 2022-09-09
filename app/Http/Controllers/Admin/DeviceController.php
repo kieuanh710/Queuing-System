@@ -140,9 +140,9 @@ class DeviceController extends Controller
     }
 
     // Thông tin chi tiết
-    public function detail(){
-        return view('manage.device.detailDevice',[
-            'title' => 'Chi tiết thiết bị'
-        ]);
+    public function detail(Request $request){
+        $title = 'Chi tiết thiết bị';
+        $detail = Device::where('id', $request->id)->first();
+        return view('manage.device.detailDevice', compact ('title', 'detail'));
     }
 }

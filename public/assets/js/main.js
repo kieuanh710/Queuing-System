@@ -6,3 +6,12 @@ function myFunction() {
             x.type = "password";
         }
 }
+
+const searchItem = $$('.nav-link');
+searchItem.forEach((search, index) => {
+    search.onclick = function () {
+        $('.nav-link.active').classList.remove('active')
+        this.classList.add('active');
+        // console.log(this);
+    }
+});

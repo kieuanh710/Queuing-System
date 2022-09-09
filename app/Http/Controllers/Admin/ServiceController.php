@@ -22,8 +22,8 @@ class ServiceController extends Controller
     }
     // Thêm thiết bị
     public function add(){
-        $title = 'Thêm thiết bị';
-        return view('manage.device.addDevice', compact('title'));
+        $title = 'Thêm dịch vụ';
+        return view('manage.service.addService', compact('title'));
     }
 
     public function postAdd(CreateFormRequest $request){
@@ -45,24 +45,9 @@ class ServiceController extends Controller
     }
 
     // Cập nhật thông tin thiết bị
-    public function update(Request $request, $id){
-        $title = 'Cập nhật thiết bị';
-        // Lưu id vào session
-
-        if (!empty($id)){
-            $deviceDetail = $this->devices->getDetail($id);
-            if(!empty($deviceDetail[0])){
-                $request->session()->put('id', $id);
-                $deviceDetail = $deviceDetail[0];
-            }
-            else{
-                return redirect()->route('device')->with('success', 'Liên kết không tồn tại');
-            }
-        } 
-        else {
-            return redirect()->route('device')->with('success', 'Liên kết không tồn tại');
-        }
-        return view('manage.device.updateDevice',compact('title', 'deviceDetail'));
+    public function update(){
+        $title = 'Cập nhật dịch vụ';
+        return view('manage.service.updateService',compact('title'));
     }
     public function postUpdate(CreateFormRequest $request){
         $id = session('id');
@@ -86,8 +71,7 @@ class ServiceController extends Controller
 
     // Thông tin chi tiết
     public function detail(){
-        return view('manage.device.detailDevice',[
-            'title' => 'Chi tiết thiết bị'
-        ]);
+        $title = 'Chi tiết dịch vụ';
+        return view('manage.service.detailService', compact('title'));
     }
 }

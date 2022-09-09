@@ -19,21 +19,49 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                {{-- <div class="col-sm-2">
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <input type="" name=""  class="">
-                               
-                            </div>
-                            <div class="col-sm-6">
-                                <input type="" name=""  class=" ">
-                             
-                            </div>
-                        </div>
+                        {{-- <label for="startDate">Start Date *</label>
+                        <input type="text" class="form-control" name="start_date" id="startDate" value="" /> 
                     </div>
-                </div>
-                <div class="col-sm-3">
+                    <div class="col-sm-2">
+                        {{-- <label for="endDate">End Date *</label>
+                        <input type="text" class="form-control" name="end_date" id="endDate" value="">
+                    </div>
+                </div> --}}
+
+                <div class="col-sm-4">
+                    <form autocomplete="off">
+                        {{-- <div class="flex-row d-flex justify-content-center">
+                            <div class="col-lg-6 col-11 px-1">  --}}
+                                <div class="input-daterange">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group active-status">
+                                                <span  id="start-p" for="start">Start Date</span>
+                                                <i class="fa fa-calendar" id="fa-1"></i>
+                                                <input type="text" id="start" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
+    
+                                            </div>
+                                        </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group active-status">
+                                                    <span id="end-p" for="end">End Date</span>
+                                                    {{-- <i class="fas fa-light fa-calendar-days" id="fa-1"></i> --}}
+                                                    <i class="fa fa-calendar" id="fa-1"></i>
+                                                    <input type="text" id="end" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {{-- </div>
+                            </div> --}}
+                        </form>
+                </div>        
+
+                <div class="col-sm-2">
                     <div class="form-group"></div>
                 </div>
         
@@ -104,8 +132,8 @@
                                  @endif 
                             </th>
 
-                            <th><a href="{{route('device.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
-                            <th><a href="{{route('device.update', ['id'=>$item->id])}}">Cập nhật</a></th>
+                            <th><a href="{{route('service.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
+                            <th><a href="{{route('service.update', ['id'=>$item->id])}}">Cập nhật</a></th>
                         </tr>
                         @endforeach
                         @else 
@@ -150,11 +178,11 @@
         {{$deviceList->Links()}}
     </div> --}}
 </div>
-{{-- <div class="add">
-    <a href="{{route('device.add')}}">
+<div class="add">
+    <a href="{{route('service.add')}}">
         <i class="fas fa-solid fa-plus"></i>
-        <p>Thêm thiết bị</p>
+        <p>Thêm dịch vụ</p>
     </a>
-</div> --}}
+</div>
 
 @endsection

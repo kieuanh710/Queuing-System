@@ -65,7 +65,9 @@
             </div>
             <div class="card-footer">
                 {{-- <button type="submit" name="" class="btn btn-primary btn-cancel"> --}}
-                    <a href="{{route('device')}}" class="btn btn-primary btn-cancel">Hủy bỏ</a>
+                    <a href="{{route('device')}}" class="btn btn-primary btn-cancel">
+                        <span> Hủy bỏ</span>
+                    </a>
                 {{-- <button> --}}
                 <button type="submit" name="" class="btn btn-primary">Thêm thiết bị</button>
             </div>
