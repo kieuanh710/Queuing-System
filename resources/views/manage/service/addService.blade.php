@@ -16,13 +16,13 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Mã dịch vụ *</label>
-                                    <input type="text" name="idService" class="form-control" placeholder="Nhập mã thiết bị" value="{{old('idDevice')}}">
+                                    <input type="text" name="idService" class="form-control" placeholder="Nhập mã dịch vụ" value="{{old('idService')}}">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Tên dịch vụ *</label>
-                                    <input type="text" name="nameService" class="form-control" placeholder="Nhập tên thiết bị" value="{{old('nameDevice')}}">
+                                    <input type="text" name="nameService" class="form-control" placeholder="Nhập tên dịch vụ" value="{{old('nameService')}}">
                                 </div>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Mô tả *</label>
-                            <textarea name="desService" class="form-control" id="" cols="5" rows="5" placeholder="Message" spellcheck="false"></textarea>
+                            <textarea name="desService" class="form-control" id="" cols="5" rows="5" placeholder="Mô tả dịch vụ" spellcheck="false"></textarea>
                         </div>
                     </div>
                 </div>

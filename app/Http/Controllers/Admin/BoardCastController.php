@@ -19,15 +19,15 @@ class BoardCastController extends Controller
     public function index(){
         $title = 'Quản lý cấp số';
         // $reportsList = $this->reports->getAllDevice();
-        return view('manage.boardcastNum.main', compact('title'));
+        return view('manage.boardcast.main', compact('title'));
     }
     public function add(){
         $title = 'Cấp số mới';
-        return view('manage.boardcastNum.addBoardCast', compact('title'));
+        return view('manage.boardcast.addBoardCast', compact('title'));
     }
     public function detail(){
         $title = 'Chi tiết thiết bị';
         // $detail = Device::where('id', $request->id)->first();
-        return view('manage.boardcastNum.detailBoardCast', compact ('title'));
+        return view('manage.boardcast.detailBoardCast', compact ('title'));
     }
 }

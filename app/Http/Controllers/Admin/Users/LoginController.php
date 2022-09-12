@@ -7,32 +7,57 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 class LoginController extends Controller
 {
+    private $users;
+    const _PER_PAGE = 4; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
-        
+        $this->users = new User();
     }
     public function index(){
-        return view('admin.users.login',[
-            // 'title' => 'Đăng nhập'
-        ]);
+        $title = 'Đăng nhập';
+        return view('admin.users.login',compact('title'));
     }
+
+    //Kiểm tra chuyển hướng
+    public function dashboard(Request $request){
+        if(Auth::attempt([
+            'username' => $request->input('username'),
+            'password' => $request->input('password'),
+            'level' => 1,
+            // dd($request->input())
+            ])) 
+        {
+            return redirect()->route('admin');
+        }
+        return redirect()->route('fail')->with('error','Sai mật khẩu hoặc tên đăng nhập');
+    }
+    public function fail(Request $request){
+        $title = 'Sai mật khẩu';
+        return view('admin.users.failpw',compact('title'));
+    }
+
     public function forgotpassword(){
-        return view('admin.users.forgotpassword');
+        $title = 'Quên mật khẩu';
+        return view('admin.users.forgotpassword', compact('title'));
     }
+
+    //Check email forgot
     public function password(Request $request){
         $request->validate([
             'email' => 'required|exists:users,email'
         ],[
             'email.required' => 'Email not format',
-            'email.exists' => 'Email not exists',
+            'email.exists' => 'Email không tồn tại, vui lòng nhập lại',
         ]);
         $user = User::whereEmail($request->email)->first();
         // kiem tra ton tai trong DB
         if($user == null){
-            return redirect()->back()->with(['error' => 'Email not exist']);
+            return redirect()->back()->with(['error' => 'Email không tồn tại, vui lòng nhập lại']);
         }
+
         // $user = Sentinel::findById($user->id);
         // // check reminder exist
         // $reminder = Reminder::exist($user) ? : Reminder::create($user);
@@ -45,18 +70,5 @@ class LoginController extends Controller
         //         $message->subject("$user->name, reset your password");
         //     }
         // );
-
-    }
-
-    public function dashboard(Request $request){
-        if(Auth::attempt([
-            'email' => $request->input('email'),
-            'password' => $request->input('password')]))
-        {
-            return redirect()->route('admin');
-        }
-        return redirect()->route('login')->with('error','Sai mật khẩu hoặc tên đăng nhập');
-        // $request->session()->flash('error', 'Sai mật khẩu hoặc tên đăng nhập');
-        // return redirect()->back();
     }
 }

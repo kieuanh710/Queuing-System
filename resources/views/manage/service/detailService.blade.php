@@ -15,19 +15,19 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Mã dịch vụ:</label>
-                                    <span> </span>
+                                    <span>{{$detail->idService}} </span>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Tên dịch vụ:</label>
-                                    <span> </span>
+                                    <span>{{$detail->nameService}} </span>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Mô tả:</label>
-                                    <span> </span>
+                                    <span>{{$detail->desService}} </span>
                                 </div>
                             </div>
                             
@@ -194,7 +194,7 @@
     </div>
     <div class="button-link">
         <div class="add">
-            <a href="{{route('service.update')}}">
+            <a href="{{route('service.update', ['id'=>$detail->id])}}">
                 <i class="fas fa-light fa-pen"></i>
                 <p>Cập nhật danh sách</p>
             </a>

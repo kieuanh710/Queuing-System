@@ -19,7 +19,7 @@ class DeviceController extends Controller
     }
     //Danh sách thiết bị
     public function index(Request $request){
-        $title = 'Danh sách thiết bị';
+        $title = 'Quản lý thiết bị';
 
         $filters = [];
         $keyword = null;

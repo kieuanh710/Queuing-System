@@ -2379,7 +2379,6 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary:hover {
-  color: #000;
   opacity: 0.8;
 }
 .btn-cancel{

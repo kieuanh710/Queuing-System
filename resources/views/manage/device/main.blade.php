@@ -1,16 +1,29 @@
 @extends('manage.layouts.main')
 @section('content')
-
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Danh sách thiết bị</h1>
-
     <form action="" method="GET">
         <div class="filter">
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="form-group active-status">
+                    <div class="form-group active-status" id="accordion">
                         <span>Trạng thái hoạt động</span>
-                        <select name="active" class="form-control filter-active">
+{{--                         
+                        <ul class="form-control filter-active accordion">
+                            <li>
+                              <div class="link">
+                                Trạng thái hoạt động
+                                <i class="down fas fa-chevron-down"></i>
+                                </div>
+                                <ul class="submenu">
+                                    <li value="">Photoshop</li>
+                                    <li value="">HTML</li>
+                                    <li value="">CSS</li>
+                                </ul>
+                            </li>
+                        </ul> --}}
+
+                        <select name="active" class="form-control filter-active" >
                             <div class="filter-active--item">
                                 <option value="0">Tất cả</option>
                                 <option value="active" {{request()->active=='active'?'selected':false}}>Hoạt động</option>
@@ -36,7 +49,7 @@
                 </div>
         
                 <div class="col-sm-3">
-                    <div class="form-group active-status right">
+                    <div class="form-group active-status">
                         <span>Từ khóa</span>
                         <div class="search-btn">
                             <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">

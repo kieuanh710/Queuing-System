@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\BoardCastController;
 use App\Http\Controllers\Admin\RuleController;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\HistoryController;
 
 
 /*
@@ -24,14 +26,11 @@ use App\Http\Controllers\Admin\RuleController;
 
 
 Route::get('/login', [LoginController::class,'index'])->name('login');
-
+Route::post('/dashboard', [LoginController::class,'dashboard'])->name('dashboard');
+Route::get('/fail', [LoginController::class,'fail'])->name('fail');
 Route::get('/forgotpassword', [LoginController::class,'forgotpassword'])->name('forgotpassword');
 Route::post('/forgotpassword', [LoginController::class,'password']);
-// Route::get('/password/reset/{token}', [LoginController::class,'getpass'])->name('reset');
-
-
-
-Route::post('/dashboard', [LoginController::class,'dashboard']);
+Route::get('/password/reset/{token}', [LoginController::class,'getpass'])->name('reset');
 
 Route::middleware('auth')->group(function(){
     Route::prefix('/admin')->group(function(){
@@ -53,8 +52,8 @@ Route::middleware('auth')->group(function(){
                 Route::get('/', [ServiceController::class,'index'])->name('service');
                 Route::get('/add', [ServiceController::class,'add'])->name('service.add');
                 Route::post('/add', [ServiceController::class,'postAdd']);
-                Route::get('/update', [ServiceController::class,'update'])->name('service.update');
-                // Route::post('/update', [ServiceController::class,'postUpdate'])->name('service.postUpdate');
+                Route::get('/update/{id}', [ServiceController::class,'update'])->name('service.update');
+                Route::post('/update', [ServiceController::class,'postUpdate'])->name('service.postUpdate');
                 Route::get('/detail', [ServiceController::class,'detail'])->name('service.detail');
             });
 
@@ -74,6 +73,12 @@ Route::middleware('auth')->group(function(){
                 Route::prefix('/rule')->group(function(){
                     Route::get('/', [RuleController::class,'index'])->name('rule');
                     Route::get('/add', [RuleController::class,'add'])->name('rule.add');
+                    Route::get('/update', [RuleController::class,'update'])->name('rule.update');
+                });
+                Route::prefix('/account')->group(function(){
+                    Route::get('/', [AccountController::class,'index'])->name('account');
+                    Route::get('/add', [AccountController::class,'add'])->name('account.add');
+                    Route::get('/update', [AccountController::class,'update'])->name('account.update');
                     Route::get('/detail', [BoardCastController::class,'detail'])->name('boardcast.detail');
                 });
             });

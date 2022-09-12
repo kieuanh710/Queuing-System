@@ -15,9 +15,29 @@ class ServiceController extends Controller
         $this->services = new Service();
     }
     //Danh sách thiết bị
-    public function index(){
+    public function index(Request $request){
         $title = 'Quản lý dịch vụ';
-        $serviceList = $this->services->getAllDevice();
+
+        $filters = [];
+        $keyword = null;
+
+        // Check click active
+        if(!empty($request->active)){
+            $active = $request->active;
+            if($active=='active'){
+                $active = 1;
+            } else{
+                $active = 0;
+            }
+            $filters[] = ['services.active', '=', $active];
+        }
+
+        //Search
+        if(!empty($request->keyword)){
+            $keyword = $request->keyword;
+        }
+        
+        $serviceList = $this->services->getAllService();
         return view('manage.service.main', compact('title','serviceList'));
     }
     // Thêm thiết bị
@@ -26,52 +46,60 @@ class ServiceController extends Controller
         return view('manage.service.addService', compact('title'));
     }
 
-    public function postAdd(CreateFormRequest $request){
+    public function postAdd(Request $request){
         // $this->deviceService->create($request);
         $dataInsert = [
-            'idDevice' =>  $request->idDevice,
-            'nameDevice' => $request->nameDevice,
-            'ip_address' => $request->ip_address,
-            'typeDevice' => $request->typeDevice,
-            'username' => $request->username,
-            'password' => $request->password,
-            'service' => $request->service,
+            'idService' =>  $request->idService,
+            'nameService' => $request->nameService,
+            'desService' => $request->desService,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
         ];
         // dd($dataInsert);
-        $this->devices->addDevice($dataInsert);
-        return redirect()->route('device')->with('success', 'Thêm thiết bị thành công');
+        $this->services->addService($dataInsert);
+        return redirect()->route('service')->with('success', 'Thêm dịch vụ thành công');
     }
 
     // Cập nhật thông tin thiết bị
-    public function update(){
+    public function update(Request $request, $id){
         $title = 'Cập nhật dịch vụ';
-        return view('manage.service.updateService',compact('title'));
+        // Lưu id vào session
+        if (!empty($id)){
+            $serviceDetail = $this->services->getDetail($id);
+            if(!empty($serviceDetail[0])){
+                $request->session()->put('id', $id);
+                $serviceDetail = $serviceDetail[0];
+            }
+            else{
+                return redirect()->route('service')->with('success', 'Liên kết không tồn tại');
+            }
+        } 
+        else {
+            return redirect()->route('service')->with('success', 'Liên kết không tồn tại');
+        }
+        return view('manage.service.updateService',compact('title', 'serviceDetail'));
     }
-    public function postUpdate(CreateFormRequest $request){
+    public function postUpdate(Request $request){
         $id = session('id');
         if(empty($id)){
             return back()->with('error', 'Liên kết không tồn tại');
         }
         $dataUpdate = [
-            $request -> idDevice,
-            $request -> nameDevice,
-            $request -> ip_address,
-            $request -> typeDevice,
-            $request -> username,
-            $request -> password,
-            $request -> service,
+            $request->idService,
+            $request->nameService,
+            $request->desService,
             date('Y-m-d H:i:s')
         ];
         //dd(session('id'));
-        $this->devices->updateDevice($dataUpdate, $id);
-        return redirect()->route('device')->with('success', 'Cập nhật thiết bị thành công');
+        $this->services->updateService($dataUpdate, $id);
+        return redirect()->route('service')->with('success', 'Cập nhật dịch vụ thành công');
     }
 
     // Thông tin chi tiết
-    public function detail(){
-        $title = 'Chi tiết dịch vụ';
-        return view('manage.service.detailService', compact('title'));
+    public function detail(Request $request){
+        $title = 'Chi tiết thiết bị';
+        $detail = Service::where('id', $request->id)->first();
+        return view('manage.service.detailService', compact ('title', 'detail'));
     }
+
 }

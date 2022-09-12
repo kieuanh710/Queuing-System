@@ -22,7 +22,11 @@ class RuleController extends Controller
         return view('manage.system.rule.main', compact('title'));
     }
     public function add(){
-        $title = 'Cấp số mới';
-        return view('manage.system.rule.add', compact('title'));
+        $title = 'Thêm vai trò';
+        return view('manage.system.rule.addRule', compact('title'));
+    }
+    public function update(){
+        $title = 'Cập nhật vai trò';
+        return view('manage.system.rule.updateRule', compact('title'));
     }
 }

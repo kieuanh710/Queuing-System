@@ -35,8 +35,7 @@ html {
 }
 
 .form-login {
-    position: relative;
-    top: 0;
+    /* position: relative; */
 }
 
 .form {
@@ -47,22 +46,16 @@ html {
     padding: 0px;
     gap: 4px;
     position: relative;
-    width: 400px;
+    /* width: 400px; */
     height: 75px;
     left: 94px;
     top: 340px;
 }
 
 .form-1:first-child {
-    /* left: 94px;
-    top: 293px; */
     padding-bottom: 16px;
 }
 
-/* .form-1:last-child {
-    left: 94px;
-    top: 300px;
-} */
 .form-2{
     top: 370px;
 }
@@ -82,17 +75,13 @@ html {
 .showpw {
     width: 20px;
     height: 20px;
-    position: absolute;
-    right: 10px;
-    top: 12px;
-    /* border: 1px solid #7E7D88; */
+    position: relative;
+    left: 92%;
+    bottom: 30px;
+    color: #7E7D88;
 }
 
 .heading {
-    width: 160px;
-    height: 27px;
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 27px;
@@ -100,6 +89,7 @@ html {
 }
 
 .input {
+    margin-top: 4px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -111,52 +101,32 @@ html {
     background: #FFFFFF;
     border: 1.5px solid #D4D4D7;
     border-radius: 8px;
-
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    color: #535261;
 }
 
 .forgotpw {
-    position: absolute;
-    width: 102px;
-    height: 21px;
-    left: 94px;
-    top: 471px;
-
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
-
+    margin-top: 12px;
     color: #E73F3F;
-}
-
-.btn {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 24px;
-    gap: 8px;
-
+    top: calc(56% - 3px);
+    left: 94px;
     position: absolute;
-    width: 162px;
-    height: 40px;
-    left: 215px;
-    top: 511px;
-    box-shadow: 0px 0px 6px #E7E9F2;
-    border-radius: 8px;
-    background: #FF9138;
 }
 
-.btn span, .btn a {
-    width: 82px;
-    height: 24px;
+.submit, .btn a {
+    min-width: 82px;
     font-family: 'Nunito';
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
+    border: none;
 }
 
 .system {
@@ -174,9 +144,6 @@ html {
     height: 54px;
     left: calc(1046px - 592px);
     top: 407px;
-
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 400;
     font-size: 34px;
     line-height: 51px;
@@ -191,23 +158,11 @@ html {
     height: 54px;
     left: calc(1046px - 592px);
     top: 454px;
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 900;
     font-size: 36px;
     line-height: 54px;
     text-align: center;
     color: #FF7506;
-}
-
-.title {
-    position: absolute;
-    font-family: 'Nunito';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 33px;
-    color: #282739;
 }
 
 .menubar {
@@ -266,8 +221,6 @@ html {
 .item-menu span {
     padding-left: 32px;
     height: 24px;
-
-    font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
@@ -288,42 +241,6 @@ html {
     height: 46px; */
     left: 0px;
     top: 732px;
-}
-
-.btn-logout {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 12px;
-    gap: 12px;
-
-    position: absolute;
-    width: 176px;
-    height: 48px;
-    left: 12px;
-    top: 0px;
-    background: #FFF2E7;
-    border-radius: 8px;
-}
-
-.btn-logout img {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    left: 15px;
-    top: 13px;
-}
-
-.btn-logout span {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    color: #FF7506;
-
-    padding-left: 32px;
-    height: 24px;
-
 }
 
 .topbar {
@@ -363,11 +280,6 @@ html {
 .topbar-btn span {
     width: 168px;
     height: 30px;
-
-    /* 20/20 Bold */
-
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 700;
     font-size: 20px;
     line-height: 30px;
@@ -380,9 +292,6 @@ html {
     height: 32px;
     right: 260px;
     top: 28px;
-
-    /* Orange/$-Orange-50 */
-
     background: #FFF2E7;
     border-radius: 32px;
 }
@@ -427,8 +336,6 @@ html {
     height: 18px;
     right: 77px;
     top: 0px;
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
@@ -441,9 +348,6 @@ html {
     height: 24px;
     right: -2px;
     top: 18px;
-
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
@@ -478,9 +382,6 @@ html {
     height: 36px;
     left: 24px;
     top: calc(307px - 40px);
-
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 36px;
@@ -513,9 +414,6 @@ html {
     position: absolute;
     width: 113px;
     height: 24px;
-
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
@@ -539,8 +437,6 @@ html {
 .show-info span{
     width: 122px;
     height: 24px;
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
@@ -570,8 +466,6 @@ html {
     padding: 0px;
 
     position: absolute;
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
@@ -594,11 +488,169 @@ html {
 .show-info.left span{
     width: 115px;
     height: 24px;
-    font-family: 'Nunito';
-    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     color: #535261;
     opacity: 0.5;
 } 
+.button{
+    position: relative;
+}
+.fail{
+    margin-top: 8px;
+    bottom: 28%;
+    left: calc(17% - 4px);
+    top: auto;
+}
+.error{
+  border: 1.5px solid #E73F3F;
+}
+/* forgot password */
+.content-fg{
+    display: flex;
+    flex-direction: column;
+    padding: 102px 0px 48px 94px;
+    margin-top: 218px;
+    position: absolute;
+    text-align: center;
+}
+.footer-fg{
+    text-align: center;
+}
+.footer-fg a{
+   text-decoration: none;
+   left: 118px;
+}
+.title {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 33px;
+    color: #282739;
+    margin-bottom: 16px;
+}
+
+.title-newpw{
+    left: 13.75%;
+    right: 71.6%;
+    top: 36.51%;
+    bottom: 56.42%;
+    width: 100%;
+
+}
+.title-des{
+    font-size: 18px;
+}
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 24px;
+    gap: 8px;
+
+    position: absolute;
+    left: 215px;
+    top: 511px;
+    box-shadow: 0px 0px 6px #E7E9F2;
+    border-radius: 8px;
+    background: #FF9138;
+}
+.btn-primary {
+    width: 147px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #FF9138;
+    box-shadow: 0px 0px 6px #E7E9F2;
+    border-radius: 8px;
+}
+
+.btn-cancel{
+    border: 1px solid #FF9138;
+    filter: drop-shadow(0px 0px 6px #E7E9F2);
+    background: #f6f6f6;
+    margin-right: 32px;
+    box-shadow: 0px 0px 6px #E7E9F2;
+    border-radius: 8px;
+    width: 147px;
+    height: 48px;
+    color: #FF9138;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.btn-cancel a{
+    color: #FF9138;;
+    text-decoration: none;
+}
+.btn-continue{
+    position: absolute;
+    left: 304px;
+    height: 48px;
+    left: none;
+    border: none;
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.btn-confirm{
+    left: 219px;
+    top: 579px;
+}
+
+.btn-logout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px;
+    gap: 12px;
+
+    position: absolute;
+    width: 176px;
+    height: 48px;
+    left: 12px;
+    top: 0px;
+    background: #FFF2E7;
+    border-radius: 8px;
+}
+
+.btn-logout img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 15px;
+    top: 13px;
+}
+
+.btn-logout span {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FF7506;
+
+    padding-left: 32px;
+    height: 24px;
+
+}
+.img-login{
+    position: absolute;
+    width: 605px;
+    height: 614.06px;
+    left: calc(671px - 592px);
+    top: 112.94px;
+}
+.img{
+    position: absolute;
+    width: 711px;
+    height: 560px;
+    left: calc(635px - 592px);
+    top: 153px;
+
+}

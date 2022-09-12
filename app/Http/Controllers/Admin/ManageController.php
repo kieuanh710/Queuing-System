@@ -8,9 +8,8 @@ use Illuminate\Http\Request;
 class ManageController extends Controller
 {
     public function index(){
-        return view('manage.dashboard',[
-            'title' => 'Dashboard'
-        ]);
+        $title = 'Dashboard';
+        return view('manage.dashboard', compact('title'));
     }
     public function device(){
         return view('manage.device.main',[
