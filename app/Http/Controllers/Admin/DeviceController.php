@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Manage\CreateFormRequest;
-use App\Http\Services\Manage\DeviceService;
 use App\Models\Device;
 use Illuminate\Support\Facades\Session;
 
@@ -81,7 +79,27 @@ class DeviceController extends Controller
         return view('manage.device.addDevice', compact('title'));
     }
 
-    public function postAdd(CreateFormRequest $request){
+    public function postAdd(Request $request){
+        $request->validate(
+            [
+                'idDevice' => 'required',
+                'nameDevice' => 'required',
+                'typeDevice' => 'required',
+                'ip_address' => 'required',
+                'username' => 'required|unique:devices',
+                'password' => 'required|min:6',
+                'service' => 'required',
+            ],
+            [
+                'idDevice.required' =>  'Nhập mã thiết bị',
+                'nameDevice.required' => 'Nhập tên thiết bị',
+                'ip_address.required' => 'Nhập địa chỉ thiết bị',
+                'typeDevice.required' => 'Nhập loại thiết bị',
+                'username.required' => 'Nhập tên người dùng',
+                'username.unique' => 'Tên người dùng đã tồn tại vui lòng nhập tên khác',
+                'password.required' => 'Password ít nhất 6 kí tự',
+                'service.required' => 'Nhập dịch vụ sử dụng',
+            ]);
         // $this->deviceService->create($request);
         $dataInsert = [
             'idDevice' =>  $request->idDevice,
@@ -119,7 +137,27 @@ class DeviceController extends Controller
         }
         return view('manage.device.updateDevice',compact('title', 'deviceDetail'));
     }
-    public function postUpdate(CreateFormRequest $request){
+    public function postUpdate(Request $request,$id){
+        $request->validate(
+            [
+                'idDevice' => 'required',
+                'nameDevice' => 'required',
+                'typeDevice' => 'required',
+                'ip_address' => 'required',
+                'username' => 'required|unique:devices',
+                'password' => 'required|min:6',
+                'service' => 'required',
+            ],
+            [
+                'idDevice.required' =>  'Nhập mã thiết bị',
+                'nameDevice.required' => 'Nhập tên thiết bị',
+                'ip_address.required' => 'Nhập địa chỉ thiết bị',
+                'typeDevice.required' => 'Nhập loại thiết bị',
+                'username.required' => 'Nhập tên người dùng',
+                'username.unique' => 'Tên người dùng đã tồn tại vui lòng nhập tên khác',
+                'password.required' => 'Password ít nhất 6 kí tự',
+                'service.required' => 'Nhập dịch vụ sử dụng',
+            ]);
         $id = session('id');
         if(empty($id)){
             return back()->with('error', 'Liên kết không tồn tại');

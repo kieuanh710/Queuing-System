@@ -1,41 +1,35 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('ruleList') }}
+@endsection
 @section('content')
 
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800 title">Danh sách vai trò</h1>
-
+    <h1 class="h3 mb-2 text-gray-800 title">Quản lý vai trò</h1>
     <form action="" method="GET">
         <div class="filter">
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group active-status">
-                        <span>Trạng thái hoạt động</span>
-                        <select name="active" class="form-control filter-active">
-                            <div class="filter-active--item">
-                                <option value="0">Tất cả</option>
-                                <option value="active" {{request()->active=='active'?'selected':false}}>Hoạt động</option>
-                                <option value="inactive" {{request()->active=='inactive'?'selected':false}}>Ngừng hoạt động</option>
-                            </div>
-                        </select>
-                    </div>
-                </div>
                 
                 <div class="col-sm-3">
-                    <div class="form-group"></div>
-                </div><div class="col-sm-3">
-                    <div class="form-group"></div>
-                </div><div class="col-sm-3">
-                    <div class="form-group"></div>
+                    <div class="form-group active-status">
+                        
+                    </div>
                 </div>
-        
+                <div class="col-sm-6">
+                    <div class="form-group active-status">
+                        
+                    </div>
+                </div>
+               
+                     
+
                 <div class="col-sm-3">
-                    <div class="form-group active-status right">
+                    <div class="form-group active-status">
                         <span>Từ khóa</span>
                         <div class="search-btn">
                             <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
                             <i class="search-icon fas fa-search fa-sm"></i>
                         </div>
-                        {{-- <button class="btn btn-primary btn-block">Tìm kiếm</button> --}}
                     </div>
                 </div>
             </div>
@@ -62,13 +56,14 @@
                     </thead>
 
                     <tbody> 
-                        {{-- @if(!empty($deviceList))
-                            @foreach ($deviceList as $key => $item)
+                        @if(!empty($ruleList))
+                            @foreach ($ruleList as $key => $item)
                         <tr>
-                            <th>{{$item->idDevice}}</th>
-                            <th>{{$item->nameDevice}}</th>
-                            <th>{{$item->ip_address}}</th>
-                            <th>{!!$item->active==0?'
+                           
+                            <th>{{$item->nameRule}}</th>
+                            <th></th>
+                            <th>{{$item->desRule}}</th>
+                            {{-- <th>{!!$item->active==0?'
                                 <div class="circle circle-error"></div>
                                     Ngưng hoạt động
                                 '
@@ -84,24 +79,24 @@
                             </th>
                             <th>
                                 {{$item->service}}
-                                {{-- <div id="target" class="collapse">
+                                <div id="target" class="collapse">
                                     {{$item->service}}
                                  </div>
                                  @if($item->service > 1){
                                      <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
                                  }
                                  @endif 
-                            </th>
+                            </th> --}}
 
-                            <th><a href="{{route('device.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
-                            <th><a href="{{route('device.update', ['id'=>$item->id])}}">Cập nhật</a></th>
+                        
+                            <th><a href="{{route('rule.update', ['id'=>$item->id])}}">Cập nhật</a></th>
                         </tr>
                         @endforeach
                         @else 
                         <tr>
                             <td colspan="4">no data</td>
                         </tr>
-                        @endif --}}
+                        @endif
                     </tbody>
                 </table>
             </div>

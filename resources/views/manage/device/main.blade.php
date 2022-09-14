@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+{{ Breadcrumbs::render('deviceList') }}
+@endsection
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Danh sách thiết bị</h1>
@@ -8,21 +11,6 @@
                 <div class="col-sm-3">
                     <div class="form-group active-status" id="accordion">
                         <span>Trạng thái hoạt động</span>
-{{--                         
-                        <ul class="form-control filter-active accordion">
-                            <li>
-                              <div class="link">
-                                Trạng thái hoạt động
-                                <i class="down fas fa-chevron-down"></i>
-                                </div>
-                                <ul class="submenu">
-                                    <li value="">Photoshop</li>
-                                    <li value="">HTML</li>
-                                    <li value="">CSS</li>
-                                </ul>
-                            </li>
-                        </ul> --}}
-
                         <select name="active" class="form-control filter-active" >
                             <div class="filter-active--item">
                                 <option value="0">Tất cả</option>
@@ -54,8 +42,8 @@
                         <div class="search-btn">
                             <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
                             <i class="search-icon fas fa-search fa-sm"></i>
+                            {{-- <button class="btn btn-primary btn-block">Tìm kiếm</button> --}}
                         </div>
-                        {{-- <button class="btn btn-primary btn-block">Tìm kiếm</button> --}}
                     </div>
                 </div>
             </div>
@@ -92,7 +80,9 @@
                             <th>{{$item->idDevice}}</th>
                             <th>{{$item->nameDevice}}</th>
                             <th>{{$item->ip_address}}</th>
-                            <th>{!!$item->active==0?'
+                            <th></th>
+                            <th></th>
+                            {{-- <th>{!!$item->active==0?'
                                 <div class="circle circle-error"></div>
                                     Ngưng hoạt động
                                 '
@@ -105,7 +95,7 @@
                                 '
                                 :'<div class="circle circle-success"></div>
                                     Kết nối'!!}
-                            </th>
+                            </th> --}}
                             <th>
                                 {{$item->service}}
                                 {{-- <div id="target" class="collapse">

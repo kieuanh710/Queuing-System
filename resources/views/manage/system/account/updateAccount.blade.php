@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('updateAccount') }}
+@endsection
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Quản lý tài khoản</h1>
@@ -8,62 +11,65 @@
             <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6>
         </div>
        @include('admin.alert')
-        <form action="" method="POST">
+        <form action="{{route('account.postUpdate')}}" method="POST">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Họ tên *</label>
-                            <input type="text" name="idDevice" class="form-control" placeholder="Nhập mã thiết bị" value="{{old('idDevice')}}">
+                            <input type="text" name="name" class="form-control" placeholder="Nhập họ và tên" value="{{old('name') ?? $accountDetail->name}}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Tên đăng nhập *</label>
-                            <input type="text" name="nameDevice" class="form-control" placeholder="Nhập tên thiết bị" value="{{old('nameDevice')}}">
+                            <input type="text" name="username" class="form-control" placeholder="Nhập tên đăng nhập" value="{{old('username') ?? $accountDetail->username}}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Số điện thoại *</label>
-                            <input type="text" name="ip_address" class="form-control" placeholder="Nhập địa chỉ IP" value="{{old('ip_address')}}">
+                            <input type="text" name="phone" class="form-control" placeholder="Nhập số điện thoại" value="{{old('phone') ?? $accountDetail->phone}}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Mật khẩu *</label>
-                            <input type="text" name="" class="form-control" placeholder="Nhập tài khoản">
+                            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" value="{{old('password') ?? $accountDetail->password}}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Email *</label>
-                            <input type="text" name="" class="form-control" placeholder="Nhập tài khoản">
+                            <input type="text" name="email" class="form-control" placeholder="Nhập email" value="{{old('email') ?? $accountDetail->email}}">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Nhập lại mật khẩu *</label>
-                            <input type="" name="" class="form-control" placeholder="Nhập mật khẩu">
+                            <input type="password" name="repassword" class="form-control" placeholder="Nhập lại mật khẩu">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Vai trò *</label>
-                            <select name="typeDevice" class="form-control">
-                                <option selected>Chọn loại thiết bị</option>
-                                <option value="Kiosk">Kiosk</option>
-                                <option value="Display counter">Display Counter</option>
+                            <select name="nameRule" class="form-control filter-active">
+                                <div class="filter-active--item">
+                                    <option value="{{old('nameRule') ?? $accountDetail->nameRule}}">Admin</option>
+                                    <option value="{{old('nameRule') ?? $accountDetail->nameRule}}">Bảo vệ</option>
+                                    <option value="{{old('nameRule') ?? $accountDetail->nameRule}}">Kế toán</option>
+                                </div>
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Tình trạng *</label>
-                            <select name="typeDevice" class="form-control">
-                                <option selected>Chọn loại thiết bị</option>
-                                <option value="Kiosk">Kiosk</option>
-                                <option value="Display counter">Display Counter</option>
+                            <select name="active" class="form-control filter-active"value="{{old('active') ?? $accountDetail->active}}" >
+                                <div class="filter-active--item">
+                                    <option value="1" {{request()->active=='0'?'selected':false}}>Hoạt động</option>
+                                    <option value="0" {{request()->active=='1'?'selected':false}}>Ngừng hoạt động</option>
+                                </div>
                             </select>
                         </div>
                     </div>
@@ -76,7 +82,7 @@
                         <span> Hủy bỏ</span>
                     </a>
                 {{-- <button> --}}
-                <button type="submit" name="" class="btn btn-primary">Thêm</button>
+                <button type="submit" name="" class="btn btn-primary">Cập nhật</button>
             </div>
             @csrf
         </form>

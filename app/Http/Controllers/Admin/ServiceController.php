@@ -37,7 +37,7 @@ class ServiceController extends Controller
             $keyword = $request->keyword;
         }
         
-        $serviceList = $this->services->getAllService();
+        $serviceList = $this->services->getAllService($filters, $keyword, self::_PER_PAGE);
         return view('manage.service.main', compact('title','serviceList'));
     }
     // Thêm thiết bị
@@ -47,6 +47,15 @@ class ServiceController extends Controller
     }
 
     public function postAdd(Request $request){
+        $request->validate(
+        [
+            'idService' => 'required',
+            'nameService' => 'required',
+        ],
+        [
+            'idService.required' =>  'Nhập mã dịch vụ',
+            'nameService.required' => 'Nhập tên dịch vụ',
+        ]);
         // $this->deviceService->create($request);
         $dataInsert = [
             'idService' =>  $request->idService,

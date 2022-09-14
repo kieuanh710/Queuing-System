@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('accountList') }}
+@endsection
 @section('content')
 
 <div class="container-fluid">
@@ -12,8 +15,8 @@
                         <select name="active" class="form-control filter-active">
                             <div class="filter-active--item">
                                 <option value="0">Tất cả</option>
-                                <option value="active" {{request()->active=='active'?'selected':false}}>Hoạt động</option>
-                                <option value="inactive" {{request()->active=='inactive'?'selected':false}}>Ngừng hoạt động</option>
+                                <option value="active" {{request()->active=='active'?'selected':false}}>Admin</option>
+                                <option value="inactive" {{request()->active=='inactive'?'selected':false}}>Kế toán</option>
                             </div>
                         </select>
                     </div>
@@ -63,12 +66,14 @@
                     </thead>
 
                     <tbody> 
-                        {{-- @if(!empty($serviceList))
-                            @foreach ($serviceList as $key => $item)
+                        @if(!empty($accountList))
+                            @foreach ($accountList as $key => $item)
                         <tr>
-                            <th>{{$item->idDevice}}</th>
-                            <th>{{$item->nameDevice}}</th>
-                            <th>{{$item->ip_address}}</th>
+                            <th>{{$item->username}}</th>
+                            <th>{{$item->name}}</th>
+                            <th>{{$item->phone}}</th>
+                            <th>{{$item->email}}</th>
+                            <th>{{$item->nameRule}}</th>
                             <th>{!!$item->active==0?'
                                 <div class="circle circle-error"></div>
                                     Ngưng hoạt động
@@ -76,33 +81,12 @@
                                 :'<div class="circle circle-success"></div>
                                     Hoạt động'!!}
                             </th>
-                            <th>{!!$item->connect==0?'
-                                <div class="circle circle-error"></div>
-                                    Mất kết nối
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Kết nối'!!}
-                            </th>
-                            <th>
-                                {{$item->service}}
-                                {{-- <div id="target" class="collapse">
-                                    {{$item->service}}
-                                 </div>
-                                 @if($item->service > 1){
-                                     <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
-                                 }
-                                 @endif 
-                            </th>
-
-                            <th><a href="{{route('service.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
-                            <th><a href="{{route('service.update', ['id'=>$item->id])}}">Cập nhật</a></th>
+                           
+                            <th><a href="{{route('account.update', ['id'=>$item->id])}}">Cập nhật</a></th>
+                           
                         </tr>
                         @endforeach
-                        @else 
-                        <tr>
-                            <td colspan="4">no data</td>
-                        </tr>
-                        @endif--}}
+                        @endif
                     </tbody>
                 </table>
             </div>

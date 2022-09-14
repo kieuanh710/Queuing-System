@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('updateRule') }}
+@endsection
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Quản lý dịch vụ</h1>
@@ -8,7 +11,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Thông tin vai trò</h6>
         </div>
        @include('admin.alert')
-        <form action="" method="POST">
+        <form action="{{route('rule.postUpdate')}}" method="POST">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
@@ -16,13 +19,13 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Tên vai trò *</label>
-                                    <input type="text" name="nameRule" class="form-control" placeholder="Nhập tên vai trò" value="">
+                                    <input type="text" name="nameRule" class="form-control" placeholder="Nhập tên vai trò" value="{{old('nameRule') ?? $ruleDetail->nameRule}}">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Mô tả *</label>
-                                    <textarea name="desRule" class="form-control" id="" cols="5" rows="5" placeholder="Message" spellcheck="false"></textarea>
+                                    <textarea name="desRule" class="form-control" id="" cols="5" rows="5" placeholder="Message" spellcheck="false" value="{{old('desRule') ?? $ruleDetail->desRule}}"></textarea>
                                 </div>
                             </div>
                             <span class="col">* Là trường thông tin bắt buộc</span>

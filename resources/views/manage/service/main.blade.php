@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('serviceList') }}
+@endsection
 @section('content')
 
 <div class="container-fluid">
@@ -96,13 +99,14 @@
                             <th>{{$item->idService}}</th>
                             <th>{{$item->nameService}}</th>
                             <th>{{$item->desService}}</th>
-                            <th>{!!$item->active==0?'
+                            <th></th>
+                            {{-- <th>{!!$item->active==0?'
                                 <div class="circle circle-error"></div>
                                     Ngưng hoạt động
                                 '
                                 :'<div class="circle circle-success"></div>
                                     Hoạt động'!!}
-                            </th>
+                            </th> --}}
 
                             <th><a href="{{route('service.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
                             <th><a href="{{route('service.update', ['id'=>$item->id])}}">Cập nhật</a></th>

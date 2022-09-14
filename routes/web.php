@@ -60,9 +60,7 @@ Route::middleware('auth')->group(function(){
             Route::prefix('/boardcast')->group(function(){
                 Route::get('/', [BoardCastController::class,'index'])->name('boardcast');
                 Route::get('/add', [BoardCastController::class,'add'])->name('boardcast.add');
-                // Route::post('/add', [BoardCastController::class,'postAdd']);
-                // Route::get('/update', [BoardCastController::class,'update'])->name('service.update');
-                // // Route::post('/update', [ServiceController::class,'postUpdate'])->name('service.postUpdate');
+                Route::post('/add', [BoardCastController::class,'postAdd']);
                 Route::get('/detail', [BoardCastController::class,'detail'])->name('boardcast.detail');
             });
 
@@ -73,14 +71,19 @@ Route::middleware('auth')->group(function(){
                 Route::prefix('/rule')->group(function(){
                     Route::get('/', [RuleController::class,'index'])->name('rule');
                     Route::get('/add', [RuleController::class,'add'])->name('rule.add');
-                    Route::get('/update', [RuleController::class,'update'])->name('rule.update');
+                    Route::post('/add', [RuleController::class,'postAdd']);
+                    Route::get('/update/{id}', [RuleController::class,'update'])->name('rule.update');
+                    Route::post('/update', [RuleController::class,'postUpdate'])->name('rule.postUpdate');
                 });
                 Route::prefix('/account')->group(function(){
                     Route::get('/', [AccountController::class,'index'])->name('account');
                     Route::get('/add', [AccountController::class,'add'])->name('account.add');
-                    Route::get('/update', [AccountController::class,'update'])->name('account.update');
-                    Route::get('/detail', [BoardCastController::class,'detail'])->name('boardcast.detail');
+                    Route::post('/add', [AccountController::class,'postAdd']);
+                    Route::get('/update/{id}', [AccountController::class,'update'])->name('account.update');
+                    Route::post('/update', [AccountController::class,'postUpdate'])->name('account.postUpdate');
                 });
+                Route::get('/history', [HistoryController::class,'index'])->name('history');
+                  
             });
         });
     });

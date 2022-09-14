@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('detailService') }}
+@endsection
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Quản lý thiết bị</h1>

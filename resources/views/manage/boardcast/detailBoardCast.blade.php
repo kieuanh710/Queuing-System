@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('detailBoardCast') }}
+@endsection
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Quản lý thiết bị</h1>
@@ -13,37 +16,37 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Họ tên:</label>
-                            <span>  </span>
+                            <span> {{$detail->idDevice}}  </span>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Nguồn cấp:</label>
-                            <span>  </span>
+                            <span>{{$detail->idDevice}}  </span>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Tên dịch vụ: </label>
-                            <span>  </span>
+                            <span>{{$detail->idDevice}}  </span>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Trạng thái: </label>
-                            <span> </span>
+                            <span>{{$detail->idDevice}} </span>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Số thứ tự: </label>
-                            <span>  </span>
+                            <span>{{$detail->idDevice}}  </span>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Số điện thoại: </label>
-                            <span>  </span>
+                            <span> {{$detail->idDevice}} </span>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -55,7 +58,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Địa chỉ Email: </label>
-                            <span></span>
+                            <span>{{$detail->idDevice}}</span>
                         </div>
                     </div>
                     <div class="col-sm-6">

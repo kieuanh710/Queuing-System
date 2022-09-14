@@ -776,4 +776,41 @@ padding: 10px 12px;
 .scrollbar-primary {
   scrollbar-color: #FFC89B;
 }
-/* dropdown */
+
+/* title-heading */
+.title-heading{
+  margin-left: 8px;
+}
+.title-heading span{
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  color: #7E7D88;
+
+}
+.icon-heading{
+  margin: 0 12px;
+  font-size: 12px;
+  top: -1px;
+  position: relative;
+}
+
+/* dáhboard */
+.small-box{
+  background-color: #fff;
+  border-radius: 10px;
+  height: 100%;
+}
+.inner i{
+  position: absolute;
+  font-size: 20px;
+  top: 0;
+  background: #6695FB;
+  opacity: 0.15;
+  border: 1px solid #DADADA;
+  border-radius: 50%;
+  padding-left: 12px;
+  padding-top: 8px;
+}

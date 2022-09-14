@@ -28,19 +28,31 @@ class CreateFormRequest extends FormRequest
             'nameDevice' => 'required',
             'typeDevice' => 'required',
             'ip_address' => 'required',
-            'username' => 'required',
-            'password' => 'required',
-            'service' => 'required'
+            'username' => 'required|unique:devices',
+            'password' => 'required|min:6',
+            'service' => 'required',
+
+            //services
+            'idService' => 'required',
+            'nameService' => 'required',
+            'desService' => 'required',
         ];
     }
-    public function message() : array{
+    public function message() : array
+    {
         return [
-            'idDevice.required' => 'Vui lòng nhập mã thiết bị',
-            'nameDevice.required' => 'Vui lòng nhập tên thiết bị',
-            'typeDevice.required' => 'Vui lòng nhập tên thiết bị',
-            'username.required' => 'Vui lòng nhập tên thiết bị',
-            'password.required' => 'Vui lòng nhập tên thiết bị',
-            'service.required' => 'Vui lòng nhập tên thiết bị'
+            'idDevice.required' =>  'Nhập mã thiết bị',
+            'nameDevice.required' => 'Nhập tên thiết bị',
+            'ip_address.required' => 'Nhập địa chỉ thiết bị',
+            'typeDevice.required' => 'Nhập loại thiết bị',
+            'username.required' => 'Nhập tên người dùng',
+            'username.unique' => 'Tên người dùng đã tồn tại vui lòng nhập tên khác',
+            'password.required' => 'Password ít nhất 6 kí tự',
+            'service.required' => 'Nhập dịch vụ sử dụng',
+            // services
+            'idService.required' => 'Nhập mã dịch vụ',
+            'nameService.required' => 'Nhập tên dịch vụ',
+            'desService.required' => 'Nhập mô tả dịch vụ',
         ];
     }
 }

@@ -8,14 +8,15 @@ use Illuminate\Support\Facades\DB;
 
 class Service extends Model
 {
-    protected $table = 'services';
     use HasFactory;
-    public function getAllService(){
+    protected $table = 'services';
+    protected $guarded = [];
+    public function getAllService($filters=[],$keyword=null, $perPage=null){
         // $services = DB::select('SELECT * FROM services ORDER BY id ASC');
-        DB::enableQueryLog();
-        $services = DB::table($this->table)->get();
-        // ->select('services.*');
+        // DB::enableQueryLog();
+        $services = DB::table($this->table);
 
+        //filter
         if(!empty($filters)){
             $services = $services->where($filters);
         }  
@@ -26,13 +27,17 @@ class Service extends Model
                 $query->orWhere('desService', 'like', '%'.$keyword.'%');
             });
         } 
+        //Pagination
+        if(!empty($perPage)){
+            $services = $services->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x
+        }else{
+            $services = $services->get(); // khong phan trang
+        }
         return $services;
     }
     public function addService($data){
         // DB::insert('INSERT INTO services (idService, nameService, desService, created_at, updated_at) 
         // VALUES(?, ?, ?, ?, ?)', $data);
-        // DB::insert('INSERT INTO devices (idDevice, nameDevice, ip_address, typeDevice, username, password, service, created_at, updated_at) 
-        // VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', $data);
         // Insert thành công -> true
         DB::table($this->table)->insert($data);
     }

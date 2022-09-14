@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('addService') }}
+@endsection
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Quản lý dịch vụ</h1>
@@ -43,7 +46,7 @@
                 <div class="checkbox">
                     <div class="checkbox-item">
                         <div class="checkbox-item--first">
-                            <input type="checkbox">
+                            <input type="checkbox" id="" name="">
                             <span>Tăng tự động từ:</span>
                         </div>
                         <div class="checkbox-item--last">

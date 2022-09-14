@@ -5,19 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+
 class Device extends Model
 {
     use HasFactory;
     protected $table = 'devices';
-    protected $fillabel = [
-        'idDevice',
-        'nameDevice',
-        'typeDevice',
-        'ip_address',
-        'username',
-        'password',
-        'service'
-    ];
+   
     protected $guarded = [];
     public function getAllDevice($filters=[], $keyword=null, $sortBy=null, $perPage=null){
         //$devices = DB::select('SELECT * FROM devices ORDER BY id ASC');
@@ -26,7 +19,8 @@ class Device extends Model
 
         $orderBy='id';
         $orderType = 'asc';
-
+        
+        //sortby
         if(!empty($sortByArr) && is_array($sortByArr)){
             if(!empty($sortByArr['sortBy']) && !empty($sortByArr['sortType'])){
                 $orderBy = trim($sortByArr['sortBy']);
@@ -53,8 +47,6 @@ class Device extends Model
             $devices = $devices->get(); // khong phan trang
         }
 
-        // $sql = DB::getQueryLog();
-        // dd($sql);
         return $devices;
     }
 

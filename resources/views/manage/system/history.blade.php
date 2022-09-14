@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('history') }}
+@endsection
 @section('content')
 
 <div class="container-fluid">

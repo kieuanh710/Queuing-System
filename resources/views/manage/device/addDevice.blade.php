@@ -1,4 +1,7 @@
 @extends('manage.layouts.main')
+@section('heading')
+    {{ Breadcrumbs::render('addDevice') }}
+@endsection
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Quản lý thiết bị</h1>
@@ -15,12 +18,16 @@
                         <div class="form-group">
                             <label for="">Mã thiết bị *</label>
                             <input type="text" name="idDevice" class="form-control" placeholder="Nhập mã thiết bị" value="{{old('idDevice')}}">
+                            {{-- @error('idDevice')
+                                <span style="color:red">{{$message}}</span>
+                            @enderror --}}
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Tên thiết bị *</label>
                             <input type="text" name="nameDevice" class="form-control" placeholder="Nhập tên thiết bị" value="{{old('nameDevice')}}">
+                        
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -33,7 +40,6 @@
                         <div class="form-group">
                             <label for="">Loại thiết bị *</label>
                             <select name="typeDevice" class="form-control">
-                                <option selected>Chọn loại thiết bị</option>
                                 <option value="Kiosk">Kiosk</option>
                                 <option value="Display counter">Display Counter</option>
                             </select>

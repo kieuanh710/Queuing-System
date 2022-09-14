@@ -48,9 +48,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="bg-white collapse-inner">
-                <a class="collapse-item" href="#">Quản lý vai trò</a>
-                <a class="collapse-item" href="#">Quản lý tài khoản</a>
-                <a class="collapse-item" href="#">Nhật kí người dùng</a>
+                <a class="collapse-item" href="{{route('rule')}}">Quản lý vai trò</a>
+                <a class="collapse-item" href="{{route('account')}}">Quản lý tài khoản</a>
+                <a class="collapse-item" href="{{route('history')}}">Nhật kí người dùng</a>
             </div>
         </div>
     </li>
