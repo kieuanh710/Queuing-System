@@ -16,15 +16,12 @@
 <!-- Page level custom scripts -->
 <script src="/template/admin/js/demo/datatables-demo.js"></script>
 
-<!-- Datepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-
 <script src="/assets/js/main.js"></script>
+
+<script src="/assets/datapicker/js/jquery.min.js"></script>
+<script src="/assets/datapicker/js/popper.js"></script>
+<script src="/assets/datapicker/js/bootstrap.min.js"></script>
+<script src="/assets/datapicker/js/main.js"></script>
 
 
 

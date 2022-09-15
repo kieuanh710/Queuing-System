@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Device;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Hash;
 class DeviceController extends Controller
 {
     private $devices;
@@ -107,12 +107,12 @@ class DeviceController extends Controller
             'ip_address' => $request->ip_address,
             'typeDevice' => $request->typeDevice,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'service' => $request->service,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
         ];
-        // dd($dataInsert);
+        dd($dataInsert);
         $this->devices->addDevice($dataInsert);
         return redirect()->route('device')->with('success', 'Thêm thiết bị thành công');
     }
@@ -172,7 +172,7 @@ class DeviceController extends Controller
             $request -> service,
             date('Y-m-d H:i:s')
         ];
-        //dd(session('id'));
+        dd($dataUpdate);
         $this->devices->updateDevice($dataUpdate, $id);
         return redirect()->route('device')->with('success', 'Cập nhật thiết bị thành công');
     }

@@ -107,8 +107,8 @@
     color: #fff !important;
   }
   .table thead{
-    background-color: #FF9138;
-    color: #fff;
+    color: #fff !important;
+    background-color: #FF9138 !important;
   }
   .title{
     color: #FF7506 !important;
@@ -421,122 +421,7 @@
     outline-width: 0;
   }
   
-  .datepicker {
-  background-color: #fff;
-  border-radius: 0 !important;
-  align-content: center !important;
-  padding: 16px !important;
-  }
-  
-  .datepicker-dropdown {
-    top: calc(50% - 160px) !important;
-    left: calc(50% - 171px) !important;
-    /* border-right: #1976D2;
-    border-left: #1976D2; */
-  }
-  
-  .datepicker-dropdown.datepicker-orient-left:before {
-  left: calc(50% - 6px) !important;
-  }
-  
-  .datepicker-dropdown.datepicker-orient-left:after {
-  left: calc(50% - 5px) !important;
-  border-bottom-color: #FF7506;
-  }
-  
-  .datepicker-dropdown.datepicker-orient-right:after {
-  border-bottom-color: #FF7506;
-  }
-  
-  .datepicker table tr td.today, span.focused {
-  border-radius: 50% !important;
-  background-image: linear-gradient(#FFF3E0, #FFE0B2);
-  }
-  
-  thead tr:nth-child(2) {
-  background-color: #fff !important;
-  }
-  
-  /*Weekday title*/
-  thead tr:nth-child(3) th {
-  font-weight: bold !important;
-  padding: 20px 10px !important;
-  color: #FF9138 !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-  line-height: 19px;
-  }
-  
-  tbody tr td {
-  padding: 10px !important;
-  }
-  
-  tfoot tr:nth-child(2) th {
-  display: none;
-  }
-  
-  .cw {
-    display: block;
-  }
-  
-  .old, .day, .new {
-  width: 40px !important;
-  height: 40px !important;
-  border-radius: 0px !important;
-  }
-  .day{
-   color: #535261;
-   font-weight: 600;
-  }
-  .day.old, .day.new {
-  color: #A9A9B0 !important;
-  font-weight: 600;
-  }
-  
-  .day.old:hover, .day.new:hover {
-  /* border-radius: 50% !important; */
-  }
-  
-  .old-day:hover, .day:hover, .new-day:hover, .month:hover, .year:hover, .decade:hover, .century:hover {
-    /* border-radius: 50% !important; */
-    /* background-color: #eee; */
-    background-color: #fff2e7;
-  }
-  
-  
-  .range-start, .range-end {
-  border-radius: 4px !important;
-  background: #FF7506 !important;
-  }
-  
-  .range {
-  background-color: #fff2e7 !important;
-  }
-  
-  .prev, .next, .datepicker-switch {
-  border-radius: 0 !important;
-  padding: 10px 10px 10px 10px !important;
-  font-size: 18px;
-  opacity: 0.7;
-  color: #FF7506;
-  }
-  
-  .prev:hover, .next:hover, .datepicker-switch:hover {
-  background-color: inherit !important;
-  opacity: 1;
-  }
-  
-  /* @media screen and (max-width: 726px) {
-  .datepicker-dropdown.datepicker-orient-right:before {
-    right: calc(50% - 6px);
-  }
-  
-  .datepicker-dropdown.datepicker-orient-right:after {
-    right: calc(50% - 5px);
-  }
-  } */
-  
-  
+
   /* Service */
 .checkbox{
 }
@@ -803,14 +688,146 @@ padding: 10px 12px;
   border-radius: 10px;
   height: 100%;
 }
+.inner{
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+}
 .inner i{
-  position: absolute;
-  font-size: 20px;
-  top: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #6695FB;
+  top: 0;
   opacity: 0.15;
   border: 1px solid #DADADA;
   border-radius: 50%;
-  padding-left: 12px;
-  padding-top: 8px;
+  padding: 12px;
+  height: 48px;
+  width: 48px;
+  font-size: 24px;
+}
+.icon-calendar{
+  color: #6695FB !important;
+
+}
+.inner p{
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  color: #535261;
+  margin: 0 0 0 12px;
+  padding-bottom: 0;
+}
+.icon-heading{
+  display: flex;
+  align-items: center;
+}
+
+.icon-heading span{
+  font-family: 'Nunito';
+font-style: normal;
+font-weight: 700;
+font-size: 30px;
+line-height: 45px;
+color: #535261;
+margin-right: 10px;
+}
+.icon-heading p{
+  margin-bottom: 0;
+  display: flex;
+  background: rgba(255, 149, 1, 0.15);
+  border-radius: 7.18115px;
+  padding: 2px 3px;
+  color: #FF7506;
+}
+.icon-heading p i{
+  font-size: 16px;
+  height: 20px;
+  width: 20px;
+}
+
+.content-heading{
+  background: #FFFFFF;
+  box-shadow: 0px 4px 6px rgba(219, 219, 219, 0.5);
+  border-radius: 8px 0px 0px 8px;
+  width: 400px;
+}
+
+.menubar-list{
+  padding: 0 24px;
+  list-style: none;
+}
+.menubar-item{
+  background: #FFFFFF;
+  box-shadow: 2px 2px 15px rgba(70, 64, 67, 0.1);
+  border-radius: 12px;
+  width: 353px;
+  margin-bottom: 12px;
+}
+.report-num{
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 8px;
+}
+.report-num span{
+  font-family: 'Nunito';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 24px;
+
+color: #535261;
+/* background: #FF7506; */
+border-radius: 10px;
+margin-right: 14px
+}
+.report-num--text{
+
+}
+.report-num--text span{
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 36px;
+  color: #535261;
+
+}
+.report-num--text p{
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #FF7506;
+
+}
+.report-num--text p i{
+  margin-right: 4px;
+
+}
+.report-num--des{
+  padding-top: 14px;
+}
+.report-num--des span{
+  font-family: 'Nunito';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 21px;
+color: #7E7D88
+}
+.report-num--desspan:last-child{
+  font-family: 'Nunito';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 18px;
+color: #FF7506;
 }

@@ -55,10 +55,10 @@
         </div>
     </li>
     
-    <button type="submit" name="" class="logout ">
+    <a href="{{route('logout')}}" type="submit" name="" class="logout ">
         <div class="btn-logout">
             <img src="/assets/img/fi_log-out.png" alt="">
             <span>Đăng xuất</span>
         </div>
-    </button>
+    </a>
 </ul>

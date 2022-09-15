@@ -13,8 +13,9 @@
                 <div class="logo">
                     <img src="/assets/img/Logo alta.png" alt="">
                 </div>
+                @include('admin.alert')
                 <div class="form-login">
-                    <form action="/forgotpassword" method="post">
+                    <form action="{{route('ResetPasswordForm')}}" method="post">
                         <div class="content-fg">
                             <span class="title title-reset">Đặt lại mật khẩu</span>
                             <span class="title-des">Vui lòng nhập email để đặt lại mật khẩu của bạn</span>

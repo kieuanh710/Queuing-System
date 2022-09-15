@@ -26,11 +26,17 @@ use App\Http\Controllers\Admin\HistoryController;
 
 
 Route::get('/login', [LoginController::class,'index'])->name('login');
+
 Route::post('/dashboard', [LoginController::class,'dashboard'])->name('dashboard');
 Route::get('/fail', [LoginController::class,'fail'])->name('fail');
+
 Route::get('/forgotpassword', [LoginController::class,'forgotpassword'])->name('forgotpassword');
-Route::post('/forgotpassword', [LoginController::class,'password']);
+Route::post('/forgotpassword', [LoginController::class,'password'])->name('ResetPasswordForm');
+Route::get('reset-password/{token}', [LoginController::class, 'sendResetEmail'])->name('sendResetEmail');
+Route::post('reset-password', [LoginController::class, 'resetPassword'])->name('resetPassword');
+
 Route::get('/password/reset/{token}', [LoginController::class,'getpass'])->name('reset');
+Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 
 Route::middleware('auth')->group(function(){
     Route::prefix('/admin')->group(function(){

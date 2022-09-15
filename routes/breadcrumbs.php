@@ -95,3 +95,19 @@ Breadcrumbs::for('updateRule', function (BreadcrumbTrail $trail) {
     $trail->parent('ruleList');
     $trail->push('Cập nhật', route('rule.postUpdate'));
 });
+// Rule
+Breadcrumbs::for('account', function (BreadcrumbTrail $trail) {
+    $trail->push('Cài đặt hệ thống ', route('account'));
+});
+Breadcrumbs::for('accountList', function (BreadcrumbTrail $trail) {
+    $trail->parent('account');
+    $trail->push('Quản lí tài khoản ', route('account'));
+});
+Breadcrumbs::for('addAccount', function (BreadcrumbTrail $trail) {
+    $trail->parent('accountList');
+    $trail->push('Thêm tài khoản', route('account.add'));
+});
+Breadcrumbs::for('updateAccount', function (BreadcrumbTrail $trail) {
+    $trail->parent('accountList');
+    $trail->push('Cập nhật tài khoản', route('account.postUpdate'));
+});
