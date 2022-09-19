@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('repassword');
             $table->integer('phone');
-            $table->string('nameRule');
+            $table->string('nameRole');
             $table->string('active');
             $table->timestamps();
         });

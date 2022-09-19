@@ -31,9 +31,10 @@ Route::post('/dashboard', [LoginController::class,'dashboard'])->name('dashboard
 Route::get('/fail', [LoginController::class,'fail'])->name('fail');
 
 Route::get('/forgotpassword', [LoginController::class,'forgotpassword'])->name('forgotpassword');
-Route::post('/forgotpassword', [LoginController::class,'password'])->name('ResetPasswordForm');
-Route::get('reset-password/{token}', [LoginController::class, 'sendResetEmail'])->name('sendResetEmail');
-Route::post('reset-password', [LoginController::class, 'resetPassword'])->name('resetPassword');
+Route::post('/forgotpassword', [ForgotPasswordController::class,'password'])->name('forgotpasswordPost');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'sendResetEmail'])->name('sendResetEmail');
+Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('resetPassword');
+
 
 Route::get('/password/reset/{token}', [LoginController::class,'getpass'])->name('reset');
 Route::get('/logout', [LoginController::class,'logout'])->name('logout');
@@ -89,6 +90,8 @@ Route::middleware('auth')->group(function(){
                     Route::post('/update', [AccountController::class,'postUpdate'])->name('account.postUpdate');
                 });
                 Route::get('/history', [HistoryController::class,'index'])->name('history');
+                Route::post('/history/search', [HistoryController::class,'search'])->name('search');
+                // Route::get('/addto', [HistoryController::class,'myTestAddToLog']);
                   
             });
         });

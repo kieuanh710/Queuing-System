@@ -9,7 +9,6 @@
     <form action="" method="GET">
         <div class="filter">
             <div class="row">
-                
                 <div class="col-sm-3">
                     <div class="form-group active-status">
                         
@@ -17,12 +16,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group active-status">
-                        
                     </div>
                 </div>
-               
-                     
-
                 <div class="col-sm-3">
                     <div class="form-group active-status">
                         <span>Từ khóa</span>
@@ -56,12 +51,16 @@
                     </thead>
 
                     <tbody> 
+                        
                         @if(!empty($ruleList))
                             @foreach ($ruleList as $key => $item)
                         <tr>
                            
-                            <th>{{$item->nameRule}}</th>
-                            <th></th>
+                            <th>{{$item->nameRole}}</th>
+                            @foreach($countList as $count =>$item)
+
+                                <th>{{$item->count}}</th>
+                                @endforeach
                             <th>{{$item->desRule}}</th>
                             {{-- <th>{!!$item->active==0?'
                                 <div class="circle circle-error"></div>

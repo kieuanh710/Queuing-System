@@ -111,3 +111,12 @@ Breadcrumbs::for('updateAccount', function (BreadcrumbTrail $trail) {
     $trail->parent('accountList');
     $trail->push('Cập nhật tài khoản', route('account.postUpdate'));
 });
+
+Breadcrumbs::for('history', function (BreadcrumbTrail $trail) {
+    $trail->parent('accountList');
+    $trail->push('Cài đặt hệ thống', route('history'));
+});
+Breadcrumbs::for('historyList', function (BreadcrumbTrail $trail) {
+    $trail->parent('accountList');
+    $trail->push('Nhật kí người dùng', route('history'));
+});

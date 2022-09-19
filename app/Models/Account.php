@@ -24,7 +24,7 @@ class Account extends Model
             $accounts = $accounts->where(function($query) use ($keyword){
                 $query->orWhere('username', 'like', '%'.$keyword.'%');
                 $query->orWhere('name', 'like', '%'.$keyword.'%');
-                $query->orWhere('nameRule', 'like', '%'.$keyword.'%');
+                $query->orWhere('nameRole', 'like', '%'.$keyword.'%');
             });
         } 
         
@@ -52,7 +52,7 @@ class Account extends Model
     public function updateAccount($data, $id){
         $data[] = $id;
         return DB::select('UPDATE '.$this->table.' 
-            SET name=?, phone=?,email=?, username=?, password=?, repassword=?, nameRule=?, active=?, updated_at=?
+            SET name=?, phone=?,email=?, username=?, password=?, repassword=?, nameRole=?, active=?, updated_at=?
             WHERE id = ?',$data);
     }
 }

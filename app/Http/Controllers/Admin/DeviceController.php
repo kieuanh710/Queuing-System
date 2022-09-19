@@ -112,7 +112,7 @@ class DeviceController extends Controller
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
         ];
-        dd($dataInsert);
+        //dd($dataInsert);
         $this->devices->addDevice($dataInsert);
         return redirect()->route('device')->with('success', 'Thêm thiết bị thành công');
     }

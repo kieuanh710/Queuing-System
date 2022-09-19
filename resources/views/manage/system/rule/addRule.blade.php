@@ -19,7 +19,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Tên vai trò *</label>
-                                    <input type="text" name="nameRule" class="form-control" placeholder="Nhập tên vai trò" value="">
+                                    <input type="text" name="nameRole" class="form-control" placeholder="Nhập tên vai trò" value="">
                                 </div>
                             </div>
                             <div class="col-sm-12">

@@ -9,7 +9,7 @@
         <div class="filter">
             <div class="row">
                 <div class="col-sm-4">
-                    <form autocomplete="off">
+                    <form autocomplete="off" method="post" action="{{route('search')}}">
                         <div class="form-group active-status">
                             <span>Chọn thời gian</span>
                             <div class="input-daterange">
@@ -17,16 +17,17 @@
                                     <div class="col-sm-6">
                                         <div class="form-group active-status">
                                             <i class="fa fa-calendar calendar" id="fa-1"></i>
-                                            <input type="text" id="start" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
+                                            <input type="text" id="start" name="start" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
                                         </div>
                                         <i class="fas fa-solid fa-caret-right arrow"></i>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group active-status">
                                             <i class="fa fa-calendar calendar" id="fa-1"></i>
-                                            <input type="text" id="end" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
+                                            <input type="text" id="end" name="end" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
                                         </div>
                                     </div>
+                                    {{-- <button class="btn btn-primary btn-block">Tìm kiếm</button> --}}
                                 </div>
                             </div>
                         </div>
@@ -38,18 +39,18 @@
                 </div>
         
                 <div class="col-sm-3">
-                    <div class="form-group active-status right">
+                    <div class="form-group active-status">
                         <span>Từ khóa</span>
                         <div class="search-btn">
-                            <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
+                            {{-- <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}"> --}}
+                            <input name="search" id="search" placeholder="Nhập từ khóa" class="search">
                             <i class="search-icon fas fa-search fa-sm"></i>
                         </div>
-                        {{-- <button class="btn btn-primary btn-block">Tìm kiếm</button> --}}
                     </div>
                 </div>
             </div>
         </div>
-
+        @csrf
     </form>
 
     <!-- DataTales-->
@@ -65,67 +66,29 @@
                             <th>Thời gian tác động</th>
                             <th>IP thực hiện</th>
                             <th>Thao tác thực hiện</th>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
+                           
                         </tr>
                     </thead>
 
                     <tbody> 
-                        {{-- @if(!empty($serviceList))
-                            @foreach ($serviceList as $key => $item)
-                        <tr>
-                            <th>{{$item->idDevice}}</th>
-                            <th>{{$item->nameDevice}}</th>
-                            <th>{{$item->ip_address}}</th>
-                            <th>{!!$item->active==0?'
-                                <div class="circle circle-error"></div>
-                                    Ngưng hoạt động
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Hoạt động'!!}
-                            </th>
-                            <th>{!!$item->connect==0?'
-                                <div class="circle circle-error"></div>
-                                    Mất kết nối
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Kết nối'!!}
-                            </th>
-                            <th>
-                                {{$item->service}}
-                                {{-- <div id="target" class="collapse">
-                                    {{$item->service}}
-                                 </div>
-                                 @if($item->service > 1){
-                                     <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
-                                 }
-                                 @endif 
-                            </th>
-
-                            <th><a href="{{route('service.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
-                            <th><a href="{{route('service.update', ['id'=>$item->id])}}">Cập nhật</a></th>
-                        </tr>
+                        @if($logs->count())
+                        @foreach($logs as $key => $log)
+                            <tr>
+                                <td>{{ $log->username }}</td>
+                                <td>{{ $log->method }}</td>
+                                <td>{{ $log->ip }}</td>
+                                <td>{{ $log->subject }}</td>
+                            </tr>
                         @endforeach
-                        @else 
-                        <tr>
-                            <td colspan="4">no data</td>
-                        </tr>
-                        @endif--}}
+                        @endif
                     </tbody>
                 </table>
             </div>
         </div>
 
     </div>
-    {{-- <div class="d-flex justify-content-end">
-        {{$deviceList->Links()}}
-    </div> --}}
-</div>
-<div class="add">
-    <a href="{{route('service.add')}}">
-        <i class="fas fa-solid fa-plus"></i>
-        <p>Thêm dịch vụ</p>
-    </a>
-</div>
-
+    <div class="d-flex justify-content-end">
+        {{$historyList->Links()}}
+    </div>
+</div>      
 @endsection

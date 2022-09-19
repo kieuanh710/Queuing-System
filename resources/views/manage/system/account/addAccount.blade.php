@@ -53,11 +53,11 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Vai trò *</label>
-                            <select name="nameRule" class="form-control filter-active">
+                            <select name="nameRole" class="form-control filter-active">
                                 <div class="filter-active--item">
                                     <option value="0">Admin</option>
-                                    <option value="1" {{request()->nameRule=='1'?'selected':false}}>Bảo vệ</option>
-                                    <option value="2" {{request()->nameRule=='2'?'selected':false}}>Kế toán</option>
+                                    <option value="1" {{request()->nameRole=='1'?'selected':false}}>Bảo vệ</option>
+                                    <option value="2" {{request()->nameRole=='2'?'selected':false}}>Kế toán</option>
                                 </div>
                             </select>
                         </div>

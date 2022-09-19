@@ -12,11 +12,12 @@
                 <div class="col-sm-3">
                     <div class="form-group active-status">
                         <span>Tên vai trò</span>
-                        <select name="active" class="form-control filter-active">
-                            <div class="filter-active--item">
-                                <option value="0">Tất cả</option>
-                                <option value="active" {{request()->active=='active'?'selected':false}}>Admin</option>
-                                <option value="inactive" {{request()->active=='inactive'?'selected':false}}>Kế toán</option>
+                        <select name="nameRole" id="nameRole" class="form-control filter-active">
+                            <option value="0">Tất cả</option>
+                            {{-- @foreach ($accounts as $list) --}}
+                            @foreach ($accountList as $list)
+                                <option value="{{$list->id}}">{{$list->nameRole}}</option>
+                            @endforeach
                             </div>
                         </select>
                     </div>
@@ -36,7 +37,8 @@
                     <div class="form-group active-status">
                         <span>Từ khóa</span>
                         <div class="search-btn">
-                            <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
+                            {{-- <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}"> --}}
+                            <input type="search" name="search" id="search" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
                             <i class="search-icon fas fa-search fa-sm"></i>
                         </div>
                     </div>
@@ -73,7 +75,7 @@
                             <th>{{$item->name}}</th>
                             <th>{{$item->phone}}</th>
                             <th>{{$item->email}}</th>
-                            <th>{{$item->nameRule}}</th>
+                            <th>{{$item->nameRole}}</th>
                             <th>{!!$item->active==0?'
                                 <div class="circle circle-error"></div>
                                     Ngưng hoạt động

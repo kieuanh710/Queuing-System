@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\DB;
-
+use Symfony\Component\HttpFoundation\Request;
 
 class User extends Authenticatable
 {
@@ -45,5 +45,28 @@ class User extends Authenticatable
     ];
     public function getDetail($id){
         return DB::select('SELECT * FROM '.$this->table.' WHERE id = ?',[$id]);
+    }
+
+    public function resetpassword(Request $request){
+        $request->validate([
+            // 'email' => 'required|email|exists:users',
+            'password' => 'required|string|min:6',
+            'password_confirmation' => 'required'
+        ]);
+
+        $updatePassword = DB::table('password_resets')
+                            ->where([
+                            'email' => $request->email, 
+                            'token' => $request->token
+                            ])->get();
+        
+        if(!$updatePassword){
+            return back()->withInput()->with('error', 'Invalid token!');
+        }
+        
+        $user = User::where('email', $request->email)
+                    ->update(['password' => Hash::make($request->password)]);
+
+        DB::table('password_resets')->where(['email'=> $request->email])->delete();
     }
 }

@@ -51,6 +51,10 @@ html {
     left: 94px;
     top: 340px;
 }
+.form-reset{
+    top: 413px !important;
+  }
+  
 
 .form-1:first-child {
     padding-bottom: 16px;
@@ -86,6 +90,7 @@ html {
     font-size: 18px;
     line-height: 27px;
     color: #37474F;
+    text-align: left;
 }
 
 .input {
@@ -540,6 +545,10 @@ html {
 }
 .title-des{
     font-size: 18px;
+}
+.title-reset{
+    left: 83px !important;
+    position: relative;
 }
 .btn {
     display: flex;

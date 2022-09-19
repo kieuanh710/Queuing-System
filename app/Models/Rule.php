@@ -17,7 +17,7 @@ class Rule extends Model
 
         if(!empty($keyword)){
             $rules = $rules->where(function($query) use ($keyword){
-                $query->orWhere('nameRule', 'like', '%'.$keyword.'%');
+                $query->orWhere('nameRole', 'like', '%'.$keyword.'%');
                 $query->orWhere('desRule', 'like', '%'.$keyword.'%');
             });
         } 
@@ -28,10 +28,12 @@ class Rule extends Model
         }else{
             $rules = $rules->get(); // khong phan trang
         }
+        
         return $rules;
+        
     }
     public function addRule($data){
-         DB::insert('INSERT INTO rules (nameRule, desRule, created_at, updated_at) 
+         DB::insert('INSERT INTO rules (nameRole, desRule, created_at, updated_at) 
         VALUES(?, ?, ?, ?)', $data);
         // Insert thành công -> true
         // DB::table($this->table)->insert($data);
@@ -42,8 +44,17 @@ class Rule extends Model
     public function updateRule($data, $id){
         $data[] = $id;
         return DB::select('UPDATE '.$this->table.' 
-            SET nameRule=?, desRule=?, updated_at=?
+            SET nameRole=?, desRule=?, updated_at=?
             WHERE id = ?',$data);
+    }
+    public function count(){
+        $user = DB::table('users')->where('rule')->get()->first();
+        $rule = DB::table('rules')->where('nameRole')->get()->first();
+        if($user == $rule){
+            $count = DB::table('rules')->where('count')->count();
+        }else 
+            echo '1';
+        return $count;
     }
 
 }

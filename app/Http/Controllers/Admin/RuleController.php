@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Rule;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+
 class RuleController extends Controller
 {
     private $rules;
@@ -22,8 +23,11 @@ class RuleController extends Controller
         if(!empty($request->keyword)){
             $keyword = $request->keyword;
         }
+
         $ruleList = $this->rules->getAllRule($keyword, self::_PER_PAGE);
-        return view('manage.system.rule.main', compact('title', 'ruleList'));
+        $countList = $this->rules->count();
+        
+        return view('manage.system.rule.main', compact('title', 'ruleList', 'countList'));
     }
 
     public function add(){
@@ -33,16 +37,16 @@ class RuleController extends Controller
     public function postAdd(Request $request){
         $request->validate(
             [
-                'nameRule' => 'required',
+                'nameRole' => 'required',
                 'desRule' => 'required',
             ],
             [
-                'nameRule.required' =>  'Nhập tên vai trò',
+                'nameRole.required' =>  'Nhập tên vai trò',
                 'desRule.required' => 'Nhập mô tả vai trò',
             ]);
         // $this->ruleservice->create($request);
         $dataInsert = [
-            'nameRule' =>  $request->nameRule,
+            'nameRole' =>  $request->nameRole,
             'desRule' => $request->desRule,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
@@ -72,25 +76,31 @@ class RuleController extends Controller
     public function postUpdate(Request $request){
         $request->validate(
             [
-                'nameRule' => 'required',
+                'nameRole' => 'required',
                 'desRule' => 'required',
             ],
             [
-                'nameRule.required' =>  'Nhập tên vai trò',
+                'nameRole.required' =>  'Nhập tên vai trò',
                 'desRule.required' => 'Nhập mô tả vai trò',
             ]);
         $id = session('id');
         if(empty($id)){
             return back()->with('error', 'Liên kết không tồn tại');
         }
+       
         $dataUpdate = [
-            $request -> nameRule,
+            $request -> nameRole,
             $request -> desRule,
             date('Y-m-d H:i:s')
         ];
         //dd(session('id'));
         $this->rules->updateRule($dataUpdate, $id);
         return redirect()->route('rule')->with('success', 'Cập nhật vai trò thành công');
+    }
+
+    public function show(){
+        $this->rules->count();
+        return view('manage.system.rule.main', compact('title'));
     }
 
 }

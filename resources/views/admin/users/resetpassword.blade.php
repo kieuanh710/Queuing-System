@@ -3,51 +3,81 @@
 <head>
     @include('admin.head')
 </head>
-<body>
-
     <div class="main">
-            <div class="container">
-                <div class="content">
-                    <div class="logo">
-                        <img src="/assets/img/Logo alta.png" alt="">
-                    </div>
-                    <span class="title title-newpw">Đặt lại mật khẩu mới</span>
-                    <div class="form-login">
-                        <form action="/forgotpassword" method="post">
+        <div class="container">
+            <div class="content">
+                <div class="logo">
+                    <img src="/assets/img/Logo alta.png" alt="">
+                </div>
+                <div class="form-login">
+                    <form action="{{route('resetPassword')}}" method="post">
+                        <div class="content-fg">
+                            <span class="title title-reset">Đặt lại mật khẩu mới</span>
+                        </div>
+                            <div class="form form-reset"> 
+                                <div class="form-group form-1">
+                                    <label class="heading">Email</label>
+                                    <input class="input" type="email" placeholder="Enter email"
+                                    name="email" id="email" required>
+                                </div> 
+                                <div class="form-group form-1">
+                                    <label class="heading">Mật khẩu</label>
+                                    <input class="input" type="password" placeholder="Enter password"
+                                    name="password" id="password" required>
+                                    <i class="showpw fas fa-eye-slash fa-light" id="togglePassword"></i>
+                                    
+                                </div> 
+                                <div class="form-group form-1">
+                                    <label class="heading">Nhập lại mật khẩu</label>
+                                    <input class="input" type="password" placeholder="Enter password"
+                                    name="password-confirm" id="password-confirm"  required>
+                                    <i class="showpw fas fa-eye-slash fa-light" id="togglePassword"></i>
+                                    
+                                </div>   
+                                @if(session('error'))
+                                <div class="alert alert-success"style="    
+                                    top: -18px;
+                                    position: relative;
+                                    font-weight: 400;
+                                    font-size: 14px;
+                                    line-height: 21px; 
+                                    color: #E73F3F;">
+                                    {{session('error')}}
+                                </div>
+                            @endif
+                            @if(session('success'))
+                                <div class="alert alert-success"style="    
+                                    top: -18px;
+                                    position: relative;
+                                    font-weight: 400;
+                                    font-size: 14px;
+                                    line-height: 21px; 
+                                    color: #28a745;">
+                                    {{session('success')}}
+                                </div>
+                            @endif 
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                            </div>
+                        
+                            <button type="submit" name="" class="btn btn-primary submit btn-confirm">Xác nhận</button>
                             @csrf
-                            <input type="hidden" name="token" value="{{ $token }}">
-                            <div class="form form-2">
-                                <label class="heading"><b>Mật khẩu mới</b></label>
-                                <div class="show">
-                                    <input class="input" type="password" placeholder="Enter new password" name="password" value="" required>
-                                    <span class="text-danger">@error('password'){{ $message }} @enderror</span>
-                                    <img class="showpw" src="/assets/img/u_eye-slash.png" alt="" onclick="myFunction()">
-                                </div>
-                            </div>
-                            <div class="form form-2">
-                                <label class="heading"><b>Nhập lại mật khẩu</b></label>
-                                <div class="show">
-                                    <input class="input" type="password" id="myInput" placeholder="Enter password" name="password" value="" pattern=".{8,}" required title="8 characters minimum">
-                                    <span class="text-danger">@error('password_confirmation'){{ $message }} @enderror</span>
-                                    <img class="showpw" src="/assets/img/u_eye-slash.png" alt="" onclick="myFunction()">
-                                </div>
-                            </div>
-                            <button type="submit" name="" class="">
-                                <div class="btn btn-confirm">
-                                    <span>Xác nhận</span>
-                                </div>
-                            </button>
-                        </form>
-                    </div>
+                    </form>
                 </div>
-                    
-                </div>
-
-                <div class="system">
-                    <img class="img" src="/assets/img/Frame.png" alt="">
-                </div>
+            </div>     
+            <div class="system">
+                <img class="img" src="/assets/img/Frame.png" alt="">
             </div>
+       </div>
     </div>
+    @include('admin.footer')
 </body>
 </html>
     

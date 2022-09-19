@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Manage\CreateFormRequest;
 use App\Models\Service;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Helpers\LogActivity;
+
 class ServiceController extends Controller
 {
     private $services;
@@ -36,7 +37,7 @@ class ServiceController extends Controller
         if(!empty($request->keyword)){
             $keyword = $request->keyword;
         }
-        
+         
         $serviceList = $this->services->getAllService($filters, $keyword, self::_PER_PAGE);
         return view('manage.service.main', compact('title','serviceList'));
     }
@@ -65,6 +66,7 @@ class ServiceController extends Controller
             'updated_at'=>date('Y-m-d H:i:s')
         ];
         // dd($dataInsert);
+        LogActivity::addToLog('Thêm dịch vụ', Auth::user()->username, now());
         $this->services->addService($dataInsert);
         return redirect()->route('service')->with('success', 'Thêm dịch vụ thành công');
     }
@@ -100,6 +102,7 @@ class ServiceController extends Controller
             date('Y-m-d H:i:s')
         ];
         //dd(session('id'));
+        LogActivity::addToLog('Cập nhật dịch vụ', Auth::user()->username, now());
         $this->services->updateService($dataUpdate, $id);
         return redirect()->route('service')->with('success', 'Cập nhật dịch vụ thành công');
     }
@@ -107,6 +110,7 @@ class ServiceController extends Controller
     // Thông tin chi tiết
     public function detail(Request $request){
         $title = 'Chi tiết thiết bị';
+        LogActivity::addToLog('Xem chi tiết dịch vụ', Auth::user()->username, now());
         $detail = Service::where('id', $request->id)->first();
         return view('manage.service.detailService', compact ('title', 'detail'));
     }

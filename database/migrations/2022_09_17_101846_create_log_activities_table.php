@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rules', function (Blueprint $table) {
-            $table->id();
-            $table->integer('idRule');
-            $table->string('nameRole');
-            $table->string('desRule');
+        Schema::create('log_activities', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('subject');
+            $table->string('url');
+            $table->string('method');
+            $table->string('ip');
+            $table->string('agent')->nullable();
+            $table->string('username');
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rules');
+        Schema::dropIfExists('log_activities');
     }
 };

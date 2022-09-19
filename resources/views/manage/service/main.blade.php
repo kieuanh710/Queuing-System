@@ -24,8 +24,6 @@
                 </div>
                 <div class="col-sm-4">
                     <form autocomplete="off">
-                        {{-- <div class="flex-row d-flex justify-content-center">
-                            <div class="col-lg-6 col-11 px-1">  --}}
                                 <div class="input-daterange">
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -39,7 +37,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group active-status">
                                                     <span id="end-p" for="end">End Date</span>
-                                                    {{-- <i class="fas fa-light fa-calendar-days" id="fa-1"></i> --}}
+                                                  
                                                     <i class="fa fa-calendar" id="fa-1"></i>
                                                     <input type="text" id="end" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
                                                 </div>
@@ -47,10 +45,8 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                {{-- </div>
-                            </div> --}}
                         </form>
+                    
                 </div>        
 
                 <div class="col-sm-2">

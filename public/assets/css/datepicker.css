@@ -1,3 +1,6 @@
+.input-daterange{
+  position: relative;
+}
 .datepicker {
     background-color: #fff;
     border-radius: 0 !important;
@@ -6,12 +9,14 @@
     }
     
     .datepicker-dropdown {
-      top: calc(50% - 160px) !important;
-      left: calc(50% - 171px) !important;
+      /* top: calc(50% - 160px) !important;
+      left: calc(100% - 63%) !important; */
       /* border-right: #1976D2;
       border-left: #1976D2; */
+      left: calc(54%) !important;
+      position: absolute;
     }
-    
+
     .datepicker-dropdown.datepicker-orient-left:before {
     left: calc(50% - 6px) !important;
     }
@@ -54,7 +59,7 @@
     }
     
     .cw {
-      display: block;
+      display: none !important;
     }
     
     .old, .day, .new {
@@ -97,6 +102,8 @@
     font-size: 18px;
     opacity: 0.7;
     color: #FF7506;
+    position: relative;
+    left: -10px;
     }
     
     .prev:hover, .next:hover, .datepicker-switch:hover {
@@ -113,4 +120,25 @@
       right: calc(50% - 5px);
     }
     } */
+    .fa-calendar {
+      position: absolute;
+      top: 43px;
+      font-size: 20px;
+      color: #FF7506;
+      z-index: 1;
+      height: 20px;
+      width: 20px;
+    }
+    .fa-1{
+      top: 10px;
+    }
+    .calendar{
+      top: 10px;
+    }
+    .clear{
+      display: none  !important;
+    }
+    .dow:first-child{
+      padding: 20px !important;
+    }
     

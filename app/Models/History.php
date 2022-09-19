@@ -6,21 +6,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+
 class History extends Model
 {
     use HasFactory;
-    protected $table = 'histories';
-   
-    public function getAllHistory($keyword=null, $perPage=null){
+    protected $table = 'log_activities';
+    protected $fillable = [
+        'subject', 'url', 'method', 'ip', 'agent', 'username'
+    ];
+    
+    public function getAllHistory($keyword=null, $perPage=null, $start_date, $end_date){
         $histories  = DB::table($this->table);
-
-        if(!empty($keyword)){
-            $histories = $histories->where(function($query) use ($keyword){
-                $query->orWhere('idDevice', 'like', '%'.$keyword.'%');
-                $query->orWhere('nameDevice', 'like', '%'.$keyword.'%');
-                $query->orWhere('service', 'like', '%'.$keyword.'%');
-            });
-        } 
+        // Search with keyword
+        // if(!empty($keyword)){
+        //     $histories = $histories->where(function($query) use ($keyword){
+        //         $query->orWhere('username', 'like', '%'.$keyword.'%');
+        //         $query->orWhere('subject', 'like', '%'.$keyword.'%');
+        //         $query->orWhere('ip', 'like', '%'.$keyword.'%');
+        //     });
+        // } 
+        // if(!empty($start) && !empty($end)){
+        //     $date = $histories->where('method', '>=', $start)
+        //     ->where('method', '<=', $end);
+        //     dd($date);
+        // }
         
         //Pagination
         if(!empty($perPage)){
@@ -29,6 +38,17 @@ class History extends Model
             $histories = $histories->get(); // khong phan trang
         }
 
+
         return $histories;
     }
+    // public function searchDate($start_date, $end_date){
+    //     $histories = DB::table($this->table)->select()
+    //     ->where('date', '>=', $start_date)
+    //     ->where('date', '>=', $end_date)
+    //     ->get();
+    //     // dd($histories);
+    //     return $histories;
+        
+    // }
+    
 }

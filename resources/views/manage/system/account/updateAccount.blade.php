@@ -53,11 +53,11 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Vai trò *</label>
-                            <select name="nameRule" class="form-control filter-active">
+                            <select name="nameRole" class="form-control filter-active">
                                 <div class="filter-active--item">
-                                    <option value="{{old('nameRule') ?? $accountDetail->nameRule}}">Admin</option>
-                                    <option value="{{old('nameRule') ?? $accountDetail->nameRule}}">Bảo vệ</option>
-                                    <option value="{{old('nameRule') ?? $accountDetail->nameRule}}">Kế toán</option>
+                                    <option value="{{old('nameRole') ?? $accountDetail->nameRole}}">Admin</option>
+                                    <option value="{{old('nameRole') ?? $accountDetail->nameRole}}">Bảo vệ</option>
+                                    <option value="{{old('nameRole') ?? $accountDetail->nameRole}}">Kế toán</option>
                                 </div>
                             </select>
                         </div>

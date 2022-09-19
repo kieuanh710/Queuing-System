@@ -56,14 +56,14 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group active-status">
-                                            <i class="fa fa-calendar calendar" id="fa-1"></i>
+                                            <i class="fas fa fa-calendar fa-1" id="fa-1"></i>
                                             <input type="text" id="start" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
                                         </div>
                                         <i class="fas fa-solid fa-caret-right arrow"></i>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group active-status">
-                                            <i class="fa fa-calendar calendar" id="fa-1"></i>
+                                            <i class="fas fa fa-calendar fa-1" id="fa-1"></i>
                                             <input type="text" id="end" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
                                         </div>
                                     </div>

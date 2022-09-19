@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ResetPassword extends Model
+class LogActivity extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'email',
-        'token',
-        'created_at',
+        'subject', 'url', 'method', 'ip', 'agent', 'username'
     ];
 }

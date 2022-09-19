@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Manage\CreateFormRequest;
 use Illuminate\Support\Facades\Session;
 use App\Models\Account;
+use Illuminate\Support\Facades\DB;
+
 
 class AccountController extends Controller
 {
@@ -19,7 +21,8 @@ class AccountController extends Controller
     //Danh sách thiết bị
     public function index(Request $request){
         $title = 'Danh sách tài khoản';
-
+        $data['nameRole'] = DB::table('accounts')->get();
+        //dd($data);
         $filters = [];
         $keyword = null;
 
@@ -40,7 +43,8 @@ class AccountController extends Controller
         }
 
         $accountList = $this->accounts->getAllAccount();
-        return view('manage.system.account.main', compact('title', 'accountList'));
+        return view('manage.system.account.main', compact('title', 'accountList', 'data'));
+        // return view('manage.system.account.main', 'title', 'accountList', $data);
     }
     public function add(){
         $title = 'Thêm tài khoản';
@@ -55,7 +59,7 @@ class AccountController extends Controller
                 'password' => 'required|min:6',
                 'repassword' => 'required',
                 'email' => 'required',
-                'nameRule' => 'required',
+                'nameRole' => 'required',
                 'active' => 'required',
             ],
             [
@@ -66,7 +70,7 @@ class AccountController extends Controller
                 'username.unique' => 'Tên người dùng đã tồn tại vui lòng nhập tên khác',
                 'password.required' => 'Password ít nhất 6 kí tự',
                 'repassword.required' => 'Password chưa đúng',
-                'nameRule.required' => 'Nhập vai trò tài khoản',
+                'nameRole.required' => 'Nhập vai trò tài khoản',
                 'active.required' => 'Chọn trạng thái sử dụng',
             ]);
         // $this->accountService->create($request);
@@ -77,7 +81,7 @@ class AccountController extends Controller
             'username' => $request->username,
             'password' => $request->password,
             'repassword' => $request->repassword,
-            'nameRule' => $request->nameRule,
+            'nameRole' => $request->nameRole,
             'active' => $request->active,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
@@ -112,7 +116,7 @@ class AccountController extends Controller
                 'password' => 'required|min:6',
                 'repassword' => 'required',
                 'email' => 'required',
-                'nameRule' => 'required',
+                'nameRole' => 'required',
                 'active' => 'required',
             ],
             [
@@ -122,7 +126,7 @@ class AccountController extends Controller
                 'username.required' => 'Nhập tên người dùng',
                 'password.required' => 'Password ít nhất 6 kí tự',
                 'repassword.required' => 'Password chưa đúng',
-                'nameRule.required' => 'Nhập vai trò tài khoản',
+                'nameRole.required' => 'Nhập vai trò tài khoản',
                 'active.required' => 'Chọn trạng thái sử dụng',
             ]);
         $id = session('id');
@@ -136,7 +140,7 @@ class AccountController extends Controller
             $request -> username,
             $request -> password,
             $request -> repassword,
-            $request -> nameRule,
+            $request -> nameRole,
             $request -> active,
             date('Y-m-d H:i:s')
         ];
