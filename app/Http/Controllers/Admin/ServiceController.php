@@ -6,39 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\LogActivity;
-
+use Carbon\Carbon;
 class ServiceController extends Controller
 {
     private $services;
 
-    const _PER_PAGE = 4; // số hàng dữ liệu trên 1 bảng
+    const _PER_PAGE = 10; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
         $this->services = new Service();
     }
+
     //Danh sách thiết bị
     public function index(Request $request){
         $title = 'Quản lý dịch vụ';
-
-        $filters = [];
-        $keyword = null;
-
-        // Check click active
-        if(!empty($request->active)){
-            $active = $request->active;
-            if($active=='active'){
-                $active = 1;
-            } else{
-                $active = 0;
-            }
-            $filters[] = ['services.active', '=', $active];
-        }
-
-        //Search
-        if(!empty($request->keyword)){
-            $keyword = $request->keyword;
-        }
-         
-        $serviceList = $this->services->getAllService($filters, $keyword, self::_PER_PAGE);
+        $serviceList = $this->services->getAllService(self::_PER_PAGE);
         return view('manage.service.main', compact('title','serviceList'));
     }
     // Thêm thiết bị
@@ -50,14 +31,16 @@ class ServiceController extends Controller
     public function postAdd(Request $request){
         $request->validate(
         [
-            'idService' => 'required',
+            'idService' => 'required|unique:services',
             'nameService' => 'required',
         ],
         [
             'idService.required' =>  'Nhập mã dịch vụ',
+            'idService.unique' =>  'Mã dịch vụ đã tồn tại',
             'nameService.required' => 'Nhập tên dịch vụ',
         ]);
-        // $this->deviceService->create($request);
+        
+        // $this->serviceservice->create($request);
         $dataInsert = [
             'idService' =>  $request->idService,
             'nameService' => $request->nameService,
@@ -115,4 +98,54 @@ class ServiceController extends Controller
         return view('manage.service.detailService', compact ('title', 'detail'));
     }
 
+    public function getUsers(Request $request){
+        $search = $request->search;
+        $active = $request->active;
+        $start= $request->start;
+        $end = $request->end;
+
+        if($request->ajax()){
+            // search
+            if(!empty($search)) {
+                $request->get('search');
+                $services = $this->services
+                ->where('idService', 'like', '%'.$request->get('search').'%')
+                ->orwhere('nameService', 'like', '%'.$request->get('search').'%')   
+                ->orwhere('desService', 'like', '%'.$request->get('search').'%')   
+                ->get();
+            }
+            // filter
+            if($active == 0 && $start == null &&  $end == null){
+                $services = $this->services
+                ->where('nameService', 'like', '%'.$request->get('search').'%')   
+                ->where('desService', 'like', '%'.$request->get('search').'%')   
+                ->get();
+            } 
+            elseif($start != null ||  $end != null){
+                $services = $this->services
+                // ->whereBetween('created_at', [$start, $end])
+                ->whereDate('created_at', '>=', $start)
+                ->whereDate('created_at', '<=', $end)
+                ->where('nameService', 'like', '%'.$request->get('search').'%')   
+                ->where('desService', 'like', '%'.$request->get('search').'%')   
+                ->get();
+            } 
+            elseif($active != 0 && $start == null || $end == null){
+                $services = $this->services
+                ->where('active', $request->active)
+                ->where('nameService', 'like', '%'.$request->get('search').'%')   
+                ->where('desService', 'like', '%'.$request->get('search').'%')   
+                ->get();
+            }
+            else{
+                $services = $this->services
+                ->whereBetween('created_at', array([$start, $end])) 
+                ->where('active', $request->connect) 
+                ->where('nameService', 'like', '%'.$request->get('search').'%')   
+                ->where('desService', 'like', '%'.$request->get('search').'%')   
+                ->get();
+            }
+            return json_encode($services);
+        }
+    }
 }

@@ -3,27 +3,25 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Str;
 use Carbon\Carbon; 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 class LoginController extends Controller
 {
-    private $users;
+    private $users, $roles;
     const _PER_PAGE = 4; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
         $this->users = new User();
+        $this->roles = new Role();
     }
     public function index(){
         $title = 'Đăng nhập';
-        return view('admin.users.login',compact('title'));
+        $roleList = $this->roles->getAllRole();
+        return view('admin.users.login',compact('title', 'roleList'));
     }
 
     //Kiểm tra chuyển hướng

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Image;
+// use Nette\Utils\Image;
+// use Image;
 class ManageController extends Controller
 {
     public function index(){
@@ -17,8 +21,18 @@ class ManageController extends Controller
         ]);
     }
     public function info(){
-        return view('manage.account',[
-            'title' => 'Thông tin cá nhân'
-        ]);
+        $title = "Tài khoản cá nhân";
+        return view('admin.users.info', compact('title'), array('user' => Auth::user()));
+    }
+    // upload avarta
+
+    public function upload(Request $request)
+    {
+        if($request->hasFile('avatar')){
+            $filename = $request->avatar->getClientOriginalName();
+            $request->avatar->storeAs('images',$filename,'public');
+            Auth()->user()->update(['avatar'=>$filename]);
+        }
+        return redirect()->back();
     }
 }

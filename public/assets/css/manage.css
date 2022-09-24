@@ -26,7 +26,37 @@
   /* .nav-item.active span{
     color: #fff !important;
   } */
-  
+  .avatar{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .avatar img{
+    border: #333;
+    margin: 0 0px 16px 12px;
+    border-radius: 50%; 
+    width: 248px;
+    height: 251px;
+  }
+  .avatar i{
+    position: absolute;
+    color: #fff;
+    background-color: #FF7506;
+    border-radius: 50%;
+    padding: 10px;
+    bottom: 50px;
+    right: 59px;
+  }
+  .avatar span{
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: #282739;
+    text-align: center;
+  }
   .navbar-item:hover{
     background-color: #f7f7f7;
   }
@@ -280,8 +310,8 @@
   }
   .form-control-info{
     width: 384px;
-  height: 44px;
-    background: #FFFFFF;
+    height: 44px;
+    background: #EAEAEC;
     border: 1.5px solid #D4D4D7;
     border-radius: 8px;
   }
@@ -590,7 +620,7 @@ padding: 10px 12px;
   margin-left: 16px;
 }
 
-/* RULE */
+/* ROLE */
 .function-box{
   height: 420px;
   background: #FFF2E7;

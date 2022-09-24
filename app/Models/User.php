@@ -23,6 +23,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'username',
+        'phone',
+        
     ];
 
     /**
@@ -44,8 +48,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function getDetail($id){
-        return DB::select('SELECT * FROM '.$this->table.' WHERE id = ?',[$id]);
+       // return DB::select('SELECT * FROM '.$this->table.' WHERE id = ?',[$id]);
+       return DB::table($this->table)
+       ->join('role', '.users.role', 'role.id')
+       ->select('users.*', 'role.nameRole');
     }
+
 
     public function resetpassword(Request $request){
         $request->validate([

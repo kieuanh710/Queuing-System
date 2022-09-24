@@ -11,22 +11,8 @@ class Service extends Model
     use HasFactory;
     protected $table = 'services';
     protected $guarded = [];
-    public function getAllService($filters=[],$keyword=null, $perPage=null){
-        // $services = DB::select('SELECT * FROM services ORDER BY id ASC');
-        // DB::enableQueryLog();
+    public function getAllService($perPage=null){
         $services = DB::table($this->table);
-
-        //filter
-        if(!empty($filters)){
-            $services = $services->where($filters);
-        }  
-        if(!empty($keyword)){
-            $services = $services->where(function($query) use ($keyword){
-                $query->orWhere('idService', 'like', '%'.$keyword.'%');
-                $query->orWhere('nameService', 'like', '%'.$keyword.'%');
-                $query->orWhere('desService', 'like', '%'.$keyword.'%');
-            });
-        } 
         //Pagination
         if(!empty($perPage)){
             $services = $services->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x
@@ -35,10 +21,7 @@ class Service extends Model
         }
         return $services;
     }
-    public function addService($data){
-        // DB::insert('INSERT INTO services (idService, nameService, desService, created_at, updated_at) 
-        // VALUES(?, ?, ?, ?, ?)', $data);
-        // Insert thành công -> true
+    public function addBoardCast($data){
         DB::table($this->table)->insert($data);
     }
     public function getDetail($id){

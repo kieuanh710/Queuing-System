@@ -53,11 +53,10 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Vai trò *</label>
-                            <select name="nameRole" class="form-control filter-active">
-                                <div class="filter-active--item">
-                                    <option value="0">Admin</option>
-                                    <option value="1" {{request()->nameRole=='1'?'selected':false}}>Bảo vệ</option>
-                                    <option value="2" {{request()->nameRole=='2'?'selected':false}}>Kế toán</option>
+                            <select name="id_role" id="id_role" class="form-control filter-active">
+                                @foreach ($roleList as $list)
+                                    <option value="{{$list->id}}">{{$list->nameRole}}</option>
+                                @endforeach
                                 </div>
                             </select>
                         </div>

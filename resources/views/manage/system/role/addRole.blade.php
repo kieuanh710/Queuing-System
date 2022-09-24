@@ -1,6 +1,6 @@
 @extends('manage.layouts.main')
 @section('heading')
-    {{ Breadcrumbs::render('updateRule') }}
+    {{ Breadcrumbs::render('addRole') }}
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -11,7 +11,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Thông tin vai trò</h6>
         </div>
        @include('admin.alert')
-        <form action="{{route('rule.postUpdate')}}" method="POST">
+        <form action="" method="POST">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
@@ -19,13 +19,13 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Tên vai trò *</label>
-                                    <input type="text" name="nameRole" class="form-control" placeholder="Nhập tên vai trò" value="{{old('nameRole') ?? $ruleDetail->nameRole}}">
+                                    <input type="text" name="nameRole" class="form-control" placeholder="Nhập tên vai trò" value="">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="">Mô tả *</label>
-                                    <textarea name="desRule" class="form-control" id="" cols="5" rows="5" placeholder="Message" spellcheck="false" value="{{old('desRule') ?? $ruleDetail->desRule}}"></textarea>
+                                    <textarea name="desRole" class="form-control" id="" cols="5" rows="5" placeholder="Message" spellcheck="false"></textarea>
                                 </div>
                             </div>
                             <span class="col">* Là trường thông tin bắt buộc</span>
@@ -136,10 +136,10 @@
 
 
             <div class="card-footer">
-                <a href="{{route('rule')}}" class="btn btn-primary btn-cancel">
+                <a href="{{route('role')}}" class="btn btn-primary btn-cancel">
                     <span> Hủy bỏ</span>
                 </a>
-                <button type="submit" name="" class="btn btn-primary">Cập nhật</button>
+                <button type="submit" name="" class="btn btn-primary">Thêm</button>
             </div>
             @csrf
         </form>

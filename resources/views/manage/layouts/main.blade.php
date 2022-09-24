@@ -72,11 +72,11 @@
                         <li class="nav-item navbar-item ">
                             <a href="{{route('info')}}" class="nav-link navbar-link" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="/assets/img/avatar/{{Auth::user()->avatar}}">
 
                                 <div class="name mr-2 d-none d-lg-inline text-gray-600 small">
                                     <p>Xin chào</p>
-                                    Kieu Anh
+                                    {{Auth::user()->name}}
                                 </div>
                             </a>
                             <!-- Dropdown - User Information -->
@@ -131,7 +131,7 @@
     </div>
 
     @include('manage.layouts.footer')
-
+    @yield('script')
 </body>
 
 </html>

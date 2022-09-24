@@ -1,6 +1,6 @@
 @extends('manage.layouts.main')
 @section('heading')
-    {{ Breadcrumbs::render('ruleList') }}
+    {{ Breadcrumbs::render('roleList') }}
 @endsection
 @section('content')
 
@@ -52,8 +52,8 @@
 
                     <tbody> 
                         
-                        @if(!empty($ruleList))
-                            @foreach ($ruleList as $key => $item)
+                        {{-- @if(!empty($roleList))
+                            @foreach ($roleList as $key => $item)
                         <tr>
                            
                             <th>{{$item->nameRole}}</th>
@@ -61,7 +61,7 @@
 
                                 <th>{{$item->count}}</th>
                                 @endforeach
-                            <th>{{$item->desRule}}</th>
+                            <th>{{$item->desRole}}</th> --}}
                             {{-- <th>{!!$item->active==0?'
                                 <div class="circle circle-error"></div>
                                     Ngưng hoạt động
@@ -88,14 +88,14 @@
                             </th> --}}
 
                         
-                            <th><a href="{{route('rule.update', ['id'=>$item->id])}}">Cập nhật</a></th>
+                            {{-- <th><a href="{{route('role.update', ['id'=>$item->id])}}">Cập nhật</a></th>
                         </tr>
                         @endforeach
                         @else 
                         <tr>
                             <td colspan="4">no data</td>
                         </tr>
-                        @endif
+                        @endif --}}
                     </tbody>
                 </table>
             </div>
@@ -106,7 +106,7 @@
     </div> --}}
 </div>
 <div class="add">
-    <a href="{{route('rule.add')}}">
+    <a href="{{route('role.add')}}">
         <i class="fas fa-solid fa-plus"></i>
         <p>Thêm vai trò</p>
     </a>

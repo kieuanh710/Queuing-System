@@ -4,29 +4,29 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Manage\CreateFormRequest;
-use Illuminate\Support\Facades\Session;
 use App\Models\Account;
+use App\Models\Role;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
+use App\Helpers\LogActivity;
 
 class AccountController extends Controller
 {
     private $accounts;
+    private $roles;
 
     const _PER_PAGE = 10; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
         $this->accounts = new Account();
+        $this->roles = new Role();
+
     }
     //Danh sách thiết bị
     public function index(Request $request){
         $title = 'Danh sách tài khoản';
-        $data['nameRole'] = DB::table('accounts')->get();
-        //dd($data);
-        $filters = [];
-        $keyword = null;
 
         // Check click active
+        $filters = [];
         if(!empty($request->active)){
             $active = $request->active;
             if($active=='active'){
@@ -37,18 +37,14 @@ class AccountController extends Controller
             $filters[] = ['accounts.active', '=', $active];
         }
 
-        //Search
-        if(!empty($request->keyword)){
-            $keyword = $request->keyword;
-        }
-
-        $accountList = $this->accounts->getAllAccount();
-        return view('manage.system.account.main', compact('title', 'accountList', 'data'));
-        // return view('manage.system.account.main', 'title', 'accountList', $data);
+        $accountList = $this->accounts->getAllAccount($filters, self::_PER_PAGE);
+        $roleList = $this->roles->getAllRole();
+        return view('manage.system.account.main', compact('title', 'roleList', 'accountList'));
     }
     public function add(){
         $title = 'Thêm tài khoản';
-        return view('manage.system.account.addAccount', compact('title'));
+        $roleList = $this->roles->getAllRole();
+        return view('manage.system.account.addAccount', compact('title', 'roleList'));
     }
     public function postAdd(Request $request){
         $request->validate(
@@ -59,7 +55,7 @@ class AccountController extends Controller
                 'password' => 'required|min:6',
                 'repassword' => 'required',
                 'email' => 'required',
-                'nameRole' => 'required',
+                'id_role' => 'required',
                 'active' => 'required',
             ],
             [
@@ -70,7 +66,7 @@ class AccountController extends Controller
                 'username.unique' => 'Tên người dùng đã tồn tại vui lòng nhập tên khác',
                 'password.required' => 'Password ít nhất 6 kí tự',
                 'repassword.required' => 'Password chưa đúng',
-                'nameRole.required' => 'Nhập vai trò tài khoản',
+                'id_role.required' => 'Nhập vai trò tài khoản',
                 'active.required' => 'Chọn trạng thái sử dụng',
             ]);
         // $this->accountService->create($request);
@@ -81,13 +77,14 @@ class AccountController extends Controller
             'username' => $request->username,
             'password' => $request->password,
             'repassword' => $request->repassword,
-            'nameRole' => $request->nameRole,
+            'id_role' => $request->id_role,
             'active' => $request->active,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
         ];
         // dd($dataInsert);
         $this->accounts->addAccount($dataInsert);
+        LogActivity::addToLog('Thêm tài khoản', Auth::user()->username, now());
         return redirect()->route('account')->with('success', 'Thêm tài khoản thành công');
     }
     public function update(Request $request, $id){
@@ -105,7 +102,8 @@ class AccountController extends Controller
         else {
             return redirect()->route('account')->with('success', 'Liên kết không tồn tại');
         }
-        return view('manage.system.account.updateAccount', compact('title', 'accountDetail'));
+        $roleList = $this->roles->getAllRole();
+        return view('manage.system.account.updateAccount', compact('title', 'accountDetail', 'roleList'));
     }
     public function postUpdate(Request $request){
         $request->validate(
@@ -116,7 +114,7 @@ class AccountController extends Controller
                 'password' => 'required|min:6',
                 'repassword' => 'required',
                 'email' => 'required',
-                'nameRole' => 'required',
+                'id_role' => 'required',
                 'active' => 'required',
             ],
             [
@@ -126,7 +124,7 @@ class AccountController extends Controller
                 'username.required' => 'Nhập tên người dùng',
                 'password.required' => 'Password ít nhất 6 kí tự',
                 'repassword.required' => 'Password chưa đúng',
-                'nameRole.required' => 'Nhập vai trò tài khoản',
+                'id_role.required' => 'Nhập vai trò tài khoản',
                 'active.required' => 'Chọn trạng thái sử dụng',
             ]);
         $id = session('id');
@@ -140,13 +138,48 @@ class AccountController extends Controller
             $request -> username,
             $request -> password,
             $request -> repassword,
-            $request -> nameRole,
+            $request -> id_role,
             $request -> active,
             date('Y-m-d H:i:s')
         ];
         //dd(session('id'));
         $this->accounts->updateaccount($dataUpdate, $id);
+        LogActivity::addToLog('Cập nhật tài khoản', Auth::user()->username, now());
         return redirect()->route('account')->with('success', 'Cập nhật thiết bị thành công');
+    }
+
+
+    public function search(Request $request){
+        $request->get('searchFilter');
+
+        $accounts = $this->accounts
+        ->join('role', 'accounts.id_role', 'role.id')
+        ->join('active', 'accounts.active', 'active.id')
+        ->select('accounts.*', 'role.nameRole', 'active.nameStatus')
+        ->where('username', 'like', '%'.$request->get('searchFilter').'%')
+        ->orwhere('name', 'like', '%'.$request->get('searchFilter').'%')   
+        ->orwhere('phone', 'like', '%'.$request->get('searchFilter').'%')   
+        ->orwhere('email', 'like', '%'.$request->get('searchFilter').'%')   
+        ->orwhere('nameRole', 'like', '%'.$request->get('searchFilter').'%')   
+        ->get();
+        return json_encode($accounts);
+    }
+    public function select(Request $request){
+        // $data = $request->get('selectValue');
+        if($request->ajax()){
+            $accounts = $this->accounts
+            ->join('role', 'accounts.id_role', 'role.id')
+            ->join('active', 'accounts.active', 'active.id')
+            ->select('accounts.*', 'role.nameRole', 'active.nameStatus')
+            ->where(['id_role'=> $request->selectValue])
+            ->get();
+    
+            return response()->json(['accounts'=>$accounts]);
+
+        }
+        //$values = $this->accounts-get();
+        // if($request->ajax()){
+        // }
     }
 
 }

@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Manage\CreateFormRequest;
-use App\Http\Services\Manage\ReportService;
 use App\Models\Report;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use App\Helpers\LogActivity;
 class ReportController extends Controller
 {
     private $reports;
@@ -20,6 +19,8 @@ class ReportController extends Controller
     public function index(){
         $title = 'Quản lý báo cáo';
         // $reportsList = $this->reports->getAllDevice();
+        LogActivity::addToLog('Xem danh sách báo cáo', Auth::user()->username, now());
+
         return view('manage.report', compact('title'));
     }
 }

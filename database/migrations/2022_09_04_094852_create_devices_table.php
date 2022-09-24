@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('password');
             $table->text('service');
-            $table->tinyInteger('active');
-            $table->tinyInteger('connect');
+            $table->tinyInteger('active')->default(1);
+            $table->tinyInteger('connect')->default(1);
             $table->timestamps();
         });
     }

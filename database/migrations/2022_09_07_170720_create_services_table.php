@@ -18,6 +18,10 @@ return new class extends Migration
             $table->integer('idService');
             $table->string('nameService');
             $table->string('desService');
+            $table->tinyInteger('active')->default(1);
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }

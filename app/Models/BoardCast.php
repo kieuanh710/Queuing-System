@@ -11,22 +11,14 @@ class BoardCast extends Model
     use HasFactory;
     protected $table = 'boardcasts';
     protected $guarded = [];
-    public function getAllBoardCast($filters=[],$keyword=null, $perPage=null){
+    public function getAllBoardCast($perPage=null){
         // $boardcasts = DB::select('SELECT * FROM boardcasts ORDER BY id ASC');
         // DB::enableQueryLog();
-        $boardcasts = DB::table($this->table);
-
-        //filter
-        if(!empty($filters)){
-            $boardcasts = $boardcasts->where($filters);
-        }  
-        if(!empty($keyword)){
-            $boardcasts = $boardcasts->where(function($query) use ($keyword){
-                $query->orWhere('idBoardCast', 'like', '%'.$keyword.'%');
-                $query->orWhere('nameBoardCast', 'like', '%'.$keyword.'%');
-                $query->orWhere('desBoardCast', 'like', '%'.$keyword.'%');
-            });
-        } 
+        $boardcasts = DB::table($this->table)
+        ->join('services', 'boardcasts.id_service', 'services.idService')
+        ->join('accounts', 'boardcasts.id_account', 'accounts.id')
+        ->select('boardcasts.*', 'services.nameService', 'accounts.name');
+ 
         //Pagination
         if(!empty($perPage)){
             $boardcasts = $boardcasts->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x

@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('rule');
+            $table->string('role');
             $table->integer('level');
             $table->string('active');
+            $table->string('avatar')->default('default.jpg');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('users');
+        Schema::dropIfExists('users');
     }
 };

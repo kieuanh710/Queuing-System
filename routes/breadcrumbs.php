@@ -1,6 +1,11 @@
 <?php
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
+//Info
+Breadcrumbs::for('info', function (BreadcrumbTrail $trail) {
+    $trail->push('Thông tin cá nhân ', route('info'));
+});
+
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Dashboard', route('dashboard'));
@@ -79,23 +84,23 @@ Breadcrumbs::for('reportList', function (BreadcrumbTrail $trail) {
     $trail->push('Lập báo cáo ', route('report'));
 });
 
-// Rule
-Breadcrumbs::for('rule', function (BreadcrumbTrail $trail) {
-    $trail->push('Cài đặt hệ thống ', route('rule'));
+// Role
+Breadcrumbs::for('role', function (BreadcrumbTrail $trail) {
+    $trail->push('Cài đặt hệ thống ', route('role'));
 });
-Breadcrumbs::for('ruleList', function (BreadcrumbTrail $trail) {
-    $trail->parent('rule');
-    $trail->push('Quản lí vai trò ', route('rule'));
+Breadcrumbs::for('roleList', function (BreadcrumbTrail $trail) {
+    $trail->parent('role');
+    $trail->push('Quản lí vai trò ', route('role'));
 });
-Breadcrumbs::for('addRule', function (BreadcrumbTrail $trail) {
-    $trail->parent('ruleList');
-    $trail->push('Thêm vai trò', route('rule.add'));
+Breadcrumbs::for('addRole', function (BreadcrumbTrail $trail) {
+    $trail->parent('roleList');
+    $trail->push('Thêm vai trò', route('role.add'));
 });
-Breadcrumbs::for('updateRule', function (BreadcrumbTrail $trail) {
-    $trail->parent('ruleList');
-    $trail->push('Cập nhật', route('rule.postUpdate'));
+Breadcrumbs::for('updateRole', function (BreadcrumbTrail $trail) {
+    $trail->parent('roleList');
+    $trail->push('Cập nhật', route('role.postUpdate'));
 });
-// Rule
+// Role
 Breadcrumbs::for('account', function (BreadcrumbTrail $trail) {
     $trail->push('Cài đặt hệ thống ', route('account'));
 });

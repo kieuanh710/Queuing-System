@@ -1,71 +1,70 @@
 @extends('manage.layouts.main')
-@section('heading')
-    {{ Breadcrumbs::render('serviceList') }}
-@endsection
-@section('content')
 
+@section('heading')
+{{ Breadcrumbs::render('serviceList') }}
+@endsection
+
+@section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Danh sách dịch vụ</h1>
-
+    {{-- filter --}}
     <form action="" method="GET">
-        <div class="filter">
+        <div class="filter" id="filter">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group active-status">
                         <span>Trạng thái hoạt động</span>
-                        <select name="active" class="form-control filter-active" >
+                        <select name="active" id="active" class="form-control filter-active">
                             <div class="filter-active--item">
                                 <option value="0">Tất cả</option>
-                                <option value="active" {{request()->active=='active'?'selected':false}}>Hoạt động</option>
-                                <option value="inactive" {{request()->active=='inactive'?'selected':false}}>Ngừng hoạt động</option>
+                                <option value="1" {{request()->active=='1'?'selected':false}}>Hoạt động</option>
+                                <option value="2" {{request()->active=='2'?'selected':false}}>Ngừng hoạt động</option>
                             </div>
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <form autocomplete="off">
-                                <div class="input-daterange">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group active-status">
-                                                <span  id="start-p" for="start">Start Date</span>
-                                                <i class="fa fa-calendar" id="fa-1"></i>
-                                                <input type="text" id="start" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
-    
-                                            </div>
-                                        </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group active-status">
-                                                    <span id="end-p" for="end">End Date</span>
-                                                  
-                                                    <i class="fa fa-calendar" id="fa-1"></i>
-                                                    <input type="text" id="end" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
-                                                </div>
-    
-                                            </div>
-                                        </div>
+                        <div class="input-daterange">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group active-status">
+                                        <span id="start-p" for="start">Start Date</span>
+                                        <i class="fa fa-calendar" id="fa-1"></i>
+                                        <input type="text" name="start" id="start" class="form-control text-left mr-2 date"
+                                            placeholder="dd/mm/yyyy">
+
                                     </div>
-                        </form>
-                    
-                </div>        
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group active-status">
+                                        <span id="end-p" for="end">End Date</span>
+
+                                        <i class="fa fa-calendar" id="fa-1"></i>
+                                        <input type="text" name="end" id="end" class="form-control text-left mr-2 date"
+                                            placeholder="dd/mm/yyyy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
                 <div class="col-sm-2">
                     <div class="form-group"></div>
                 </div>
-        
+
                 <div class="col-sm-3">
                     <div class="form-group active-status">
                         <span>Từ khóa</span>
                         <div class="search-btn">
-                            <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
+                            <input name="search" id="search" placeholder="Nhập từ khóa" class="search">
                             <i class="search-icon fas fa-search fa-sm"></i>
                         </div>
-                        <button class="btn btn-primary btn-block">Tìm kiếm</button>
                     </div>
                 </div>
             </div>
         </div>
-
     </form>
 
     <!-- DataTales-->
@@ -88,29 +87,28 @@
                         </tr>
                     </thead>
 
-                    <tbody> 
+                    <tbody>
                         @if(!empty($serviceList))
-                            @foreach ($serviceList as $key => $item)
+                        @foreach ($serviceList as $key => $item)
                         <tr>
                             <th>{{$item->idService}}</th>
                             <th>{{$item->nameService}}</th>
                             <th>{{$item->desService}}</th>
-                            <th></th>
-                            {{-- <th>{!!$item->active==0?'
+                            <th>{!!$item->active==2?'
                                 <div class="circle circle-error"></div>
-                                    Ngưng hoạt động
+                                Ngưng hoạt động
                                 '
                                 :'<div class="circle circle-success"></div>
-                                    Hoạt động'!!}
-                            </th> --}}
+                                Hoạt động'!!}
+                            </th>
 
                             <th><a href="{{route('service.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
                             <th><a href="{{route('service.update', ['id'=>$item->id])}}">Cập nhật</a></th>
                         </tr>
                         @endforeach
-                        @else 
+                        @else
                         <tr>
-                            <td colspan="4">no data</td>
+                            <td colspan="4">Dữ liệu không tồn tại</td>
                         </tr>
                         @endif
                     </tbody>
@@ -118,37 +116,37 @@
             </div>
         </div>
         {{-- Pagination --}}
-        
+
         {{-- <div class="pagition">
             <ul class="pagination" id="dataTable_paginate">
                 <li class="page-item  disabled" id="dataTable_previous">
                     <i class="page-link fas fa-solid fa-caret-left"></i>
                 </li>
                 <li class="paginate_button page-item active">
-                <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                    <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
                 </li>
                 <li class="paginate_button page-item">
-                <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">1</a>
+                    <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">1</a>
                 </li>
                 <li class="paginate_button page-item">
-                <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">1</a>
+                    <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">1</a>
                 </li>
                 <li class="paginate_button page-item">
-                <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">1</a>
+                    <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">1</a>
                 </li>
                 <li class="paginate_button page-item">
-                <a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">1</a>
+                    <a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">1</a>
                 </li>
                 <li class="paginate_button page-item" id="dataTable_next">
                     <i class="page-link fas fa-solid fa-caret-right"></i>
                 </li>
             </ul>
         </div>
-    --}}
+        --}}
     </div>
-    {{-- <div class="d-flex justify-content-end">
-        {{$deviceList->Links()}}
-    </div> --}}
+    <div class="d-flex justify-content-end">
+        {{$serviceList->Links()}}
+    </div>
 </div>
 <div class="add">
     <a href="{{route('service.add')}}">
@@ -157,4 +155,73 @@
     </a>
 </div>
 
+@endsection
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        //getUsers();
+        $('#search').on('keyup', function () {
+            getUsers();
+        });
+        
+        $('#active').on('change', function () {
+            getUsers();
+        });
+        $('#start').on('change', function () {
+            getUsers();
+        });
+        $('#end').on('change', function () {
+            getUsers();
+        });
+    });
+
+    function getUsers() {
+        var search = $('#search').val();
+        var active = $('#active option:selected').val();
+        var start = $('#start').val();
+        var end = $('#end').val();
+
+        // alert(active);
+        // alert(start);
+        // alert(search);
+
+        $.ajax({
+            method: 'get',
+            url: '{{route('filterSearchService')}}',
+            dataType: 'json',
+            data: {
+                active: active,
+                start: start,
+                end: end,
+                search: search,
+            },
+            success: function (data) {
+                console.log(data);
+                $('tbody').html(data);
+                var table = '';
+                $('tbody').html('');
+                $.each(data, function (index, value) {
+                    if (value.active == 1) {
+                        value.active = "Hoạt động";
+                    } else {
+                        value.active = "Ngưng hoạt động";
+                    }
+
+                    table =
+                        '<tr>\
+                        <th>'+ value.idService + '</th>\
+                        <th>'+ value.nameService + '</th>\
+                        <th>'+ value.desService + '</th>\
+                        <th>'+ value.active + '</th>\
+                        <th><a href="{{route('service.update', ['id' => ' + $value -> id + '])}}">Cập nhật</a></th>\
+                        </tr>';
+                    $('tbody').append(table)
+                    // console.log(table);
+                })
+            }
+
+        });
+    };
+
+</script>
 @endsection
