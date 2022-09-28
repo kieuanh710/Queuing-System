@@ -36,7 +36,6 @@ Route::post('/forgotpassword', [ForgotPasswordController::class,'password'])->na
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'sendResetEmail'])->name('sendResetEmail');
 Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('resetPassword');
 
-
 Route::get('/password/reset/{token}', [LoginController::class,'getpass'])->name('reset');
 Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 
@@ -71,6 +70,7 @@ Route::middleware('auth')->group(function(){
                 Route::get('/detail', [ServiceController::class,'detail'])->name('service.detail');
 
                 Route::get('/detail/filter', [ServiceController::class,'getUsers'])->name('filterSearchService');
+                Route::get('/detail/filter/BC', [BoardCastController::class,'getBoardCast'])->name('filterGetBC');
             });
 
             Route::prefix('/boardcast')->group(function(){
@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function(){
 
             Route::prefix('/report')->group(function(){
                 Route::get('/', [ReportController::class,'index'])->name('report');
+                Route::get('/export', [ReportController::class, 'export'])->name('export');
             });
             Route::prefix('/system')->group(function(){
                 Route::prefix('/role')->group(function(){
@@ -93,6 +94,8 @@ Route::middleware('auth')->group(function(){
                     Route::post('/add', [RoleController::class,'postAdd']);
                     Route::get('/update/{id}', [RoleController::class,'update'])->name('role.update');
                     Route::post('/update', [RoleController::class,'postUpdate'])->name('role.postUpdate');
+                    Route::get('/detail/filter', [RoleController::class,'getUsers'])->name('filterSearchRole');
+
                 });
                 Route::prefix('/account')->group(function(){
                     Route::get('/', [AccountController::class,'index'])->name('account');

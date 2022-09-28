@@ -44,7 +44,6 @@
         <div class="card-body main">
             @include('admin.alert')
             <div class="table-responsive">
-                <!-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> -->
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -59,46 +58,44 @@
                     </thead>
 
                     <tbody> 
-                        {{-- @if(!empty($deviceList))
-                            @foreach ($deviceList as $key => $item)
-                        <tr>
-                            <th>{{$item->idDevice}}</th>
-                            <th>{{$item->nameDevice}}</th>
-                            <th>{{$item->ip_address}}</th>
-                            <th>{!!$item->active==0?'
-                                <div class="circle circle-error"></div>
-                                    Ngưng hoạt động
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Hoạt động'!!}
-                            </th>
-                            <th>{!!$item->connect==0?'
-                                <div class="circle circle-error"></div>
-                                    Mất kết nối
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Kết nối'!!}
-                            </th>
-                            <th>
-                                {{$item->service}}
-                                {{-- <div id="target" class="collapse">
-                                    {{$item->service}}
-                                 </div>
-                                 @if($item->service > 1){
-                                     <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
-                                 }
-                                 @endif 
-                            </th>
+                        @if(!empty($boardcastList))
+                            @foreach ($boardcastList as $key => $item)
+                                <tr>
+                                    <th>{{$item->idBoardCast}}</th>
+                                    <th>{{$item->nameService}}</th>
+                                    <th></th>
+                                    
+                                    <th>
+                                        @if ($item->status == 1)
+                                        <div class="circle circle-success"></div>
+                                            Đang chờ
+                                        @elseif ($item->status == 2)
+                                          <div class="circle circle-success"></div>
+                                          Đã sử dụng
+                                          @else
+                                          <div class="circle circle-success"></div>
+                                            Bỏ qua
+                                        @endif
+                                    </th>
+                                    <th>{{$item->source}}</th>
+                                    {{--<th>
+                                        {{$item->service}}
+                                        {{-- <div id="target" class="collapse">
+                                            {{$item->service}}
+                                        </div>
+                                        @if($item->service > 1){
+                                            <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
+                                        }
+                                        @endif 
+                                    </th>--}}
 
-                            <th><a href="{{route('device.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
-                            <th><a href="{{route('device.update', ['id'=>$item->id])}}">Cập nhật</a></th>
-                        </tr>
-                        @endforeach
-                        @else 
-                        <tr>
-                            <td colspan="4">no data</td>
-                        </tr>
-                        @endif--}}
+                                </tr>
+                            @endforeach
+                            @else 
+                                <tr>
+                                    <td colspan="4">no data</td>
+                                </tr>
+                            @endif
                     </tbody>
                 </table>
             </div>
@@ -110,7 +107,7 @@
     </div> --}}
 </div>
 <div class="save add">
-    <a href="#">
+    <a href="{{route('export')}}">
         <i class="fas fa-solid fa-file-arrow-down"></i>
         <p>Tải về</p>
     </a>

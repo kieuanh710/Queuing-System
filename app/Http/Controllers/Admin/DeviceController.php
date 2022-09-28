@@ -126,7 +126,6 @@ class DeviceController extends Controller
     public function update(Request $request, $id){
         $title = 'Cập nhật thiết bị';
         // Lưu id vào session
-
         if (!empty($id)){
             $deviceDetail = $this->devices->getDetail($id);
             if(!empty($deviceDetail[0])){
@@ -134,6 +133,7 @@ class DeviceController extends Controller
                 $deviceDetail = $deviceDetail[0];
             }
             else{
+                // return $id;
                 return redirect()->route('device')->with('success', 'Liên kết không tồn tại');
             }
         } 
@@ -215,142 +215,29 @@ class DeviceController extends Controller
             } 
             elseif($active == 0 && $connect != 0){
                 $devices = $this->devices
-                ->where('connect', $connect)
-                ->where('nameDevice', 'like', '%'.$request->get('search').'%')   
+                ->where('connect', $connect) 
                 ->where('service', 'like', '%'.$request->get('search').'%')   
                 ->get();
             } 
             elseif($active != 0  && $connect == 0){
                 $devices = $this->devices
                 ->where('active', $request->active)
-                ->where('nameDevice', 'like', '%'.$request->get('search').'%')   
                 ->where('service', 'like', '%'.$request->get('search').'%')   
                 ->get();
             }
             else{
                 $devices = $this->devices
                 ->where('active', $request->connect) 
-                ->where('connect', $request->connect) 
-                ->where('nameDevice', 'like', '%'.$request->get('search').'%')   
+                ->where('connect', $request->connect)  
                 ->where('service', 'like', '%'.$request->get('search').'%')   
                 ->get();
             }
 
             return json_encode($devices);
             
-            foreach($devices as $item){
-                if($devices->active){
-                    if($active==1){
-                        $active = "Hoạt động";
-                    } else{
-                        $active = "Ngưng hoạt động";
-                    }
-                }
-                    
-                //  // Check click connect
-                if($devices->connect){
-                    $connect = $request->connect;
-                    if($connect == 1){
-                        $connect = "Kết nối";
-                    } else{
-                        $connect = "Mất kết nối";
-                    }
-                }
-                $out.=
-                    '<tr>
-                    <td>'.$item->idDevice.'</td>
-                    <td>'.$item->nameDevice.'</td>
-                    <td>'.$item->ip_address.'</td>
-                    <td>'.$item->active.'</td>
-                    <td>'.$item->connect.'</td>;
-                    </tr>' ;
-                }
-                // <td>'.'<a href="device/'.$item->id.'/detail">'.'Chi tiết</a>'.'</td>
-                // <td>'.'<a href="device/'.$item->id.'/update">'.'Cập nhật</a>'.'</td>
-                
-            }
-            return $out;
-            // dd($out);
-        // return view('manage.device.main', compact('devices'))->render();
-        // return json_decode($devices);
+        }
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-    // get Ip
-
-
-    // public function getUsers(Request $request){
-    //     $title = 'Quản lý thiết bị';
-
-    //     $filters = [];
-    //     $keyword = null;
-    //     if($request->ajax()){
-
-    //         // Check click active
-    //         if(!empty($request->active)){
-    //             $active = $request->active;
-    //             if($active=='active'){
-    //                 $active = 1;
-    //             } else{
-    //                 $active = 0;
-    //             }
-    //             $filters[] = ['devices.active', '=', $active];
-    //         }
-    
-    //         // Check click connect
-    //         if(!empty($request->connect)){
-    //             $connect = $request->connect;
-    //             if($connect=='connect'){
-    //                 $connect = 1;
-    //             } else{
-    //                 $connect = 0;
-    //             }
-    //             $filters[] = ['devices.connect', '=', $connect];
-    //         }
-    
-    //         //Search
-    //         if(!empty($request->keyword)){
-    //             $keyword = $request->keyword;
-    //         }
-            
-            
-    //         $deviceList = $this->devices->getUsers($filters, $keyword,  self::_PER_PAGE);
-    //         // $out="";
-    //         //         foreach($devicesList as $item){
-    //         //             $out.=
-    //         //             '<tr>
-    //         //             <td>'.$item->idDevice.'</td>
-    //         //             <td>'.$item->nameDevice.'</td>
-    //         //             <td>'.$item->ip_address.'</td>
-    //         //             <td>'.$item->active.'</td>
-    //         //             <td>'.$item->connect.'</td>;
-    //         //             <td>'.'<a href="device/'.$item->id.'/detail">'.'Chi tiết</a>'.'</td>
-    //         //             <td>'.'<a href="device/'.$item->id.'/update">'.'Cập nhật</a>'.'</td>
-    //         //             </tr>' ;
-                    
-    //         //             dd($out);
-    //         // $deviceList = $this->devices->getAllDevice(self::_PER_PAGE);
-    //         return view('manage.device.main', compact('title', 'deviceList'));
-    //     }
-    // }
-
-
-
-
-
-
-
-
 
 
 

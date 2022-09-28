@@ -14,6 +14,12 @@
 <script src="/template/admin/vendor/chart.js/Chart.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/template/admin/js/demo/chart-area-demo.js"></script>
+<script src="/template/admin/js/demo/chart-pie-demo.js"></script>
+<script src="/template/admin/js/demo/chart-bar-demo.js"></script>
 <!-- Page level custom scripts -->
 <script src="/template/admin/js/demo/datatables-demo.js"></script>
 
@@ -29,4 +35,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+
+
 

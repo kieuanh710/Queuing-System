@@ -70,8 +70,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item navbar-item ">
-                            <a href="{{route('info')}}" class="nav-link navbar-link" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a href="{{route('info')}}" class="nav-link navbar-link" >
                                 <img class="img-profile rounded-circle" src="/assets/img/avatar/{{Auth::user()->avatar}}">
 
                                 <div class="name mr-2 d-none d-lg-inline text-gray-600 small">

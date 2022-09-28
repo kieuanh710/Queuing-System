@@ -26,7 +26,8 @@ class User extends Authenticatable
         'avatar',
         'username',
         'phone',
-        
+        'role', 
+        'active'
     ];
 
     /**
@@ -47,11 +48,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getAllUser($perPage=null){
+        $users = DB::table('users')
+        ->join('roles', 'users.role', 'roles.id')
+        ->join('active', 'users.active', 'active.id')
+        ->select('users.*', 'roles.nameRole', 'active.nameStatus');
+        
+        if(!empty($perPage)){
+            $users = $users->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x
+        }else{
+            $users = $users->get(); // khong phan trang
+        }
+
+        return $users;
+    }
+
+    public function addAccount($data){
+        DB::table('users')->insert($data);
+    }
+
+    public function updateAccount($data, $id){
+        $data[] = $id;
+        return DB::select('UPDATE users
+            SET name=?, phone=?,email=?, username=?, password=?, repassword=?, role=?, active=?, updated_at=?
+            WHERE id = ?',$data);
+    }
+
+
     public function getDetail($id){
-       // return DB::select('SELECT * FROM '.$this->table.' WHERE id = ?',[$id]);
-       return DB::table($this->table)
-       ->join('role', '.users.role', 'role.id')
-       ->select('users.*', 'role.nameRole');
+        return DB::select('SELECT * FROM users WHERE id = ?',[$id]);
     }
 
 

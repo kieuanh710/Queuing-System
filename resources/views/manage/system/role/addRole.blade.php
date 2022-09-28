@@ -36,89 +36,30 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="">Tên vai trò *</label>
+                                    <label for="">Phân quyền chức năng*</label>
                                     <div class="function-box scrollbar scrollbar-primary">
                                         <div class="function force-overflow">
-                                            <span>Nhóm chức năng A</span>
+                                            <label for="function">Nhóm chức năng A</label>
                                             <div class="function-list">
                                                 <div class="function-item">
-                                                    <input type="checkbox" class="function-tick">
-                                                    <span>Tất cả</span>
+                                                    <input type="checkbox" name="function[]" value="1" class="function-tick">
+                                                    <span>Admin</span>
                                                 </div>
                                                 <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng x</span>
+                                                    <input type="checkbox" name="function[]" value="2" class="function-tick">
+                                                    <span>Bảo vệ</span>
                                                 </div>
                                                 <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng y</span>
+                                                    <input type="checkbox" name="function[]" value="3" class="function-tick">
+                                                    <span>Kế toán</span>
                                                 </div>
                                                 <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng z</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="function force-overflow">
-                                            <span>Nhóm chức năng B</span>
-                                            <div class="function-list">
-                                                <div class="function-item">
-                                                    <input type="checkbox" class="function-tick">
-                                                    <span>Tất cả</span>
+                                                    <input type="checkbox" name="function[]" value="4" class="function-tick">
+                                                    <span>Bác sĩ</span>
                                                 </div>
                                                 <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng x</span>
-                                                </div>
-                                                <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng y</span>
-                                                </div>
-                                                <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng z</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="function force-overflow">
-                                            <span>Nhóm chức năng C</span>
-                                            <div class="function-list">
-                                                <div class="function-item">
-                                                    <input type="checkbox" class="function-tick">
-                                                    <span>Tất cả</span>
-                                                </div>
-                                                <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng x</span>
-                                                </div>
-                                                <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng y</span>
-                                                </div>
-                                                <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng z</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="function force-overflow">
-                                            <span>Nhóm chức năng C</span>
-                                            <div class="function-list">
-                                                <div class="function-item">
-                                                    <input type="checkbox" class="function-tick">
-                                                    <span>Tất cả</span>
-                                                </div>
-                                                <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng x</span>
-                                                </div>
-                                                <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng y</span>
-                                                </div>
-                                                <div class="function-item">
-                                                    <input type="checkbox">
-                                                    <span>Chức năng z</span>
+                                                    <input type="checkbox" name="function[]" value="5" class="function-tick">
+                                                    <span>Y tá</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,9 +67,7 @@
                                     
                                 </div>
                             </div>
-                            
                         </div>
-
                     </div>
                 </div>
                 

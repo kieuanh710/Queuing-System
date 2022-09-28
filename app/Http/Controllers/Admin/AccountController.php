@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Account;
+use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class AccountController extends Controller
 
     const _PER_PAGE = 10; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
-        $this->accounts = new Account();
+        $this->accounts = new User();
         $this->roles = new Role();
 
     }
@@ -26,24 +26,14 @@ class AccountController extends Controller
         $title = 'Danh sách tài khoản';
 
         // Check click active
-        $filters = [];
-        if(!empty($request->active)){
-            $active = $request->active;
-            if($active=='active'){
-                $active = 1;
-            } else{
-                $active = 0;
-            }
-            $filters[] = ['accounts.active', '=', $active];
-        }
-
-        $accountList = $this->accounts->getAllAccount($filters, self::_PER_PAGE);
-        $roleList = $this->roles->getAllRole();
+        $accountList = $this->accounts->getAllUser(self::_PER_PAGE);
+        $roleList = $this->roles->getAllRole(self::_PER_PAGE);
         return view('manage.system.account.main', compact('title', 'roleList', 'accountList'));
     }
     public function add(){
         $title = 'Thêm tài khoản';
-        $roleList = $this->roles->getAllRole();
+        $roleList = $this->roles->getAllRole(self::_PER_PAGE);
+        // dd($roleList);
         return view('manage.system.account.addAccount', compact('title', 'roleList'));
     }
     public function postAdd(Request $request){
@@ -55,7 +45,7 @@ class AccountController extends Controller
                 'password' => 'required|min:6',
                 'repassword' => 'required',
                 'email' => 'required',
-                'id_role' => 'required',
+                'role' => 'required',
                 'active' => 'required',
             ],
             [
@@ -66,7 +56,7 @@ class AccountController extends Controller
                 'username.unique' => 'Tên người dùng đã tồn tại vui lòng nhập tên khác',
                 'password.required' => 'Password ít nhất 6 kí tự',
                 'repassword.required' => 'Password chưa đúng',
-                'id_role.required' => 'Nhập vai trò tài khoản',
+                'role.required' => 'Nhập vai trò tài khoản',
                 'active.required' => 'Chọn trạng thái sử dụng',
             ]);
         // $this->accountService->create($request);
@@ -77,7 +67,7 @@ class AccountController extends Controller
             'username' => $request->username,
             'password' => $request->password,
             'repassword' => $request->repassword,
-            'id_role' => $request->id_role,
+            'role' => $request->role,
             'active' => $request->active,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
@@ -102,7 +92,8 @@ class AccountController extends Controller
         else {
             return redirect()->route('account')->with('success', 'Liên kết không tồn tại');
         }
-        $roleList = $this->roles->getAllRole();
+        $roleList = $this->roles->getAllRole(self::_PER_PAGE);
+        // dd($roleList);
         return view('manage.system.account.updateAccount', compact('title', 'accountDetail', 'roleList'));
     }
     public function postUpdate(Request $request){
@@ -114,7 +105,7 @@ class AccountController extends Controller
                 'password' => 'required|min:6',
                 'repassword' => 'required',
                 'email' => 'required',
-                'id_role' => 'required',
+                'role' => 'required',
                 'active' => 'required',
             ],
             [
@@ -124,7 +115,7 @@ class AccountController extends Controller
                 'username.required' => 'Nhập tên người dùng',
                 'password.required' => 'Password ít nhất 6 kí tự',
                 'repassword.required' => 'Password chưa đúng',
-                'id_role.required' => 'Nhập vai trò tài khoản',
+                'role.required' => 'Nhập vai trò tài khoản',
                 'active.required' => 'Chọn trạng thái sử dụng',
             ]);
         $id = session('id');
@@ -138,7 +129,7 @@ class AccountController extends Controller
             $request -> username,
             $request -> password,
             $request -> repassword,
-            $request -> id_role,
+            $request -> role,
             $request -> active,
             date('Y-m-d H:i:s')
         ];
@@ -153,7 +144,7 @@ class AccountController extends Controller
         $request->get('searchFilter');
 
         $accounts = $this->accounts
-        ->join('role', 'accounts.id_role', 'role.id')
+        ->join('role', 'users.role', 'role.id')
         ->join('active', 'accounts.active', 'active.id')
         ->select('accounts.*', 'role.nameRole', 'active.nameStatus')
         ->where('username', 'like', '%'.$request->get('searchFilter').'%')
@@ -168,10 +159,10 @@ class AccountController extends Controller
         // $data = $request->get('selectValue');
         if($request->ajax()){
             $accounts = $this->accounts
-            ->join('role', 'accounts.id_role', 'role.id')
+            ->join('role', 'accounts.role', 'role.id')
             ->join('active', 'accounts.active', 'active.id')
             ->select('accounts.*', 'role.nameRole', 'active.nameStatus')
-            ->where(['id_role'=> $request->selectValue])
+            ->where(['role'=> $request->selectValue])
             ->get();
     
             return response()->json(['accounts'=>$accounts]);

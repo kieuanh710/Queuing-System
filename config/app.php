@@ -181,6 +181,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
         * Package Service Providers...
         */
@@ -196,6 +197,7 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         // avatar
         Intervention\Image\ImageServiceProvider::class,
+
 
     ],
 
@@ -214,6 +216,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'LogActivity' => App\Helpers\LogActivity::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         ])->toArray(),
 
 ];

@@ -48,7 +48,6 @@ class HistoryController extends Controller
                 // ->whereBetween('created_at', [$start, $end])
                 ->whereDate('created_at', '>=', $start)
                 ->whereDate('created_at', '<=', $end)
-                ->where('username', 'like', '%'.$request->get('search').'%')
                 ->where('subject', 'like', '%'.$request->get('search').'%')  
                 ->get();
             } 
@@ -56,8 +55,7 @@ class HistoryController extends Controller
                 $histories = $this->histories
                 ->whereDate('created_at', '>=', $start)
                 ->whereDate('created_at', '<=', $end)
-                ->where('username', 'like', '%'.$request->get('search').'%')
-                ->orwhere('subject', 'like', '%'.$request->get('search').'%')   
+                ->where('subject', 'like', '%'.$request->get('search').'%')   
                 ->get();
             }
             return json_encode($histories);

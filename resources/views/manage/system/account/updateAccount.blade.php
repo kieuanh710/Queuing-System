@@ -53,7 +53,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Vai trò *</label>
-                            <select name="id_role" id="id_role" class="form-control filter-active">
+                            <select name="role" id="role" class="form-control filter-active">
                                 @foreach ($roleList as $list)
                                     <option value="{{$list->id}}">{{$list->nameRole}}</option>
                                 @endforeach

@@ -188,14 +188,9 @@
                         <th>'+value.active+'</th>\
                         <th>'+value.connect+'</th>\
                         <th>'+value.service+'</th>\
-                        <th><a href="{{route('device.update', ['id' => '+$value->id+'])}}">Cập nhật</a></th>\
+                        <th>'+'<a href="{{route('device.detail', ['id'=>$item->id])}}">'+'Chi tiết</a>'+'</th>\
+                        <th>'+'<a href="{{route('device.update', ['id'=>$item->id])}}">'+'Cập nhật</a>'+'</th>\
                         </tr>';
-                        // <th>'+'<a href="device/'+$value->id+'/detail">'+'Chi tiết</a>'+'</th>\
-                        // <td>'+'<a href="device/'+$value->id+'/update">'+'Cập nhật</a>'+'</td>\
-
-                  
-                    //     <td>'+'<a href="device/'+$value->id+'/detail">'+'Chi tiết</a>'.'</td>\
-                    //     <td>'+'<a href="device/'+$value->id+'/update">'+'Cập nhật</a>''</td>\
 
                     $('tbody').append(table)
                     // console.log(table);

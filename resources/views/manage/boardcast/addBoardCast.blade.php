@@ -74,8 +74,8 @@
             <div class="pop-up--content">
                 <h6>Số thứ tự được cấp</h6>
                 
-                <span>safdfsd</span>
-                <p>DV:Khám răng hàm mặt (Tại quầy số 1)</p>
+                <span id="number"></span>
+                <p id="nameService">DV:Khám răng hàm mặt (Tại quầy số 1)</p>
     
             </div>
         </div>
@@ -85,7 +85,7 @@
                     <span>Thời gian cấp: </span>
                 </div>
                 <div class="pop-up--time">
-                    <span id="time">đến</span>
+                    <span id="time"></span>
                 </div>
             </div>
             <div class="pop-up--item">
@@ -93,7 +93,7 @@
                     <span>Hạn sử dụng: </span>
                 </div>
                 <div class="pop-up--expiry">
-                    <span id="expired">đến</span>
+                    <span id="expired"></span>
                 </div>
             </div>
         </div>
@@ -102,4 +102,45 @@
 
 
 
+@endsection
+
+
+@section('script')
+<script>
+    var i =0;
+    function getValue() {
+        i++;
+        $(document).ready(function(){
+            var tendichvu = jQuery( "#select option:selected" ).text();
+                var madichvu = jQuery('#select').val();
+                var x = new Date();
+                var thoigiancap = x.toLocaleDateString() + ' ' + x.toLocaleTimeString();
+                var hansd = x.toLocaleDateString() + ' 17:30:00 ';
+                var y = String(i).padStart(4, '0'); 
+                var stt = madichvu + y;
+                
+                
+                document.getElementById("tendichvu").innerHTML = tendichvu;
+                document.getElementById("thoigiancap").innerHTML = thoigiancap;
+                document.getElementById("hansd").innerHTML = hansd;
+                document.getElementById("stt").innerHTML = stt;
+                
+                
+                $.ajax({
+                    type: "GET",
+                    url: '',
+                    data: { 
+                        number:number,
+                        nameService: nameService,
+                        start_time: start_time,
+                        expired: expired,
+                    },
+                    
+                });   
+            
+                
+            
+        });
+    }
+</script>
 @endsection

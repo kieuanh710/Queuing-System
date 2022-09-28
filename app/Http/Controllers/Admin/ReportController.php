@@ -4,23 +4,31 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Report;
+use App\Models\BoardCast;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\LogActivity;
+use App\Exports\ReportsExport;
+use Maatwebsite\Excel\Facades\Excel;
 class ReportController extends Controller
 {
-    private $reports;
+    private $boardcasts;
+    private $services;
 
     const _PER_PAGE = 10; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
-        $this->reports = new Report();
+        $this->boardcasts = new BoardCast();
+        $this->services = new Service();
     }
-    //Danh sách thiết bị
-    public function index(){
-        $title = 'Quản lý báo cáo';
-        // $reportsList = $this->reports->getAllDevice();
-        LogActivity::addToLog('Xem danh sách báo cáo', Auth::user()->username, now());
-
-        return view('manage.report', compact('title'));
+    //Danh sách cấp số
+    public function index(Request $request){
+        $title = 'Quản lý cấp số';
+     
+        $boardcastList = $this->boardcasts->getAllBoardCast(self::_PER_PAGE);
+        $serviceList = $this->services->getAllService();
+        return view('manage.report', compact('title', 'boardcastList', 'serviceList'));
+    }
+    public function export(){
+        return Excel::download(new ReportsExport, 'report.xlsx');
     }
 }

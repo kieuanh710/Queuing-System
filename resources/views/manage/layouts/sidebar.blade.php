@@ -19,24 +19,25 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('device')}}">
             <i class="icon fas fa-light fa-desktop"></i>
+            {{-- <img src="/assets/img/monitor.png" alt=""> --}}
             <span>Thiết bị</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{route('service')}}">
-            <img src="/assets/img/Frame 332.png" alt="" class="icon">
+            <img src="/assets/img/service.png" alt="">
             <span>Dịch vụ</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{route('boardcast')}}">
-            <img src="/assets/img/icon dasboard03.png" alt="" class="icon">
+            <img src="/assets/img/boardcast.png" alt="">
             <span>Cấp số</span>
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{route('report')}}">
-            <img src="/assets/img/Frame (1).png" alt="" class="icon">
+            <img src="/assets/img/report.png" alt="">
             <span>Báo cáo</span>
         </a>
     </li>

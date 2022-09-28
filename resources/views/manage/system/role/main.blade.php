@@ -22,7 +22,7 @@
                     <div class="form-group active-status">
                         <span>Từ khóa</span>
                         <div class="search-btn">
-                            <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
+                            <input name="keyword" id="search" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
                             <i class="search-icon fas fa-search fa-sm"></i>
                         </div>
                     </div>
@@ -37,13 +37,10 @@
         <div class="card-body main">
             @include('admin.alert')
             <div class="table-responsive">
-                <!-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> -->
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Tên vai trò</th>
-                            {{-- sort by
-                            <th><a href="?sort-by=nameDevice&sort-type={{$sortType}}">Tên thiết bị</a></th> --}}
                             <th>Số người dùng</th>
                             <th>Mô tả</th>
                             <th>&nbsp;</th>
@@ -51,59 +48,35 @@
                     </thead>
 
                     <tbody> 
-                        
-                        {{-- @if(!empty($roleList))
-                            @foreach ($roleList as $key => $item)
-                        <tr>
-                           
-                            <th>{{$item->nameRole}}</th>
-                            @foreach($countList as $count =>$item)
-
-                                <th>{{$item->count}}</th>
-                                @endforeach
-                            <th>{{$item->desRole}}</th> --}}
-                            {{-- <th>{!!$item->active==0?'
-                                <div class="circle circle-error"></div>
-                                    Ngưng hoạt động
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Hoạt động'!!}
-                            </th>
-                            <th>{!!$item->connect==0?'
-                                <div class="circle circle-error"></div>
-                                    Mất kết nối
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Kết nối'!!}
-                            </th>
-                            <th>
-                                {{$item->service}}
-                                <div id="target" class="collapse">
-                                    {{$item->service}}
-                                 </div>
-                                 @if($item->service > 1){
-                                     <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
-                                 }
-                                 @endif 
-                            </th> --}}
-
-                        
-                            {{-- <th><a href="{{route('role.update', ['id'=>$item->id])}}">Cập nhật</a></th>
-                        </tr>
-                        @endforeach
+                        @if(!empty($roleList))
+                            @foreach ($roleList as $key => $role)
+                            <tr>
+                                <th>{{$role->nameRole}}</th>
+                                <?php $i=0;?>
+                                @foreach($accountList as $key => $users)
+                                    @if ($users->role == $role->id)
+                                        <?php $i++;?>
+                                    @endif
+                                @endforeach 
+                                <td>{{$i}}</td>
+                               
+                                <th>{{$role->desRole}}</th>
+                                <th><a href="{{route('role.update', ['id'=>$role->id])}}">Cập nhật</a></th>
+                            </tr>
+                            @endforeach
                         @else 
-                        <tr>
-                            <td colspan="4">no data</td>
-                        </tr>
-                        @endif --}}
+                            <tr>
+                                <td colspan="4">no data</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    {{-- <div class="d-flex justify-content-end">
-        {{$deviceList->Links()}}
-    </div> --}}
+    <div class="d-flex justify-content-end">
+        {{$roleList->Links()}}
+    </div>
 </div>
 <div class="add">
     <a href="{{route('role.add')}}">
@@ -112,4 +85,46 @@
     </a>
 </div>
 
+@endsection
+
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#search').on('keyup', function() {
+            getUsers();
+        });
+    });
+    function getUsers(){
+        var search = $('#search').val();
+        $.ajax({
+            method:'get',
+            url:'{{route('filterSearchRole')}}',
+            dataType: 'json',
+            data:{
+                search:search,
+            },
+            success:function(data){
+                // console.log(data);
+                // $('tbody').html(data);
+                var table = '';
+                $('tbody').html('');
+                $.each(data, function(index, value){
+                    table = 
+                    '<tr>\
+                        <th>'+value.nameRole+'</th>\
+                        <th>'+value.count+'</th>\
+                        <th>'+value.desRole+'</th>\
+                        <th>'+'<a href="{{route('role.update', ['id'=>$role->id])}}">'+'Cập nhật</a>'+'</th>\
+                        </tr>';
+
+                    $('tbody').append(table)
+                    // console.log(table);
+                })
+            }
+
+        });
+    };
+
+</script>
 @endsection

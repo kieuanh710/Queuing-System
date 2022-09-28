@@ -11,16 +11,14 @@ class Account extends Model
     use HasFactory;
     protected $table = 'accounts';
     protected $fillable = [
-        'username', 'name', 'phone', 'email', 'id_role', 'active'
+        'username', 'name', 'phone', 'email', 'role', 'active'
     ];
     protected $guarded = [];
     public function getAllAccount($filters=[], $perPage=null){
-        //$accounts = DB::select('SELECT * FROM accounts ORDER BY id ASC');
-        //DB::enableQueryLog();
         $accounts = DB::table($this->table)
-        ->join('role', 'accounts.id_role', 'role.id')
+        ->join('roles', 'accounts.role', 'roles.id')
         ->join('active', 'accounts.active', 'active.id')
-        ->select('accounts.*', 'role.nameRole', 'active.nameStatus');
+        ->select('accounts.*', 'roles.nameRole', 'active.nameStatus');
 
         if(!empty($filters)){
             $accounts = $accounts->where($filters);
@@ -47,7 +45,7 @@ class Account extends Model
     public function updateAccount($data, $id){
         $data[] = $id;
         return DB::select('UPDATE '.$this->table.' 
-            SET name=?, phone=?,email=?, username=?, password=?, repassword=?, id_role=?, active=?, updated_at=?
+            SET name=?, phone=?,email=?, username=?, password=?, repassword=?, role=?, active=?, updated_at=?
             WHERE id = ?',$data);
     }
 }

@@ -7,13 +7,15 @@ use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\LogActivity;
 use Carbon\Carbon;
+use App\Models\BoardCast;
 class ServiceController extends Controller
 {
-    private $services;
+    private $services, $boardcasts;
 
     const _PER_PAGE = 10; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
         $this->services = new Service();
+        $this->boardcasts = new BoardCast();
     }
 
     //Danh sách thiết bị
@@ -93,9 +95,11 @@ class ServiceController extends Controller
     // Thông tin chi tiết
     public function detail(Request $request){
         $title = 'Chi tiết thiết bị';
+
         LogActivity::addToLog('Xem chi tiết dịch vụ', Auth::user()->username, now());
         $detail = Service::where('id', $request->id)->first();
-        return view('manage.service.detailService', compact ('title', 'detail'));
+        $boardcastList= $this->boardcasts->getAllBoardCast(self::_PER_PAGE);
+        return view('manage.service.detailService', compact ('title', 'detail', 'boardcastList'));
     }
 
     public function getUsers(Request $request){
@@ -117,8 +121,7 @@ class ServiceController extends Controller
             // filter
             if($active == 0 && $start == null &&  $end == null){
                 $services = $this->services
-                ->where('nameService', 'like', '%'.$request->get('search').'%')   
-                ->where('desService', 'like', '%'.$request->get('search').'%')   
+                ->where('nameService', 'like', '%'.$request->get('search').'%')    
                 ->get();
             } 
             elseif($start != null ||  $end != null){
@@ -127,14 +130,12 @@ class ServiceController extends Controller
                 ->whereDate('created_at', '>=', $start)
                 ->whereDate('created_at', '<=', $end)
                 ->where('nameService', 'like', '%'.$request->get('search').'%')   
-                ->where('desService', 'like', '%'.$request->get('search').'%')   
                 ->get();
             } 
             elseif($active != 0 && $start == null || $end == null){
                 $services = $this->services
                 ->where('active', $request->active)
                 ->where('nameService', 'like', '%'.$request->get('search').'%')   
-                ->where('desService', 'like', '%'.$request->get('search').'%')   
                 ->get();
             }
             else{
@@ -142,7 +143,6 @@ class ServiceController extends Controller
                 ->whereBetween('created_at', array([$start, $end])) 
                 ->where('active', $request->connect) 
                 ->where('nameService', 'like', '%'.$request->get('search').'%')   
-                ->where('desService', 'like', '%'.$request->get('search').'%')   
                 ->get();
             }
             return json_encode($services);

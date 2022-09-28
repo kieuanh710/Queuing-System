@@ -10,10 +10,37 @@ class Role extends Model
 {
     use HasFactory;
     protected $table = 'roles';
-   
-    protected $guarded = [];
-    public function getAllRole(){
-        $roles = DB::table($this->table)->get();
+    public function getAllRole($perPage=null){
+        $roles = DB::table($this->table);
+        //Pagination
+        if(!empty($perPage)){
+            $roles = $roles->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x
+        }else{
+            $roles = $roles->get(); // khong phan trang
+        }
         return $roles;
     }
+    
+    public function addRole($data){
+        // Insert thành công -> true
+        DB::table($this->table)->insert($data);
+    }
+    public function getDetail($id){
+        return DB::select('SELECT * FROM '.$this->table.' WHERE id = ?',[$id]);
+    }
+    public function updateRole($data, $id){
+        $data[] = $id;
+        return DB::select('UPDATE '.$this->table.' 
+            SET nameRole=?, desRole=?, updated_at=?
+            WHERE id = ?',$data);
+    }
+    public function count(){
+        $count= DB::table('roles')
+        ->join('users', 'users.role', 'roles.id')
+        ->select('users.role', '=', 'roles.id')
+        ->count(); 
+        
+        return $count;    
+    }
+
 }

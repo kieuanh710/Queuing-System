@@ -13,11 +13,12 @@
                 <div class="col-sm-3">
                     <div class="form-group active-status">
                         <span>Tên vai trò</span>
-                        <select name="id_role" id="id_role" class="form-control filter-active">
+                        <select name="role" id="role" class="form-control filter-active">
                             <option value="0">Tất cả</option>
                             @foreach ($roleList as $list)
                             <option value="{{$list->id}}">{{$list->nameRole}}</option>
                             @endforeach
+                            </div>
                         </select>
                     </div>
                 </div>
@@ -143,7 +144,7 @@
 
 {{-- <script type="text/javascript">
     $(document).ready(function(){
-        $("#id_role").on('change', function(){
+        $("#role").on('change', function(){
             var selectValue = $(this).val();
             //alert(selectValue); //id role table
             $.ajax({

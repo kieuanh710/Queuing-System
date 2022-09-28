@@ -12,8 +12,8 @@
                 <div class="col-sm-2">
                     <div class="form-group active-status">
                         <span>Tên dịch vụ</span>
-                        <select name="service" class="form-control filter-active">
-                            <option value="0">Tất cả</option>
+                        <select name="service" id="service" class="form-control filter-active">
+                            <option selected="selected" value="0">Tất cả</option>
                             @foreach ($serviceList as $list)
                             <option value="{{$list->id}}">{{$list->nameService}}</option>
                             @endforeach
@@ -23,9 +23,9 @@
                 <div class="col-sm-2">
                     <div class="form-group active-status">
                         <span>Tình trạng</span>
-                        <select name="status" class="form-control filter-active">
+                        <select name="status" id="status" class="form-control filter-active">
                             <div class="filter-active--item">
-                                <option value="0">Tất cả</option>
+                                <option selected="selected" value="0">Tất cả</option>
                                 <option value="1" {{request()->status=='1'?'selected':false}}>Đang chờ</option>
                                 <option value="2" {{request()->status=='2'?'selected':false}}>Đã sử dụng</option>
                                 <option value="3" {{request()->status=='3'?'selected':false}}>Bỏ qua</option>
@@ -36,9 +36,9 @@
                 <div class="col-sm-2">
                     <div class="form-group active-status">
                         <span>Nguồn cấp</span>
-                        <select name="supply" class="form-control filter-active">
+                        <select name="source" id="source" class="form-control filter-active">
                             <div class="filter-active--item">
-                                <option value="0">Tất cả</option>
+                                <option selected="selected" value="0">Tất cả</option>
                                 <option value="1" {{request()->supply=='Kiosk'?'selected':false}}>Kiosk</option>
                                 <option value="2" {{request()->supply=='System'?'selected':false}}>Hệ thống</option>
                             </div>
@@ -75,7 +75,7 @@
                     <div class="form-group active-status">
                         <span>Từ khóa</span>
                         <div class="search-btn">
-                            <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
+                            <input  name="search" id="search" placeholder="Nhập từ khóa" class="search" >
                             <i class="search-icon fas fa-search fa-sm"></i>
                         </div>
                     </div>
@@ -110,45 +110,32 @@
                     <tbody> 
                         @if(!empty($boardcastList))
                             @foreach ($boardcastList as $key => $item)
-                        <tr>
-                            <th>{{$item->idBoardCast}}</th>
-                            <th>{{$item->name}}</th>
-                            <th>{{$item->nameService}}</th>
-                            <th>{{$item->start_time}}</th>
-                            <th>{{$item->expired}}</th>
-                            <th>{!!$item->active==2?'
-                                <div class="circle circle-error"></div>
-                                    Ngưng hoạt động
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Hoạt động'!!}
-                            </th>
-                            <th>{!!$item->status==0?'
-                                <div class="circle circle-error"></div>
-                                    Mất kết nối
-                                '
-                                :'<div class="circle circle-success"></div>
-                                    Kết nối'!!}
-                            </th>
-                            <th>
-                                {{$item->service}}
-                                {{-- <div id="target" class="collapse">
-                                    {{$item->service}}
-                                 </div>
-                                 @if($item->service > 1){
-                                     <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
-                                 }
-                                 @endif --}}
-                            </th>
-
-                            <th><a href="{{route('service.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
-                            <th><a href="{{route('service.update', ['id'=>$item->id])}}">Cập nhật</a></th>
-                        </tr>
+                                <tr>
+                                    <th>{{$item->idBoardCast}}</th>
+                                    <th>{{$item->name}}</th>
+                                    <th>{{$item->nameService}}</th>
+                                    <th>{{$item->start_date}}</th>
+                                    <th>{{$item->end_date}}</th>
+                                    <th>
+                                        @if ($item->status == 1)
+                                        <div class="circle circle-success"></div>
+                                            Đang chờ
+                                        @elseif ($item->status == 2)
+                                          <div class="circle circle-success"></div>
+                                            Đã sử dụng
+                                          @else
+                                          <div class="circle circle-success"></div>
+                                            Bỏ qua
+                                        @endif
+                                    </th>
+                                    <th>{{$item->source}}</th>
+                                    <th><a href="{{route('boardcast.detail', ['id'=>$item->id])}}">Chi tiết</a></th>                              
+                                </tr>
                         @endforeach
                         @else 
-                        <tr>
-                            <td colspan="4">no data</td>
-                        </tr>
+                            <tr>
+                                <td colspan="4">no data</td>
+                            </tr>
                         @endif
                     </tbody>
                 </table>
@@ -175,26 +162,31 @@
         $('#search').on('keyup', function () {
             getUsers();
         });
-        
-        $('#active').on('change', function () {
-            getUsers();
-        });
-        $('#start').on('change', function () {
-            getUsers();
-        });
-        $('#end').on('change', function () {
-            getUsers();
-        });
+        // $('#service').on('change', function () {
+        //     getUsers();
+        // });
+        // $('#status').on('change', function () {
+        //     getUsers();
+        // }); 
+        // $('#source').on('change', function () {
+        //     getUsers();
+        // });
+        // $('#start').on('change', function () {
+        //     getUsers();
+        // });
+        // $('#end').on('change', function () {
+        //     getUsers();
+        // });
     });
 
     function getUsers() {
         var search = $('#search').val();
-        var active = $('#active option:selected').val();
-        var start = $('#start').val();
-        var end = $('#end').val();
+        // var status = $('#status option:selected').val();
+        // var service = $('#service option:selected').val();
+        // var source = $('#source option:selected').val();
+        // var start = $('#start').val();
+        // var end = $('#end').val();
 
-        // alert(active);
-        // alert(start);
         // alert(search);
 
         $.ajax({
@@ -202,34 +194,46 @@
             url: '{{route('filterSearchBoardCast')}}',
             dataType: 'json',
             data: {
-                active: active,
-                start: start,
-                end: end,
+                // status: status,
+                // service: service,
+                // source: source,
+                // start: start,
+                // end: end,
                 search: search,
             },
             success: function (data) {
                 console.log(data);
                 $('tbody').html(data);
-                var table = '';
-                $('tbody').html('');
-                $.each(data, function (index, value) {
-                    if (value.active == 1) {
-                        value.active = "Hoạt động";
-                    } else {
-                        value.active = "Ngưng hoạt động";
-                    }
+                // var table = '';
+                // $('tbody').html('');
+                // $.each(data, function (index, value) {
+                //     if (value.status == 1) {
+                //         value.status = "Đang chờ";
+                //     } elseif (value.status == 2) {
+                //         value.status = "Đã sử dụng";
+                //     } else{
+                //         value.status = "Bỏ qua";
+                //     }
 
-                    table =
-                        '<tr>\
-                        <th>'+ value.idService + '</th>\
-                        <th>'+ value.nameService + '</th>\
-                        <th>'+ value.desService + '</th>\
-                        <th>'+ value.active + '</th>\
-                        <th><a href="{{route('service.update', ['id' => ' + $value -> id + '])}}">Cập nhật</a></th>\
-                        </tr>';
-                    $('tbody').append(table)
-                    // console.log(table);
-                })
+                //     if (value.source == 1) {
+                //         value.source = "Kiosk";
+                //     } else{
+                //         value.source = "Hệ thống";
+                //     }
+
+                //     table =
+                //         '<tr>\
+                //         <th>'+ value.number + '</th>\
+                //         <th>'+ value.name + '</th>\
+                //         <th>'+ value.nameService + '</th>\
+                //         <th>'+ value.start_date + '</th>\
+                //         <th>'+ value.start_date + '</th>\
+                //         <th>'+ value.source + '</th>\
+                //         <th><a href="{{route('service.update', ['id' => ' + $value -> id + '])}}">Cập nhật</a></th>\
+                //         </tr>';
+                //     $('tbody').append(table)
+                //     // console.log(table);
+                // })
             }
 
         });

@@ -332,6 +332,15 @@
     background: #E73F3F;
     border: 0.1875em solid #E73F3F;
   }
+  .circle-done{
+    background: #5490eb;
+    border: 0.1875em solid #5490eb;
+  }
+  .circle-absent{
+    background: #6c7585;
+    border: 0.1875em solid #6c7585;
+  }
+ 
   .table.table-striped tbody tr:nth-child(even){
     background-color: #FFF2E7;
   }
@@ -628,7 +637,7 @@ padding: 10px 12px;
   padding-left: 24px;
   padding-top: 16px;
 }
-.function span{
+.function label{
   padding-left: 0 !important;
   font-weight: 700;
   font-size: 20px;
@@ -745,6 +754,7 @@ padding: 10px 12px;
 .icon-heading{
   display: flex;
   align-items: center;
+  padding: 8px 12px;
 }
 
 .icon-heading span{
@@ -763,6 +773,8 @@ margin-right: 10px;
   border-radius: 7.18115px;
   padding: 2px 3px;
   color: #FF7506;
+  right: 0;
+  position: absolute;
 }
 .icon-heading p i{
   font-size: 16px;
@@ -775,6 +787,7 @@ margin-right: 10px;
   box-shadow: 0px 4px 6px rgba(219, 219, 219, 0.5);
   border-radius: 8px 0px 0px 8px;
   width: 400px;
+  margin-left: 25px;
 }
 
 .menubar-list{
@@ -794,19 +807,25 @@ align-items: center;
 justify-content: center;
 margin-top: 8px;
 }
+.report-num .percent{
+  position: relative;
+  right: 10px;
+  top: -2px;
+}
 .report-num span{
   font-family: 'Nunito';
-font-style: normal;
-font-weight: 700;
-font-size: 14px;
-line-height: 24px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
 
-color: #535261;
-/* background: #FF7506; */
-border-radius: 10px;
-margin-right: 14px
+  color: #535261;
+  border-radius: 10px;
+  margin-right: 14px
 }
 .report-num--text{
+  position: relative;
+  left: 30px;
 
 }
 .report-num--text span{
@@ -827,9 +846,11 @@ margin-right: 14px
   color: #FF7506;
 
 }
-.report-num--text p i{
-  margin-right: 4px;
 
+.report-num--text img{
+  margin-right: 4px;
+  width: 14px;
+  height: 14px;
 }
 .report-num--des{
   padding-top: 14px;
@@ -849,6 +870,22 @@ font-weight: 700;
 font-size: 14px;
 line-height: 18px;
 color: #FF7506;
+}
+.numbDV, .numbSV, .numbBC {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px !important;
+  line-height: 18px !important;
+}
+.numbDV{
+  color: #FF7506 !important;
+}
+.numbSV{
+  color: #4277FF !important;
+}
+.numbBC{
+  color: #35C75A !important;
 }
 
 /* chart */

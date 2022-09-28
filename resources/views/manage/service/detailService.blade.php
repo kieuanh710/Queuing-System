@@ -1,6 +1,6 @@
 @extends('manage.layouts.main')
 @section('heading')
-    {{ Breadcrumbs::render('detailService') }}
+{{ Breadcrumbs::render('detailService') }}
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -12,6 +12,7 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Thông tin thiết bị</h6>
                 </div>
+                {{-- detail service --}}
                 <form action="" method="get">
                     <div class="card-body">
                         <div class="row">
@@ -33,10 +34,11 @@
                                     <span>{{$detail->desService}} </span>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </form>
+                {{-- boardcasts --}}
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Quy tắc cấp số</h6>
                 </div>
@@ -52,7 +54,7 @@
                                 <input type="text" name="">
                             </div>
                         </div>
-    
+
                         <div class="checkbox-item">
                             <div class="checkbox-item--first">
                                 <span>Prefix:</span>
@@ -81,27 +83,34 @@
                                 <div class="col-sm-3">
                                     <div class="form-group active-status">
                                         <span class="filter-title">Trạng thái hoạt động</span>
-                                        <select name="active" class="form-control filter-active">
+                                        <select name="status" id="status" class="form-control filter-active">
                                             <div class="filter-active--item">
-                                                <option value="0">Tất cả</option>
-                                                <option value="accomplished" {{request()->active=='active'?'selected':false}}>Đã hoàn thành</option>
-                                                <option value="active" {{request()->active=='inactive'?'selected':false}}>Đã thực hiện</option>
-                                                <option value="absent" {{request()->active=='inactive'?'selected':false}}>Vắng</option>
+                                                <option selected="selected" value="0">Tất cả</option>
+                                                <option value="1" {{request()->status=='1'?'selected':false}}>
+                                                    Đang chờ
+                                                </option>
+                                                <option value="2" {{request()->status=='2'?'selected':false}}>
+                                                    Đã sử dụng
+                                                </option>
+                                                <option value="3" {{request()->status=='3'?'selected':false}}>
+                                                    Bỏ qua
+                                                </option>
                                             </div>
                                         </select>
-                                        
                                     </div>
                                 </div>
-                                   
+
                                 <div class="col-sm-5">
                                     <form autocomplete="off">
                                         <div class="input-daterange">
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group active-status">
-                                                        <span class="filter-title" id="start-p" for="start">Start Date</span>
+                                                        <span class="filter-title" id="start-p" for="start">Start
+                                                            Date</span>
                                                         <i class="fa fa-calendar" id="fa-1"></i>
-                                                        <input type="text" id="start" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
+                                                        <input type="text" id="start"class= "form-control text-left mr-2 date"
+                                                            placeholder="dd/mm/yyyy">
                                                     </div>
                                                     <i class="fas fa-solid fa-caret-right"></i>
                                                 </div>
@@ -109,104 +118,158 @@
                                                     <div class="form-group active-status">
                                                         <span class="filter-title" id="end-p" for="end">End Date</span>
                                                         <i class="fa fa-calendar" id="fa-1"></i>
-                                                        <input type="text" id="end" class="form-control text-left mr-2 date"  placeholder="dd/mm/yyyy">
+                                                        <input type="text" id="end" class="form-control text-left mr-2 date"
+                                                            placeholder="dd/mm/yyyy">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
-                                </div>                       
-                            
+                                </div>
+
                                 <div class="col-sm-4">
                                     <div class="form-group active-status right">
                                         <span class="filter-title">Từ khóa</span>
                                         <div class="search-btn">
-                                            <input type="search" name="keyword" placeholder="Nhập từ khóa" class="search" value="{{request()->keyword}}">
+                                            <input name="keyword" id="search" placeholder="Nhập từ khóa"
+                                                class="search">
                                             <i class="search-icon fas fa-search fa-sm"></i>
                                         </div>
                                     </div>
                                 </div>
-                             </div>
-                        </div>
-                    </form>
-    
-                   
-                        <div class="card-body main">
-                            @include('admin.alert')
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Số thứ tự</th>
-                                            <th>Trạng thái</th>
-                                        </tr>
-                                    </thead>
-                    
-                                    <tbody> 
-                                            {{-- @if(!empty($serviceList))
-                                                @foreach ($serviceList as $key => $item)
-                                            <tr>
-                                                <th>{{$item->idDevice}}</th>
-                                                <th>{{$item->nameDevice}}</th>
-                                                <th>{{$item->ip_address}}</th>
-                                                <th>{!!$item->active==0?'
-                                                    <div class="circle circle-error"></div>
-                                                        Ngưng hoạt động
-                                                    '
-                                                    :'<div class="circle circle-success"></div>
-                                                        Hoạt động'!!}
-                                                </th>
-                                                <th>{!!$item->connect==0?'
-                                                    <div class="circle circle-error"></div>
-                                                        Mất kết nối
-                                                    '
-                                                    :'<div class="circle circle-success"></div>
-                                                        Kết nối'!!}
-                                                </th>
-                                                <th>
-                                                    {{$item->service}}
-                                                    {{-- <div id="target" class="collapse">
-                                                        {{$item->service}}
-                                                     </div>
-                                                     @if($item->service > 1){
-                                                         <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
-                                                     }
-                                                     @endif 
-                                                </th>
-                    
-                                                <th><a href="{{route('service.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
-                                                <th><a href="{{route('service.update', ['id'=>$item->id])}}">Cập nhật</a></th>
-                                            </tr>
-                                            @endforeach
-                                            @else 
-                                            <tr>
-                                                <td colspan="4">no data</td>
-                                            </tr>
-                                            @endif--}}
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
+                    </form>
 
+
+                    <div class="card-body main">
+                        @include('admin.alert')
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Số thứ tự</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if(!empty($boardcastList))
+                                    @foreach ($boardcastList as $key => $item)
+                                    <tr>
+                                        <th>{{$item->number}}</th>
+                                        <th>
+                                            @if ($item->status == 1)
+                                            <div class="circle circle-done"></div>
+                                            Đang chờ
+                                            @elseif ($item->status == 2)
+                                            <div class="circle circle-success"></div>
+                                            Đã sử dụng
+                                            @else
+                                            <div class="circle circle-absent"></div>
+                                            Bỏ qua
+                                            @endif
+                                        </th>
+
+                                    </tr>
+                                    @endforeach
+                                    @else
+                                    <tr>
+                                        <td colspan="4">no data</td>
+                                    </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
                 </div>
             </div>
-            
-        </div>
-        
-    </div>
-    <div class="button-link">
-        <div class="add">
-            <a href="{{route('service.update', ['id'=>$detail->id])}}">
-                <i class="fas fa-light fa-pen"></i>
-                <p>Cập nhật danh sách</p>
-            </a>
-        </div>
-        <div class="return">
-            <a href="{{route('service')}}">
-                <i class="fas fa-solid fa-rotate-left"></i>
-                <p>Quay lại</p>
-            </a>
         </div>
     </div>
+</div>
+<div class="button-link">
+    <div class="add">
+        <a href="{{route('service.update', ['id'=>$detail->id])}}">
+            <i class="fas fa-light fa-pen"></i>
+            <p>Cập nhật danh sách</p>
+        </a>
+    </div>
+    <div class="return">
+        <a href="{{route('service')}}">
+            <i class="fas fa-solid fa-rotate-left"></i>
+            <p>Quay lại</p>
+        </a>
+    </div>
+</div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        //getUsers();
+        $('#search').on('keyup', function () {
+            getUsers();
+        });
+
+        $('#status').on('change', function () {
+            getUsers();
+        });
+        $('#start').on('change', function () {
+            getUsers();
+        });
+        $('#end').on('change', function () {
+            getUsers();
+        });
+    });
+
+    function getUsers() {
+        var search = $('#search').val();
+        var status = $('#status option:selected').val();
+        var start = $('#start').val();
+        var end = $('#end').val();
+
+        // alert(active);
+        // alert(start);
+        // alert(search);
+
+        $.ajax({
+            method: 'get',
+            url: '{{route('filterGetBC')}}',
+            dataType: 'json',
+            data: {
+                status: status,
+                start: start,
+                end: end,
+                search: search,
+            },
+            success: function (data) {
+                console.log(data);
+        //         var table = '';
+        //         $('tbody').html('');
+        //         $.each(data, function (index, value) {
+        //             if (value.active == 1) {
+        //                 value.active = "Hoạt động";
+        //             } else {
+        //                 value.active = "Ngưng hoạt động";
+        //             }
+
+        //             table =
+        //                 '<tr>\
+        //                 <th>'+ value.idService + '</th>\
+        //                 <th>'+ value.nameService + '</th>\
+        //                 <th>'+ value.desService + '</th>\
+        //                 <th>'+ value.active + '</th>\
+        //                 <th>'+'<a href="{{route('service.detail', ['id'=>$item->id])}}">'+'Chi tiết</a>'+'</th>\
+        //                 <th>'+'<a href="{{route('service.update', ['id'=>$item->id])}}">'+'Cập nhật</a>'+'</th>\
+        //                 </tr>';
+        //             $('tbody').append(table)
+        //             // console.log(table);
+        //         })
+            }
+
+        });
+    };
+
+</script>
 @endsection
