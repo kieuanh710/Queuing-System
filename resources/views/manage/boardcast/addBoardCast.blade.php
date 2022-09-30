@@ -32,7 +32,7 @@
                     <a href="{{route('boardcast')}}" class="btn btn-primary btn-cancel">
                         <span> Hủy bỏ</span>
                     </a>
-                    <button type="button" onclick="postAdd()" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                         In số
                     </button>
                 </form>
@@ -83,15 +83,15 @@
 
 @section('script')
 <script type="text/javascript">
-    // $(document).ready(function () {
-    //     //getUsers();
-    //     $('#select').on('change', function () {
-    //         postAdd();
-    //     });
-    //     $('#submit').on('change', function () {
-    //         postAdd();
-    //     });
-    // });
+    $(document).ready(function () {
+        //getUsers();
+        $('#select').on('change', function () {
+            postAdd();
+        });
+        $('#submit').on('change', function () {
+            postAdd();
+        });
+    });
 
     var i = 0;
     function postAdd() {
