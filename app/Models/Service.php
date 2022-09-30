@@ -21,7 +21,7 @@ class Service extends Model
         }
         return $services;
     }
-    public function addBoardCast($data){
+    public function addService($data){
         DB::table($this->table)->insert($data);
     }
     public function getDetail($id){

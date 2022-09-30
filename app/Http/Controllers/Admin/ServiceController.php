@@ -124,12 +124,11 @@ class ServiceController extends Controller
                 ->where('nameService', 'like', '%'.$request->get('search').'%')    
                 ->get();
             } 
-            elseif($start != null ||  $end != null){
+            elseif($active == 0 &&$start != null ||  $end != null){
                 $services = $this->services
-                // ->whereBetween('created_at', [$start, $end])
                 ->whereDate('created_at', '>=', $start)
                 ->whereDate('created_at', '<=', $end)
-                ->where('nameService', 'like', '%'.$request->get('search').'%')   
+                ->where('nameService', 'like', '%'.$request->get('search').'%') 
                 ->get();
             } 
             elseif($active != 0 && $start == null || $end == null){
@@ -146,6 +145,56 @@ class ServiceController extends Controller
                 ->get();
             }
             return json_encode($services);
+        }
+    }
+
+
+
+    
+    public function getBoardCast(Request $request){
+        $search = $request->search;
+        $status = $request->status;
+        $start= $request->start;
+        $end = $request->end;
+
+        if($request->ajax()){
+            // search
+            if(!empty($search)) {
+                $request->get('search');
+                $boardcasts = $this->boardcasts
+                ->where('idBoardCast', 'like', '%'.$request->get('search').'%') 
+                ->get();
+            }
+            // filter
+            if($status != null){
+                $boardcasts = $this->boardcasts
+                ->where('status', $request->status)->get();
+            }
+            // if($status == 0 && $start == null &&  $end == null){
+            //     $boardcasts = $this->boardcasts 
+            //     ->get();
+            // } 
+            // elseif($start != null ||  $end != null){
+            //     $boardcasts = $this->boardcasts
+            //     // ->whereBetween('created_at', [$start, $end])
+            //     ->whereDate('created_at', '>=', $start)
+            //     ->whereDate('created_at', '<=', $end)                
+            //     ->get();
+            // } 
+            // elseif($status != 0 && $start == null || $end == null){
+            //     $boardcasts = $this->boardcasts
+            //     ->where('status', $request->status)
+            //     ->where('idBoardCast', 'like', '%'.$request->get('search').'%')   
+            //     ->get();
+            // }
+            // else{
+            //     $boardcasts = $this->boardcasts
+            //     ->whereBetween('created_at', array([$start, $end])) 
+            //     ->where('status', $request->connect)                 
+            //     ->where('idBoardCast', 'like', '%'.$request->get('search').'%') 
+            //     ->get();
+            // }
+            return json_encode($boardcasts);
         }
     }
 }

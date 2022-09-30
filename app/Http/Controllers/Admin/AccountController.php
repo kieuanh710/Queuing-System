@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Helpers\LogActivity;
 
 class AccountController extends Controller
@@ -65,8 +66,8 @@ class AccountController extends Controller
             'phone' => $request->phone,
             'email' => $request->email,
             'username' => $request->username,
-            'password' => $request->password,
-            'repassword' => $request->repassword,
+            'password' => Hash::make($request->password),
+            'repassword' => Hash::make($request->password),
             'role' => $request->role,
             'active' => $request->active,
             'created_at'=>date('Y-m-d H:i:s'),

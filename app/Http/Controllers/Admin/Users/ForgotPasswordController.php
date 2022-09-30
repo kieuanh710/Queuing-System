@@ -28,6 +28,7 @@ class ForgotPasswordController extends Controller
             'email.required' => 'Email not format',
             'email.exists' => 'Email không tồn tại, vui lòng nhập lại',
         ]);
+        $request->session()->put('key', $request->email);
         
         $user = User::whereEmail($request->email)->first();
         // kiem tra ton tai trong DB
@@ -67,28 +68,39 @@ class ForgotPasswordController extends Controller
 
     public function resetPassword(Request $request)
     {
+        $email = session('key');
+        if(empty($email)){
+            return back()->with('error', 'Liên kết không tồn tại');
+        }
         $request->validate([
             // 'email' => 'required|email|exists:users',
             'password' => 'required|string|min:6',
             'password_confirmation' => 'required'
         ]);
+        $user = User::findOrFail($email);
 
-        $updatePassword = DB::table('password_resets')
-                            ->where([
-                            'email' => $request->email, 
-                            'token' => $request->token
-                            ])->get();
-        
-        if(!$updatePassword){
-            return back()->withInput()->with('error', 'Invalid token!');
+        if (!Hash::check($request->password_confirmation, $user->password)) {
+            $request->session()->flash('error', 'Password does not match');
+            //return redirect()->route('your.route');
+            return redirect()->with('error', 'The specified password does not match the database password');
+        }else{
+            $updatePassword = DB::table('password_resets')
+                                ->where([
+                                'email' => $request->email, 
+                                'token' => $request->token
+                                ])->get();
+            
+            if(!$updatePassword){
+                return back()->withInput()->with('error', 'Invalid token!');
+            }
+            
+            User::where('email', $email)
+            ->update(['password' => Hash::make($request->password)]);
+    
+            DB::table('password_resets')->where(['email'=> $email])->delete();
+    
+            return redirect('/login')->with('message', 'Your password has been changed!');
         }
-        
-        $user = User::where('email', $request->email)
-                    ->update(['password' => Hash::make($request->password)]);
-
-        DB::table('password_resets')->where(['email'=> $request->email])->delete();
-
-        return redirect('/login')->with('message', 'Your password has been changed!');
     }
 
             

@@ -11,7 +11,18 @@
     width: 20px;
     height: 20px;
     position: absolute;
-    top: 14px;
+    top: 16px;
+    right: 0;
+  }
+  .show-navbar{
+    background-color: #FF7506;
+  }
+  .show-navbar span{
+    color: #fff !important;
+  }
+  .show-navbar .icon{
+    filter: brightness(300%) grayscale(100%);
+    /* background-color: #FF7506; */
   }
   /* .nav-item:hover span{
     background-color: #FF7506;
@@ -113,6 +124,7 @@
   }
   .nav-item:hover .icon{
     color: #fff !important;
+    filter: brightness(300%) grayscale(100%);
   }
   .notify{
     width: 32px;

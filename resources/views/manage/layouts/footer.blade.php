@@ -23,8 +23,6 @@
 <!-- Page level custom scripts -->
 <script src="/template/admin/js/demo/datatables-demo.js"></script>
 
-<script src="/assets/js/main.js"></script>
-<script src="/assets/js/chart.js"></script>
 <script src="/assets/js/datepicker.js"></script>
 
 <script src="/assets/datapicker/js/jquery.min.js"></script>
@@ -36,5 +34,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
 
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/chart.js"></script>
+<script src="/assets/js/active.js"></script>
 
 

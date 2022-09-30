@@ -29,7 +29,7 @@ class LoginController extends Controller
         if(Auth::attempt([
             'username' => $request->input('username'),
             'password' => $request->input('password'),
-            'level' => 1,
+            // 'level' => 1,
             // dd($request->input())
             ])) 
         {

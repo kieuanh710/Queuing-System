@@ -26,7 +26,7 @@
                         <select name="connect" id="connect" class="form-control filter-active">
                             <option value="0" selected="selected" >Tất cả</option>
                             <option value="1" {{request()->connect=='1'?'selected':false}}>Kết nối</option>
-                            <option value="2" {{request()->connect=='2'?'selected':false}}>Ngừng kết nối</option>
+                            <option value="2" {{request()->connect=='2'?'selected':false}}>Mất kết nối</option>
                         </select>
                     </div>
                 </div>

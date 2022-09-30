@@ -1,4 +1,4 @@
-@extends('manage.dashboard')
+@extends('manage.dashboard-item.dashboard')
 @section('datepicker')
 <section class="ftco-section">
     <div class="container">

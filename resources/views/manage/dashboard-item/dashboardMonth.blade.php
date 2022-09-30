@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     @include('manage.layouts.head')
 </head>
@@ -80,34 +79,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        {{-- line chart --}}
+                        <div class="card active" >
                             <div class="card-chart">
                                 <div class="cart-chart--heading">
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="cart-chart--text">
-                                                <span>Bảng thống kê theo ngày</span>
-                                                <span>Tháng 11/2022</span>
+                                                <span>Bảng thống kê theo tháng</span>
+                                                <span></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="cart-chart--filter">
                                                 <span>Xem theo</span>
-                                                <select name="" id="">
-                                                    <option value="day">Ngày</option>
-                                                    <option value="week">Tuần</option>
-                                                    <option value="month">Tháng</option>
-                                                </select>
+                                                <div name="" id="">
+                                                    <a href="{{route('admin')}}">Ngày</a>
+                                                    <a href="{{route('week')}}">Tuần</a>
+                                                    <a href="{{route('month')}}">Tháng</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <canvas id="lineChart" ></canvas>
-    
                             </div>
-    
                         </div>
-
                     </div>
 
                     <div class="content-heading">
@@ -121,6 +118,7 @@
                                         <!-- Counter - Message -->
                                         <!-- <span class="badge badge-danger badge-counter">3+</span> -->
                                     </a>
+                                    {{-- Thong bao --}}
                                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                         aria-labelledby="messagesDropdown">
                                         <h6 class="dropdown-header">
@@ -173,7 +171,7 @@
                             </ul>
                         </nav>
                         <h1 class="h3 mb-2 text-gray-800 title" style="padding-left: 24px">Biểu đồ cấp số</h1>
-                        
+                        {{-- donut chart --}}
                         <ul class="menubar-list">
                             <li class="menubar-item">
                                 <div class="row">
@@ -316,17 +314,47 @@
 
     </div>
 
-    <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
     @include('manage.layouts.footer')
-    {{-- myPieChart Device --}}
+    
     <script type="text/javascript">
+        $(document).ready(function(){
+            var y_data = JSON.parse('{!! json_encode($months)!!}'); 
+            var x_data = JSON.parse('{!! json_encode($monthCount)!!}');  
+
+            var ctxL = document.getElementById("lineChart").getContext('2d');
+            var myLineChart = new Chart(ctxL, {
+            type: 'line',
+            data: {
+                labels: y_data,
+                datasets: [{
+                //   label: "My First dataset",
+                data: x_data,
+                backgroundColor: [
+                    'rgb(211, 224, 255)',
+                ],
+                borderColor: [
+                    'rgb(103, 149, 248)',
+                ],
+                borderWidth: 2
+                },
+                ]
+            },
+            options: {
+                responsive: true
+            }
+            });
+        });
+    </script>
+
+
+
+     {{-- myPieChart Device --}}
+     <script type="text/javascript">
         $(document).ready(function(){
             // Pie Chart Example
             var ctx = document.getElementById("myPieChart");
@@ -360,9 +388,9 @@
                 },
             });
         });
-    </script>
+     </script>
 
-    // myPieChart Service
+    {{-- myPieChart Service --}}
     <script type="text/javascript">
         $(document).ready(function(){
             // Pie Chart Example
@@ -397,9 +425,9 @@
                 },
             });
         });
-    </script>
+   </script>
 
-    // myPieChart BoardCast
+     {{-- myPieChart BoardCast --}}
     <script type="text/javascript">
         $(document).ready(function(){
             // Pie Chart Example
@@ -437,7 +465,10 @@
                 },
             });
         });
-    </script>
+     </script>
+
+ 
+ 
 </body>
 
 </html>

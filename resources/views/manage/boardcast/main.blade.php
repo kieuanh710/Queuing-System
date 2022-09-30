@@ -129,7 +129,7 @@
                                         @endif
                                     </th>
                                     <th>{{$item->source}}</th>
-                                    <th><a href="{{route('boardcast.detail', ['id'=>$item->id])}}">Chi tiết</a></th>                              
+                                    <th><a href="{{route('boardcast.detail', ['idBoardCast'=>$item->idBoardCast])}}">Chi tiết</a></th>                              
                                 </tr>
                         @endforeach
                         @else 

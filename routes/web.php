@@ -42,16 +42,17 @@ Route::get('/logout', [LoginController::class,'logout'])->name('logout');
 Route::middleware('auth')->group(function(){
     // Route::resource('/boardcast', BoardCastController::class);
     Route::prefix('/admin')->group(function(){
-        Route::get('/', [ManageController::class,'index'])->name('admin');
+        Route::get('/dashboard', [ManageController::class,'index'])->name('admin');
+        Route::get('/dashboard/week', [ManageController::class,'week'])->name('week');
+        Route::get('/dashboard/month', [ManageController::class,'month'])->name('month');
         Route::get('/info', [ManageController::class,'info'])->name('info');
         Route::post('/upload', [ManageController::class,'upload'])->name('update');
         
         Route::prefix('/manage')->group(function(){
-            Route::get('/', [ManageController::class,'index']);
+            // Route::get('/chart', [ManageController::class,'getAllMonth']);
 
             Route::prefix('/device')->group(function(){
                 Route::get('/', [DeviceController::class,'index'])->name('device');
-                Route::get('/ping', [CheckIP::class,'index']);
                 Route::get('/add', [DeviceController::class,'add'])->name('device.add');
                 Route::post('/add', [DeviceController::class,'postAdd']);
                 Route::get('/update/{id}', [DeviceController::class,'update'])->name('device.update');
@@ -76,16 +77,19 @@ Route::middleware('auth')->group(function(){
             Route::prefix('/boardcast')->group(function(){
                 Route::get('/', [BoardCastController::class,'index'])->name('boardcast');
                 Route::get('/add', [BoardCastController::class,'add'])->name('boardcast.add');
-                Route::post('/add', [BoardCastController::class,'postAdd']);
+                Route::post('/add', [BoardCastController::class,'postAdd'])->name('boardcast.postAdd');
+                // Route::get('/add/number', [BoardCastController::class,'postAdd'])->name('postAdd');
                 Route::get('/detail', [BoardCastController::class,'detail'])->name('boardcast.detail');
                 Route::get('/detail/filter', [BoardCastController::class,'getUsers'])->name('filterSearchBoardCast');
-                
+                Route::get('/add/number',[BoardCastController::class,'postAdd'])->name('popup');
             });
            
 
             Route::prefix('/report')->group(function(){
                 Route::get('/', [ReportController::class,'index'])->name('report');
                 Route::get('/export', [ReportController::class, 'export'])->name('export');
+                Route::get('/detail/filter', [ReportController::class,'getUsers'])->name('filterSearchReport');
+
             });
             Route::prefix('/system')->group(function(){
                 Route::prefix('/role')->group(function(){
@@ -117,23 +121,4 @@ Route::middleware('auth')->group(function(){
 });
 
 
-
-
-
-    
-
-
-
-// Route::prefix('login')->group(function(){
-//     Route::get('/forgotpassword', function () {
-//         return view('forgotpassword');
-//     });
-//     Route::get('/account', function () {
-//         return view('account');
-//     });
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('day');
-// });
 

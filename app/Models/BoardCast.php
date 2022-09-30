@@ -27,11 +27,9 @@ class BoardCast extends Model
         }
         return $boardcasts;
     }
+
     public function addBoardCast($data){
-        DB::insert('INSERT INTO boardcasts (idBoardCast, nameBoardCast, desBoardCast, created_at, updated_at) 
-        VALUES(?, ?, ?, ?, ?)', $data);
-        // Insert thành công -> true
-        // DB::table($this->table)->insert($data);
+        DB::table($this->table)->insert($data);
     }
     public function getDetail($id){
         return DB::select('SELECT * FROM '.$this->table.' WHERE id = ?',[$id]);

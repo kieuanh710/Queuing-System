@@ -7,46 +7,58 @@ use Illuminate\Http\Request;
 use App\Models\BoardCast;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\LogActivity;
 
 class BoardCastController extends Controller
 {
-    private $boardcasts;
+    private $boardcasts, $services;
 
     const _PER_PAGE = 10; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
         $this->boardcasts = new BoardCast();
-        $this->boardcasts  = new Service();
+        $this->services  = new Service();
     }
     //Danh sách cấp số
     public function index(Request $request){
         $title = 'Quản lý cấp số';
      
         $boardcastList = $this->boardcasts->getAllBoardCast(self::_PER_PAGE);
-        $serviceList = $this->boardcasts ->getAllService();
+        $serviceList = $this->services ->getAllService();
         return view('manage.boardcast.main', compact('title', 'boardcastList', 'serviceList'));
     }
 
     // cấp số mới
     public function add(){
         $title = 'Cấp số mới';
-        $serviceList = $this->boardcasts ->getAllService();
+        $serviceList = $this->services->getAllService(self::_PER_PAGE);
+        // dd($serviceList);
         return view('manage.boardcast.addBoardCast', compact('title', 'serviceList'));
     }
 
-    public function postAdd(Request $request){
-        // $this->deviceService->create($request);
+    public function postAdd(Request $request){   
+        $title = 'Cấp số mới';
+        $request->validate(
+            [
+                'number' => 'required',
+                'nameService' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ]);
         $dataInsert = [
-            'idService' =>  $request->idService,
-            'nameService' => $request->nameService,
-            'desService' => $request->desService,
+            'number' =>  $request->number,
+            'id_service' => $request->nameService,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
         ];
         // dd($dataInsert);
         $this->boardcasts->addBoardCast($dataInsert);
-        LogActivity::addToLog('Thêm cấp số', Auth::user()->username, now());
-        return redirect()->route('service')->with('success', 'Thêm dịch vụ thành công');
+        //    echo 'hi';
+         $serviceList = $this->services->getAllService(self::_PER_PAGE);
+        // LogActivity::addToLog('Thêm cấp số', Auth::user()->username, now());
+        return view('manage.boardcast.main', compact('title', 'serviceList'));
     }
 
     public function detail(Request $request){
@@ -181,5 +193,7 @@ class BoardCastController extends Controller
         }
     }
 
+
+  
 
 }

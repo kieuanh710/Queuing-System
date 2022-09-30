@@ -8,36 +8,34 @@
     </a>
 
     <!-- Divider -->
-    <!-- <hr class="sidebar-divider my-0"> -->
-
-    <li class="nav-item active">
-        <a class="nav-link " href="{{route('admin')}}">
+    <li class="nav-item link">
+        <a class="nav-link" href="{{route('admin')}}">
             <img src="/assets/img/element-4.png" alt="" class="icon">
             <span>Dashboard</span>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item link ">
         <a class="nav-link" href="{{route('device')}}">
             <i class="icon fas fa-light fa-desktop"></i>
-            {{-- <img src="/assets/img/monitor.png" alt=""> --}}
+            {{-- <img src="/assets/img/monitor.png" alt="" class="icon"> --}}
             <span>Thiết bị</span>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item link ">
         <a class="nav-link" href="{{route('service')}}">
-            <img src="/assets/img/service.png" alt="">
+            <img src="/assets/img/service.png" alt="" class="icon"> 
             <span>Dịch vụ</span>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item link">
         <a class="nav-link" href="{{route('boardcast')}}">
-            <img src="/assets/img/boardcast.png" alt="">
+            <img src="/assets/img/boardcast.png" alt="" class="icon">
             <span>Cấp số</span>
         </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item link ">
         <a class="nav-link" href="{{route('report')}}">
-            <img src="/assets/img/report.png" alt="">
+            <img src="/assets/img/report.png" alt="" class="icon">
             <span>Báo cáo</span>
         </a>
     </li>
@@ -63,3 +61,5 @@
         </div>
     </a>
 </ul>
+
+

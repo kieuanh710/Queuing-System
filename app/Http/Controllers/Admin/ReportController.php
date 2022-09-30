@@ -31,4 +31,24 @@ class ReportController extends Controller
     public function export(){
         return Excel::download(new ReportsExport, 'report.xlsx');
     }
+
+    public function getUsers(Request $request){
+        $start= $request->start;
+        $end = $request->end;
+
+        if($request->ajax()){  
+            // filter
+            if($start == null &&  $end == null){
+                $boardcasts = $this->boardcastsget();
+            } 
+            elseif($start != null ||  $end != null){
+                $boardcasts = $this->boardcasts
+                ->whereDate('created_at', '>=', $start)
+                ->whereDate('created_at', '<=', $end)
+                ->get();
+            } 
+            
+            return json_encode($boardcasts);
+        }
+    }
 }

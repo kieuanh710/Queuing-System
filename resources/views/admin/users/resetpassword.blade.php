@@ -15,11 +15,11 @@
                             <span class="title title-reset">Đặt lại mật khẩu mới</span>
                         </div>
                             <div class="form form-reset"> 
-                                <div class="form-group form-1">
+                                {{-- <div class="form-group form-1">
                                     <label class="heading">Email</label>
                                     <input class="input" type="email" placeholder="Enter email"
                                     name="email" id="email" required>
-                                </div> 
+                                </div>  --}}
                                 <div class="form-group form-1">
                                     <label class="heading">Mật khẩu</label>
                                     <input class="input" type="password" placeholder="Enter password"
@@ -30,7 +30,7 @@
                                 <div class="form-group form-1">
                                     <label class="heading">Nhập lại mật khẩu</label>
                                     <input class="input" type="password" placeholder="Enter password"
-                                    name="password-confirm" id="password-confirm"  required>
+                                    name="password_confirmation" id="password_confirmation"  required>
                                     <i class="showpw fas fa-eye-slash fa-light" id="togglePassword"></i>
                                     
                                 </div>   

@@ -64,7 +64,6 @@
                                     <th>{{$item->idBoardCast}}</th>
                                     <th>{{$item->nameService}}</th>
                                     <th></th>
-                                    
                                     <th>
                                         @if ($item->status == 1)
                                         <div class="circle circle-success"></div>
@@ -77,18 +76,12 @@
                                             Bỏ qua
                                         @endif
                                     </th>
-                                    <th>{{$item->source}}</th>
-                                    {{--<th>
-                                        {{$item->service}}
-                                        {{-- <div id="target" class="collapse">
-                                            {{$item->service}}
-                                        </div>
-                                        @if($item->service > 1){
-                                            <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
-                                        }
-                                        @endif 
-                                    </th>--}}
-
+                                    <th>
+                                        @if ($item->source == 1)
+                                            Kiosk
+                                          @else
+                                            Hệ thống
+                                        @endif
                                 </tr>
                             @endforeach
                             @else 
@@ -102,9 +95,9 @@
         </div>
         
     </div>
-    {{-- <div class="d-flex justify-content-end">
-        {{$reportList->Links()}}
-    </div> --}}
+    <div class="d-flex justify-content-end">
+        {{$boardcastList->Links()}}
+    </div>
 </div>
 <div class="save add">
     <a href="{{route('export')}}">
@@ -113,4 +106,68 @@
     </a>
 </div>
 
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#start').on('change', function () {
+            getUsers();
+        });
+        $('#end').on('change', function () {
+            getUsers();
+        });
+    });
+
+    function getUsers() {
+        var start = $('#start').val();
+        var end = $('#end').val();
+
+        // alert(active);
+        // alert(start);
+
+        $.ajax({
+            method: 'get',
+            url: '{{route('filterSearchReport')}}',
+            dataType: 'json',
+            data: {
+                start: start,
+                end: end,
+            },
+            success: function (data) {
+                
+                console.log(data);
+                var table = '';
+                $('tbody').html('');
+                $.each(data, function (index, value) {
+                    
+                    if(value.status==1){
+                        value.status= "Đang chờ";
+                    }else if(value.status==2){
+                        value.status = "Đã sử dụng";
+                    }else{
+                        value.status = "Bỏ qua";
+                    }
+
+                    if(value.source==1){
+                        value.source = "Kiosk";
+                    } else{
+                        value.source = "Hệ thống";
+                    }
+                    table =
+                        '<tr>\
+                        <th>'+ value.idBoardCast + '</th>\
+                        <th>'+ value.nameService + '</th>\
+                        <th></th>\
+                        <th>'+ value.status + '</th>\
+                        <th>'+ value.source + '</th>\
+                        </tr>';
+                    $('tbody').append(table)
+                    // console.log(table);
+                })
+            }
+
+        });
+    };
+</script>
 @endsection

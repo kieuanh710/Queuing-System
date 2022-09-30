@@ -131,8 +131,7 @@
                                     <div class="form-group active-status right">
                                         <span class="filter-title">Từ khóa</span>
                                         <div class="search-btn">
-                                            <input name="keyword" id="search" placeholder="Nhập từ khóa"
-                                                class="search">
+                                            <input name="search" id="search" placeholder="Nhập từ khóa" class="search">
                                             <i class="search-icon fas fa-search fa-sm"></i>
                                         </div>
                                     </div>
@@ -209,27 +208,26 @@
     $(document).ready(function () {
         //getUsers();
         $('#search').on('keyup', function () {
-            getUsers();
+            getBoardCast();
         });
-
         $('#status').on('change', function () {
-            getUsers();
+            getBoardCast();
         });
         $('#start').on('change', function () {
-            getUsers();
+            getBoardCast();
         });
         $('#end').on('change', function () {
-            getUsers();
+            getBoardCast();
         });
     });
 
-    function getUsers() {
+    function getBoardCast() {
         var search = $('#search').val();
         var status = $('#status option:selected').val();
         var start = $('#start').val();
         var end = $('#end').val();
 
-        // alert(active);
+        // alert(status);
         // alert(start);
         // alert(search);
 

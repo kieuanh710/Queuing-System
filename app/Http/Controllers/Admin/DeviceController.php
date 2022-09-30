@@ -12,43 +12,13 @@ class DeviceController extends Controller
 {
     private $devices;
     protected $deviceService;
-    const _PER_PAGE = 4; // số hàng dữ liệu trên 1 bảng
+    const _PER_PAGE = 10; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
         $this->devices = new Device();
     }
     //Danh sách thiết bị
     public function index(Request $request){
         $title = 'Quản lý thiết bị';
-
-        // $filters = [];
-        // $keyword = null;
-
-        // // Check click active
-        // if(!empty($request->active)){
-        //     $active = $request->active;
-        //     if($active=='active'){
-        //         $active = 1;
-        //     } else{
-        //         $active = 0;
-        //     }
-        //     $filters[] = ['devices.active', '=', $active];
-        // }
-
-        // // Check click connect
-        // if(!empty($request->connect)){
-        //     $connect = $request->connect;
-        //     if($connect=='connect'){
-        //         $connect = 1;
-        //     } else{
-        //         $connect = 0;
-        //     }
-        //     $filters[] = ['devices.connect', '=', $connect];
-        // }
-
-        // //Search
-        // if(!empty($request->keyword)){
-        //     $keyword = $request->keyword;
-        // }
 
         // //Handle sort by
         // $sortBy = $request->input('sort-by');
@@ -88,7 +58,7 @@ class DeviceController extends Controller
                 'nameDevice' => 'required',
                 'typeDevice' => 'required',
                 'ip_address' => 'required',
-                'username' => 'required|unique:devices',
+                'username' => 'required|unique:users',
                 'password' => 'required|min:6',
                 'service' => 'required',
             ],
@@ -142,14 +112,14 @@ class DeviceController extends Controller
         }
         return view('manage.device.updateDevice',compact('title', 'deviceDetail'));
     }
-    public function postUpdate(Request $request,$id){
+    public function postUpdate(Request $request){
         $request->validate(
             [
                 'idDevice' => 'required',
                 'nameDevice' => 'required',
                 'typeDevice' => 'required',
                 'ip_address' => 'required',
-                'username' => 'required|unique:devices',
+                'username' => 'required',
                 'password' => 'required|min:6',
                 'service' => 'required',
             ],
@@ -159,7 +129,6 @@ class DeviceController extends Controller
                 'ip_address.required' => 'Nhập địa chỉ thiết bị',
                 'typeDevice.required' => 'Nhập loại thiết bị',
                 'username.required' => 'Nhập tên người dùng',
-                'username.unique' => 'Tên người dùng đã tồn tại vui lòng nhập tên khác',
                 'password.required' => 'Password ít nhất 6 kí tự',
                 'service.required' => 'Nhập dịch vụ sử dụng',
             ]);
@@ -238,33 +207,5 @@ class DeviceController extends Controller
         }
 
     }
-
-
-
-
-
-
-
-    function getRemoteIPAddress(){
-        $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR']: '';
-        return $ip;
-    }
-    
-    /* If your visitor comes from proxy server you have use another function
-    to get a real IP address: */
-    
-    function getRealIPAddress(){
-        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-            //check ip from share internet
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        }else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-            //to check ip is pass from proxy
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }else{
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        return $ip;
-    }
-
 
 }
