@@ -52,14 +52,7 @@
                             @foreach ($roleList as $key => $role)
                             <tr>
                                 <th>{{$role->nameRole}}</th>
-                                <?php $i=0;?>
-                                @foreach($accountList as $key => $users)
-                                    @if ($users->role == $role->id)
-                                        <?php $i++;?>
-                                    @endif
-                                @endforeach 
-                                <td>{{$i}}</td>
-                               
+                                <td>{{$role->count}}</td>
                                 <th>{{$role->desRole}}</th>
                                 <th><a href="{{route('role.update', ['id'=>$role->id])}}">Cập nhật</a></th>
                             </tr>
@@ -115,8 +108,8 @@
                         <th>'+value.nameRole+'</th>\
                         <th>'+value.count+'</th>\
                         <th>'+value.desRole+'</th>\
-                        <th>'+'<a href="{{route('role.update', ['id'=>$role->id])}}">'+'Cập nhật</a>'+'</th>\
                         </tr>';
+                        // <th>'+'<a href="role/update/id'+$value->id+'">'+'Cập nhật</a>'+'</th>\
 
                     $('tbody').append(table)
                     // console.log(table);

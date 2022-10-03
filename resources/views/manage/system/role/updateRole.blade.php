@@ -36,32 +36,33 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="">TPhân quyền chức năng *</label>
+                                    <label for="">Phân quyền chức năng*</label>
                                     <div class="function-box scrollbar scrollbar-primary">
                                         <div class="function force-overflow">
                                             <label for="function">Nhóm chức năng A</label>
                                             <div class="function-list">
                                                 <div class="function-item">
-                                                    <input type="checkbox" name="function[]" value="1" class="function-tick">
+                                                    <input type="checkbox" name="function" value="1" class="function-tick">
                                                     <span>Admin</span>
                                                 </div>
                                                 <div class="function-item">
-                                                    <input type="checkbox" name="function[]" value="2" class="function-tick">
+                                                    <input type="checkbox" name="function" value="2" class="function-tick">
                                                     <span>Bảo vệ</span>
                                                 </div>
                                                 <div class="function-item">
-                                                    <input type="checkbox" name="function[]" value="3" class="function-tick">
+                                                    <input type="checkbox" name="function" value="3" class="function-tick">
                                                     <span>Kế toán</span>
                                                 </div>
                                                 <div class="function-item">
-                                                    <input type="checkbox" name="function[]" value="4" class="function-tick">
+                                                    <input type="checkbox" name="function" value="4" class="function-tick">
                                                     <span>Bác sĩ</span>
                                                 </div>
                                                 <div class="function-item">
-                                                    <input type="checkbox" name="function[]" value="5" class="function-tick">
+                                                    <input type="checkbox" name="function" value="5" class="function-tick">
                                                     <span>Y tá</span>
                                                 </div>
                                             </div>
+                                        </div>
                                     </div>
                                     
                                 </div>

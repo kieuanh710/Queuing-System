@@ -14,9 +14,9 @@
                     <div class="form-group active-status">
                         <span>Tên vai trò</span>
                         <select name="role" id="role" class="form-control filter-active">
-                            <option value="0">Tất cả</option>
+                            <option selected="selected" value="0">Tất cả</option>
                             @foreach ($roleList as $list)
-                            <option value="{{$list->id}}">{{$list->nameRole}}</option>
+                            <option value="{{$list->nameRole}}">{{$list->nameRole}}</option>
                             @endforeach
                             </div>
                         </select>
@@ -73,7 +73,7 @@
                                 <th>{{$item->name}}</th>
                                 <th>{{$item->phone}}</th>
                                 <th>{{$item->email}}</th>
-                                <th>{{$item->nameRole}}</th>
+                                <th>{{$item->role}}</th>
                                 <th>{!!$item->active==0?'
                                     <div class="circle circle-error"></div>
                                     Ngưng hoạt động
@@ -108,77 +108,56 @@
 
 @section('script')
 <script type="text/javascript">
+    $(document).ready(function () {
+        //getUsers();
+        $('#search').on('keyup', function () {
+            getUsers();
+        });
+        $('#role').on('change', function () {
+            getUsers();
+        });
+    });
     // search
-    $('#search').on('keyup', function () {
-        var searchFilter = $(this).val();
-        //alert('hi');
+    function getUsers() {
+        var search = $('#search').val();
+        var role = $('#role option:selected').text();
+        // alert(search);
+        // alert(role);
+
         $.ajax({
-            method: 'post',
-            url: '{{route('accountsearch')}}',
+            method: 'get',
+            url: '{{route('filterSearchAccount')}}',
             dataType: 'json',
             data: {
-                '_token': '{{csrf_token()}}',
-                searchFilter: searchFilter
+                search: search,
+                role: role,
             },
             success: function (data) {
-                // console.log(data);
+                console.log(data);
                 var table = '';
                 $('tbody').html('');
                 $.each(data, function (index, value) {
+                    if(value.active==1){
+                        value.active = "Hoạt động";
+                    } else{
+                        value.active = "Ngưng hoạt động";
+                    }
                     table =
                         '<tr>\
                             <td>'+ value.username + '</td>\
                             <td>'+ value.name + '</td>\
                             <td>'+ value.phone + '</td>\
                             <td>'+ value.email + '</td>\
-                            <td>'+ value.nameRole + '</td>\
-                            <td>'+ value.nameStatus + '</td>\
+                            <td>'+ value.role + '</td>\
+                            <td>'+ value.active + '</td>\
+                            <th>'+'<a href="/admin/manage/system/account/update/'+ value.id + '">'+'Cập nhật</a>'+'</th>\
                         </tr>';
                     $('tbody').append(table)
                     // console.log(table);
                 })
             }
         });
-    });
+    };
 </script>
 
-{{-- <script type="text/javascript">
-    $(document).ready(function(){
-        $("#role").on('change', function(){
-            var selectValue = $(this).val();
-            //alert(selectValue); //id role table
-            $.ajax({
-                method: 'get',
-                url: '{{route('accountselect')}}',
-                dataType: 'json',
-                data: {
-                    // '_token': '{{csrf_token()}}',
-                    selectValue:selectValue;
-                },
-                success: function (data) {
-                    console.log(data);
-                    // $('tbody').html('');
-                    // var table = '';
-                    // $('tbody').html('');
-                    // $.each(data, function (index, value) {
-                    //     table =
-                    //         '<tr>\
-                    //             <td>'+ value.username + '</td>\
-                    //             <td>'+ value.name + '</td>\
-                    //             <td>'+ value.phone + '</td>\
-                    //             <td>'+ value.email + '</td>\
-                    //             <td>'+ value.nameRole + '</td>\
-                    //             <td>'+ value.nameStatus + '</td>\
-                    //         </tr>';
-                    //     $('tbody').append(table)
-                    //     // console.log(table);
-                    // })
-                 }
-            // });    
-    
-        });
-
-    });
-        
-</script> --}}
 @endsection

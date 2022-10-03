@@ -47,13 +47,11 @@
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Số thứ tự</th>
-                            {{-- sort by
-                            <th><a href="?sort-by=nameDevice&sort-type={{$sortType}}">Tên thiết bị</a></th> --}}
-                            <th>Tên dịch vụ</th>
-                            <th>Thời gian cấp</th>
-                            <th>Tình trạng</th>
-                            <th>Nguồn cấp</th>
+                            <th><a class="sortby" href="?sortby=number&sorttype={{$sortType}}">Số thứ tự</a></th>
+                            <th><a class="sortby" href="?sortby=nameService&sorttype={{$sortType}}">Tên dịch vụ</th>
+                            <th><a class="sortby" href="?sortby=start_date&sorttype={{$sortType}}">Thời gian cấp</a></th>
+                            <th><a class="sortby" href="?sortby=status&sorttype={{$sortType}}">Tình trạng</a></th>
+                            <th><a class="sortby" href="?sortby=source&sorttype={{$sortType}}">Nguồn cấp</a></th>
                         </tr>
                     </thead>
 
@@ -61,16 +59,16 @@
                         @if(!empty($boardcastList))
                             @foreach ($boardcastList as $key => $item)
                                 <tr>
-                                    <th>{{$item->idBoardCast}}</th>
+                                    <th>{{$item->number}}</th>
                                     <th>{{$item->nameService}}</th>
-                                    <th></th>
+                                    <th>{{$item->created_at}}</th>
                                     <th>
                                         @if ($item->status == 1)
                                         <div class="circle circle-success"></div>
                                             Đang chờ
                                         @elseif ($item->status == 2)
                                           <div class="circle circle-success"></div>
-                                          Đã sử dụng
+                                            Đã sử dụng
                                           @else
                                           <div class="circle circle-success"></div>
                                             Bỏ qua
@@ -82,6 +80,7 @@
                                           @else
                                             Hệ thống
                                         @endif
+                                    </th>
                                 </tr>
                             @endforeach
                             @else 
@@ -117,13 +116,15 @@
         $('#end').on('change', function () {
             getUsers();
         });
+        $('#end').on('change', function () {
+            getUsers();
+        });
     });
 
     function getUsers() {
         var start = $('#start').val();
         var end = $('#end').val();
-
-        // alert(active);
+      
         // alert(start);
 
         $.ajax({
@@ -135,12 +136,10 @@
                 end: end,
             },
             success: function (data) {
-                
                 console.log(data);
                 var table = '';
                 $('tbody').html('');
                 $.each(data, function (index, value) {
-                    
                     if(value.status==1){
                         value.status= "Đang chờ";
                     }else if(value.status==2){
@@ -156,9 +155,9 @@
                     }
                     table =
                         '<tr>\
-                        <th>'+ value.idBoardCast + '</th>\
+                        <th>'+ value.number + '</th>\
                         <th>'+ value.nameService + '</th>\
-                        <th></th>\
+                        <th>'+ value.created_at + '</th>\
                         <th>'+ value.status + '</th>\
                         <th>'+ value.source + '</th>\
                         </tr>';

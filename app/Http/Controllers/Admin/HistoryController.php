@@ -45,7 +45,6 @@ class HistoryController extends Controller
             } 
             elseif($start != null ||  $end != null){
                 $histories = $this->histories
-                // ->whereBetween('created_at', [$start, $end])
                 ->whereDate('created_at', '>=', $start)
                 ->whereDate('created_at', '<=', $end)
                 ->where('subject', 'like', '%'.$request->get('search').'%')  

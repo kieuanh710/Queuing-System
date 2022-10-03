@@ -58,8 +58,6 @@
                     <thead>
                         <tr>
                             <th>Mã thiết bị</th>
-                            {{-- sort by
-                            <th><a href="?sort-by=nameDevice&sort-type={{$sortType}}">Tên thiết bị</a></th> --}}
                             <th>Tên thiết bị</th>
                             <th>Địa chỉ Ip</th>
                             <th>Trạng thái hoạt động</th>
@@ -94,13 +92,6 @@
                             </th>
                             <th>
                                 {{$item->service}}
-                                {{-- <div id="target" class="collapse">
-                                    {{$item->service}}
-                                 </div>
-                                 @if($item->service > 1){
-                                     <a class="" href="#" data-toggle="collapse" data-target="#target">Xem thêm </a>
-                                 }
-                                 @endif --}}
                             </th>
 
                             <th><a href="{{route('device.detail', ['id'=>$item->id])}}">Chi tiết</a></th>
@@ -188,8 +179,8 @@
                         <th>'+value.active+'</th>\
                         <th>'+value.connect+'</th>\
                         <th>'+value.service+'</th>\
-                        <th>'+'<a href="{{route('device.detail', ['id'=>$item->id])}}">'+'Chi tiết</a>'+'</th>\
-                        <th>'+'<a href="{{route('device.update', ['id'=>$item->id])}}">'+'Cập nhật</a>'+'</th>\
+                        <th>'+'<a href="/admin/manage/device/detail?id='+ value.id + '">'+'Chi tiết</a>'+'</th>\
+                        <th>'+'<a href="/admin/manage/device/update/'+ value.id + '">'+'Cập nhật</a>'+'</th>\
                         </tr>';
 
                     $('tbody').append(table)

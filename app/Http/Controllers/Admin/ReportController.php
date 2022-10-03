@@ -23,10 +23,28 @@ class ReportController extends Controller
     //Danh sách cấp số
     public function index(Request $request){
         $title = 'Quản lý cấp số';
-     
-        $boardcastList = $this->boardcasts->getAllBoardCast(self::_PER_PAGE);
+
+        // //Handle sort by
+        $sortBy = $request->input('sortby');
+        $sortType = $request->input('sorttype');
+        $allowSort = ['asc', 'desc'];
+
+        if(!empty($sortType) && in_array($sortType, $allowSort)){
+            if($sortType=='desc'){
+                $sortType = 'asc';
+            }else{
+                $sortType = 'desc';
+            }
+        }else {
+            $sortType = 'asc';
+        }
+        $sortArr = [
+            'sortBy' => $sortBy,
+            'sortType' => $sortType,
+        ];
+        $boardcastList = $this->boardcasts->getAllReport($sortArr, self::_PER_PAGE);
         $serviceList = $this->services->getAllService();
-        return view('manage.report', compact('title', 'boardcastList', 'serviceList'));
+        return view('manage.report', compact('title', 'boardcastList', 'serviceList', 'sortType'));
     }
     public function export(){
         return Excel::download(new ReportsExport, 'report.xlsx');
@@ -39,7 +57,7 @@ class ReportController extends Controller
         if($request->ajax()){  
             // filter
             if($start == null &&  $end == null){
-                $boardcasts = $this->boardcastsget();
+                $boardcasts = $this->getAllBoardCast(self::_PER_PAGE);
             } 
             elseif($start != null ||  $end != null){
                 $boardcasts = $this->boardcasts
@@ -47,8 +65,9 @@ class ReportController extends Controller
                 ->whereDate('created_at', '<=', $end)
                 ->get();
             } 
-            
+            // dd($boardcasts);
             return json_encode($boardcasts);
         }
+
     }
 }

@@ -31,16 +31,7 @@ class Role extends Model
     public function updateRole($data, $id){
         $data[] = $id;
         return DB::select('UPDATE '.$this->table.' 
-            SET nameRole=?, desRole=?, updated_at=?
+            SET nameRole=?, desRole=?, function=?, updated_at=?
             WHERE id = ?',$data);
     }
-    public function count(){
-        $count= DB::table('roles')
-        ->join('users', 'users.role', 'roles.id')
-        ->select('users.role', '=', 'roles.id')
-        ->count(); 
-        
-        return $count;    
-    }
-
 }

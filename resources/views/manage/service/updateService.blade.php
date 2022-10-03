@@ -50,9 +50,9 @@
                             <span>Tăng tự động từ:</span>
                         </div>
                         <div class="checkbox-item--last">
-                            <input type="text" name="">
+                            <input type="text" name="start" value="{{old('start') ?? $serviceDetail->start}}">
                             <span>đến</span>
-                            <input type="text" name="">
+                            <input type="text" name="end" value="{{old('end') ?? $serviceDetail->end}}">
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                             <span>Prefix:</span>
                         </div>
                         <div class="checkbox-item--last">
-                            <input type="text" name="" class="check-input">
+                            <input type="text" name="prefix" class="check-input" value="{{old('prefix') ?? $serviceDetail->prefix}}">
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
                             <span>Surfix:</span>
                         </div>
                         <div class="checkbox-item--last">
-                            <input type="text" name="" class="check-input">
+                            <input type="text" name="sunfix" class="check-input" value="{{old('sunfix') ?? $serviceDetail->sunfix}}">
                         </div>
                     </div>
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('subject');
             $table->string('url');
-            $table->string('method');
+            $table->string('date');
             $table->string('ip');
             $table->string('agent')->nullable();
             $table->string('username');

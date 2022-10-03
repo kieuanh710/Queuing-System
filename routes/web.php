@@ -45,8 +45,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/dashboard', [ManageController::class,'index'])->name('admin');
         Route::get('/dashboard/week', [ManageController::class,'week'])->name('week');
         Route::get('/dashboard/month', [ManageController::class,'month'])->name('month');
-        Route::get('/info', [ManageController::class,'info'])->name('info');
-        Route::post('/upload', [ManageController::class,'upload'])->name('update');
+        Route::get('/notify', [BoardCastController::class,'notify'])->name('notify');
         
         Route::prefix('/manage')->group(function(){
             // Route::get('/chart', [ManageController::class,'getAllMonth']);
@@ -78,7 +77,7 @@ Route::middleware('auth')->group(function(){
                 Route::get('/', [BoardCastController::class,'index'])->name('boardcast');
                 Route::get('/add', [BoardCastController::class,'add'])->name('boardcast.add');
                 Route::post('/add', [BoardCastController::class,'postAdd'])->name('boardcast.postAdd');
-                // Route::get('/add/number', [BoardCastController::class,'postAdd'])->name('postAdd');
+    
                 Route::get('/detail', [BoardCastController::class,'detail'])->name('boardcast.detail');
                 Route::get('/detail/filter', [BoardCastController::class,'getUsers'])->name('filterSearchBoardCast');
                 Route::get('/add/number',[BoardCastController::class,'postAdd'])->name('popup');
@@ -107,9 +106,9 @@ Route::middleware('auth')->group(function(){
                     Route::post('/add', [AccountController::class,'postAdd']);
                     Route::get('/update/{id}', [AccountController::class,'update'])->name('account.update');
                     Route::post('/update', [AccountController::class,'postUpdate'])->name('account.postUpdate');
-                    Route::post('/account/search', [AccountController::class,'search'])->name('accountsearch');
-                    Route::get('/account/select', [AccountController::class,'select'])->name('accountselect');
-                
+                    Route::get('/detail/filter', [AccountController::class,'getUsers'])->name('filterSearchAccount');
+                    Route::get('/info', [AccountController::class,'info'])->name('info');
+                    Route::post('/upload', [AccountController::class,'upload'])->name('update');
                 });
                 Route::get('/history', [HistoryController::class,'index'])->name('history');
                 Route::get('/detail/filter', [HistoryController::class,'getUsers'])->name('filterSearchHistory');

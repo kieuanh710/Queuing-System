@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->integer('idRole');
             $table->string('nameRole');
             $table->string('count')->default(0);
             $table->string('desRole');
+            $table->integer('function');
             $table->timestamps();
         });
     }

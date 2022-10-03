@@ -3,14 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-
 class Service extends Model
 {
     use HasFactory;
+    use Searchable;
     protected $table = 'services';
     protected $guarded = [];
+    protected $searchable = [
+        'columns' => [
+            'services.number' => 10,
+            'services.status' => 10,
+            'service.active' => 10,
+            'service.nameService' => 10,
+        ]
+    ];
     public function getAllService($perPage=null){
         $services = DB::table($this->table);
         //Pagination
@@ -30,7 +39,15 @@ class Service extends Model
     public function updateService($data, $id){
         $data[] = $id;
         return DB::select('UPDATE '.$this->table.' 
-            SET idService=?, nameService=?, desService=?, updated_at=?
+            SET idService=?, nameService=?, desService=?, start=?, end=?, prefix=?, sunfix=?, updated_at=?
             WHERE id = ?',$data);
+    }
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+ 
+        // Customize the data array...
+ 
+        return $array;
     }
 }

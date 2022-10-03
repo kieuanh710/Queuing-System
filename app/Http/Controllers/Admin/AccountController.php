@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Image;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\LogActivity;
 
@@ -28,6 +30,7 @@ class AccountController extends Controller
 
         // Check click active
         $accountList = $this->accounts->getAllUser(self::_PER_PAGE);
+        // dd($accountList);
         $roleList = $this->roles->getAllRole(self::_PER_PAGE);
         return view('manage.system.account.main', compact('title', 'roleList', 'accountList'));
     }
@@ -40,7 +43,7 @@ class AccountController extends Controller
     public function postAdd(Request $request){
         $request->validate(
             [
-                'username' => 'required|unique:accounts',
+                'username' => 'required|unique:users',
                 'name' => 'required',
                 'phone' => 'required',
                 'password' => 'required|min:6',
@@ -61,20 +64,24 @@ class AccountController extends Controller
                 'active.required' => 'Chọn trạng thái sử dụng',
             ]);
         // $this->accountService->create($request);
-        $dataInsert = [
-            'name' =>  $request->name,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'repassword' => Hash::make($request->password),
-            'role' => $request->role,
-            'active' => $request->active,
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
-        ];
-        // dd($dataInsert);
-        $this->accounts->addAccount($dataInsert);
+        if($request->password == $request->repassword){
+            DB::table('users')->where('username', $request->username)->insert([
+
+                'name' =>  $request->name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'repassword' => Hash::make($request->password),
+                'role' => $request->role,
+                'active' => $request->active,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s')
+            ]);
+        }
+        else {
+            return back()->with('error', 'Mật khẩu nhập lại chưa chính xác');
+        }
         LogActivity::addToLog('Thêm tài khoản', Auth::user()->username, now());
         return redirect()->route('account')->with('success', 'Thêm tài khoản thành công');
     }
@@ -123,55 +130,95 @@ class AccountController extends Controller
         if(empty($id)){
             return back()->with('error', 'Liên kết không tồn tại');
         }
-        $dataUpdate = [
-            $request -> name,
-            $request -> phone,
-            $request -> email,
-            $request -> username,
-            $request -> password,
-            $request -> repassword,
-            $request -> role,
-            $request -> active,
-            date('Y-m-d H:i:s')
-        ];
+
+        if($request->password == $request->repassword){
+            DB::table('users')->where('username', $request->username)->update([
+                'name' =>  $request->name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'repassword' => Hash::make($request->password),
+                'role' => $request->role,
+                'active' => $request->active,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s')
+            ]);
+        }
+        else {
+            return back()->with('error', 'Mật khẩu nhập lại chưa chính xác');
+        }
+
+    
+        // $dataUpdate = [
+        //     $request -> name,
+        //     $request -> phone,
+        //     $request -> email,
+        //     $request -> username,
+        //     $request -> password,
+        //     $request -> repassword,
+        //     $request -> role,
+        //     $request -> active,
+        //     date('Y-m-d H:i:s')
+        // ];
         //dd(session('id'));
-        $this->accounts->updateaccount($dataUpdate, $id);
+        // $this->accounts->updateaccount($dataUpdate, $id);
         LogActivity::addToLog('Cập nhật tài khoản', Auth::user()->username, now());
         return redirect()->route('account')->with('success', 'Cập nhật thiết bị thành công');
     }
 
+    public function getUsers(Request $request){
+        $search = $request->search;
+        $role = $request->role;
 
-    public function search(Request $request){
-        $request->get('searchFilter');
-
-        $accounts = $this->accounts
-        ->join('role', 'users.role', 'role.id')
-        ->join('active', 'accounts.active', 'active.id')
-        ->select('accounts.*', 'role.nameRole', 'active.nameStatus')
-        ->where('username', 'like', '%'.$request->get('searchFilter').'%')
-        ->orwhere('name', 'like', '%'.$request->get('searchFilter').'%')   
-        ->orwhere('phone', 'like', '%'.$request->get('searchFilter').'%')   
-        ->orwhere('email', 'like', '%'.$request->get('searchFilter').'%')   
-        ->orwhere('nameRole', 'like', '%'.$request->get('searchFilter').'%')   
-        ->get();
-        return json_encode($accounts);
-    }
-    public function select(Request $request){
-        // $data = $request->get('selectValue');
         if($request->ajax()){
-            $accounts = $this->accounts
-            ->join('role', 'accounts.role', 'role.id')
-            ->join('active', 'accounts.active', 'active.id')
-            ->select('accounts.*', 'role.nameRole', 'active.nameStatus')
-            ->where(['role'=> $request->selectValue])
-            ->get();
-    
-            return response()->json(['accounts'=>$accounts]);
-
+            // search
+            if(!empty($search)) {
+                $request->get('search');
+                $accounts = $this->accounts
+                ->where('email', 'like', '%'.$request->get('search').'%')
+                ->orwhere('name', 'like', '%'.$request->get('search').'%')   
+                ->orwhere('phone', 'like', '%'.$request->get('search').'%')   
+                ->get();
+            }
+            // filter
+            if($role == 0 ){
+                $request->get('search');
+                $accounts = $this->accounts
+                ->where('email', 'like', '%'.$request->get('search').'%')
+                ->orwhere('name', 'like', '%'.$request->get('search').'%')   
+                ->orwhere('phone', 'like', '%'.$request->get('search').'%')   
+                ->get();
+            } 
+        
+            else{
+                $accounts = $this->accounts
+                ->where('role', $request->role) 
+                ->where('email', 'like', '%'.$request->get('search').'%')  
+                ->get();
+            }
+            return json_encode($accounts);
         }
-        //$values = $this->accounts-get();
-        // if($request->ajax()){
-        // }
+    }
+
+    // info
+    public function info(){
+        $title = "Tài khoản cá nhân";
+        $accountList = $this->accounts->getAllUser(self::_PER_PAGE);
+        $roleList = $this->roles->select('roles.nameRole')->get();
+       
+        // dd($roleList);
+        return view('admin.users.info', compact('title', 'accountList', 'roleList'), array('user' => Auth::user()));
+    }
+
+    // upload avata
+    public function upload(Request $request){
+        if($request->hasFile('avatar')){
+            $filename = $request->avatar->getClientOriginalName();
+            $request->avatar->storeAs('images',$filename,'public');
+            Auth()->user()->update(['avatar'=>$filename]);
+        }
+        return redirect()->back();
     }
 
 }

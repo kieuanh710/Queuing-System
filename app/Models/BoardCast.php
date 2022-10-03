@@ -11,20 +11,44 @@ class BoardCast extends Model
     use HasFactory;
     protected $table = 'boardcasts';
     protected $guarded = [];
+
     public function getAllBoardCast($perPage=null){
-        // $boardcasts = DB::select('SELECT * FROM boardcasts ORDER BY id ASC');
-        // DB::enableQueryLog();
         $boardcasts = DB::table($this->table)
-        ->join('services', 'boardcasts.id_service', 'services.idService')
         ->join('accounts', 'boardcasts.id_account', 'accounts.id')
-        ->select('boardcasts.*', 'services.nameService', 'accounts.name');
- 
+        ->select('boardcasts.*',  'accounts.name','accounts.phone','accounts.email');
         //Pagination
         if(!empty($perPage)){
             $boardcasts = $boardcasts->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x
         }else{
             $boardcasts = $boardcasts->get(); // khong phan trang
         }
+
+        return $boardcasts;
+    }
+
+    // report
+    public function getAllReport($sortByArr=null, $perPage=null){
+        $boardcasts = DB::table($this->table)
+        ->join('accounts', 'boardcasts.id_account', 'accounts.id')
+        ->select('boardcasts.*',  'accounts.name','accounts.phone','accounts.email');
+        // sortby
+        $orderBy='id';
+        $orderType = 'asc';
+
+        if(!empty($sortByArr) && is_array($sortByArr)){
+            if(!empty($sortByArr['sortBy']) && !empty($sortByArr['sortType'])){
+                $orderBy = trim($sortByArr['sortBy']);
+                $orderType = trim($sortByArr['sortType']);
+            }
+            $boardcasts = $boardcasts->orderBy($orderBy, $orderType);
+        }      
+        //Pagination
+        if(!empty($perPage)){
+            $boardcasts = $boardcasts->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x
+        }else{
+            $boardcasts = $boardcasts->get(); // khong phan trang
+        }
+
         return $boardcasts;
     }
 

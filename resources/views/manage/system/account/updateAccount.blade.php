@@ -35,7 +35,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Mật khẩu *</label>
-                            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu" value="{{old('password') ?? $accountDetail->password}}">
+                            <input type="password" name="password"  id="password"class="form-control" placeholder="Nhập mật khẩu" value="{{old('password') ?? $accountDetail->password}}">
+                            <i class="showpw showeye fas fa-eye-slash fa-light" id="togglePassword"></i>     
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -47,7 +48,11 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Nhập lại mật khẩu *</label>
-                            <input type="password" name="repassword" class="form-control" placeholder="Nhập lại mật khẩu">
+                            <input type="password" name="repassword"  id="repassword" class="form-control" placeholder="Nhập lại mật khẩu">
+                            <i class="showpw showeye fas fa-eye-slash fa-light" id="NewPassword"></i>
+                            {{-- @error('repassword')
+                                    <span style="color:red">{{$error}}</span>
+                                @enderror --}}
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -55,7 +60,7 @@
                             <label for="">Vai trò *</label>
                             <select name="role" id="role" class="form-control filter-active">
                                 @foreach ($roleList as $list)
-                                    <option value="{{$list->id}}">{{$list->nameRole}}</option>
+                                    <option value="{{$list->nameRole}}">{{$list->nameRole}}</option>
                                 @endforeach
                             </select>
                         </div>

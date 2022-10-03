@@ -51,9 +51,10 @@ class User extends Authenticatable
 
     public function getAllUser($perPage=null){
         $users = DB::table('users')
-        ->join('roles', 'users.role', 'roles.id')
+        ->join('roles', 'users.role', 'roles.nameRole')
         ->join('active', 'users.active', 'active.id')
-        ->select('users.*', 'roles.nameRole', 'active.nameStatus');
+        ->select('users.*', 'roles.nameRole', 'active.nameStatus')
+        ->orderBy('id', 'asc');
         
         if(!empty($perPage)){
             $users = $users->paginate($perPage)->withQueryString(); // giữ nguyên link filter khi chuyển trang page=x

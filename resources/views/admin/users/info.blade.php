@@ -74,8 +74,10 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="">Vai trò</label>
+                                {{-- @foreach($users as $key => $item) --}}
                                 <input type="text" name="" class="form-control form-control-info"
-                                    value="{{Auth::user()->nameRole}}">
+                                    value="{{Auth::user()->role}}">
+                                    {{-- @endforeach --}}
                             </div>
                         </div>
                     </div>

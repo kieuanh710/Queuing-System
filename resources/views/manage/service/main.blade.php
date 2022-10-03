@@ -213,8 +213,8 @@
                         <th>'+ value.nameService + '</th>\
                         <th>'+ value.desService + '</th>\
                         <th>'+ value.active + '</th>\
-                        <th>'+'<a href="{{route('service.detail', ['id'=>$item->id])}}">'+'Chi tiết</a>'+'</th>\
-                        <th>'+'<a href="{{route('service.update', ['id'=>$item->id])}}">'+'Cập nhật</a>'+'</th>\
+                        <th>'+'<a href="/admin/manage/service/detail?id='+ value.id + '">'+'Chi tiết</a>'+'</th>\
+                        <th>'+'<a href="/admin/manage/service/update/'+ value.id + '">'+'Cập nhật</a>'+'</th>\
                         </tr>';
                     $('tbody').append(table)
                     // console.log(table);

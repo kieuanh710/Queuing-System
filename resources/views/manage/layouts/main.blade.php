@@ -29,7 +29,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - Message -->
                         <li class="nav-item navbar-item dropdown no-arrow mx-1">
-                            <a class="nav-link navbar-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                            <a class="nav-link navbar-link dropdown-toggle" href="{{route('notify')}}" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-solid fa-bell notify"></i>
                                 <!-- Counter - Message -->
@@ -42,8 +42,9 @@
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="font-weight-bold">
-                                        <div class="text-truncate">Người dùng: Nguyễn Thị Thùy Dung</div>
+                                        <div class="text-truncate"></div>
                                         <div class="small text-gray-500">Thời gian nhận số: 12h20 ngày 30/11/2021</div>
+                                        <div></div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -78,14 +79,7 @@
                                     {{Auth::user()->name}}
                                 </div>
                             </a>
-                            <!-- Dropdown - User Information -->
-                            <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="detail-info">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                            </div> -->
+                           
                         </li>
 
                     </ul>

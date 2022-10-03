@@ -197,6 +197,8 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         // avatar
         Intervention\Image\ImageServiceProvider::class,
+        // scout
+        Laravel\Scout\ScoutServiceProvider::class,
 
 
     ],

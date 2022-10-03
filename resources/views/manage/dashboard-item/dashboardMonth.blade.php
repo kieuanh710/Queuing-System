@@ -93,10 +93,21 @@
                                         <div class="col-lg-6">
                                             <div class="cart-chart--filter">
                                                 <span>Xem theo</span>
-                                                <div name="" id="">
-                                                    <a href="{{route('admin')}}">Ngày</a>
-                                                    <a href="{{route('week')}}">Tuần</a>
-                                                    <a href="{{route('month')}}">Tháng</a>
+                                                <div class="select-option">
+                                                    <div class="dropdown day-select" id="dropdown">
+                                                        <input type="text" name="day-status" id="day-status" placeholder="Ngày" readonly>
+                                                        <div class="option day-status">
+                                                            <div class="option-item" onclick="chooseOption('day-status', 0)">
+                                                                <a href="{{route('admin')}}">Ngày</a>
+                                                            </div>
+                                                            <div class="option-item" onclick="chooseOption('day-status', 1)">
+                                                                <a href="{{route('week')}}">Tuần</a>
+                                                            </div>
+                                                            <div class="option-item active" onclick="chooseOption('day-status', 2)">
+                                                                <a href="{{route('month')}} ">Tháng</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

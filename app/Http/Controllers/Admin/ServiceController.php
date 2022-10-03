@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\LogActivity;
-use Carbon\Carbon;
 use App\Models\BoardCast;
 class ServiceController extends Controller
 {
@@ -29,17 +28,24 @@ class ServiceController extends Controller
         $title = 'Thêm dịch vụ';
         return view('manage.service.addService', compact('title'));
     }
-
     public function postAdd(Request $request){
         $request->validate(
         [
             'idService' => 'required|unique:services',
             'nameService' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'prefix' => 'required',
+            'sunfix' => 'required',
         ],
         [
             'idService.required' =>  'Nhập mã dịch vụ',
             'idService.unique' =>  'Mã dịch vụ đã tồn tại',
             'nameService.required' => 'Nhập tên dịch vụ',
+            'start.required' => 'Nhập ngày bắt đầu',
+            'end.required' => 'Nhập ngày kết thúc',
+            'prefix.required' => 'Nhập dịch vụ',
+            'sunfix.required' => 'Nhập dịch vụ',
         ]);
         
         // $this->serviceservice->create($request);
@@ -47,6 +53,10 @@ class ServiceController extends Controller
             'idService' =>  $request->idService,
             'nameService' => $request->nameService,
             'desService' => $request->desService,
+            'start' => $request->start,
+            'end' => $request->end,
+            'prefix' => $request->prefix,
+            'sunfix' => $request->sunfix,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')
         ];
@@ -76,6 +86,24 @@ class ServiceController extends Controller
         return view('manage.service.updateService',compact('title', 'serviceDetail'));
     }
     public function postUpdate(Request $request){
+        $request->validate(
+            [
+                'idService' => 'required',
+                'nameService' => 'required',
+                'start' => 'required',
+                'end' => 'required',
+                'prefix' => 'required',
+                'sunfix' => 'required',
+            ],
+            [
+                'idService.required' =>  'Nhập mã dịch vụ',
+                'idService.unique' =>  'Mã dịch vụ đã tồn tại',
+                'nameService.required' => 'Nhập tên dịch vụ',
+                'start.required' => 'Nhập ngày bắt đầu',
+                'end.required' => 'Nhập ngày kết thúc',
+                'prefix.required' => 'Nhập dịch vụ',
+                'sunfix.required' => 'Nhập dịch vụ',
+            ]);
         $id = session('id');
         if(empty($id)){
             return back()->with('error', 'Liên kết không tồn tại');
@@ -84,6 +112,10 @@ class ServiceController extends Controller
             $request->idService,
             $request->nameService,
             $request->desService,
+            $request->start,
+            $request->end,
+            $request->prefix,
+            $request->sunfix,
             date('Y-m-d H:i:s')
         ];
         //dd(session('id'));
@@ -95,13 +127,14 @@ class ServiceController extends Controller
     // Thông tin chi tiết
     public function detail(Request $request){
         $title = 'Chi tiết thiết bị';
-
         LogActivity::addToLog('Xem chi tiết dịch vụ', Auth::user()->username, now());
         $detail = Service::where('id', $request->id)->first();
         $boardcastList= $this->boardcasts->getAllBoardCast(self::_PER_PAGE);
+        // dd($boardcastList);
         return view('manage.service.detailService', compact ('title', 'detail', 'boardcastList'));
     }
 
+    // Filter main
     public function getUsers(Request $request){
         $search = $request->search;
         $active = $request->active;
@@ -124,7 +157,7 @@ class ServiceController extends Controller
                 ->where('nameService', 'like', '%'.$request->get('search').'%')    
                 ->get();
             } 
-            elseif($active == 0 &&$start != null ||  $end != null){
+            elseif($active == 0 && $start != null ||  $end != null){
                 $services = $this->services
                 ->whereDate('created_at', '>=', $start)
                 ->whereDate('created_at', '<=', $end)
@@ -148,53 +181,46 @@ class ServiceController extends Controller
         }
     }
 
-
-
-    
+    //  Filter detail
     public function getBoardCast(Request $request){
         $search = $request->search;
         $status = $request->status;
         $start= $request->start;
         $end = $request->end;
-
         if($request->ajax()){
+            $boardcasts = BoardCast::search($request->get('search'))->get();
             // search
             if(!empty($search)) {
                 $request->get('search');
                 $boardcasts = $this->boardcasts
-                ->where('idBoardCast', 'like', '%'.$request->get('search').'%') 
+                ->where('number', 'like', '%'.$request->get('search').'%')
                 ->get();
             }
-            // filter
-            if($status != null){
+           
+            if($status == 0 && $start == null &&  $end == null){
+                $boardcasts = $this->boardcasts
+                ->where('number', 'like', '%'.$request->get('search').'%')
+                ->get();
+            } 
+            else if($status == 0 && $start != null ||  $end != null){
+                $boardcasts = $this->boardcasts
+                ->whereDate('created_at', '>=', $start)
+                ->whereDate('created_at', '<=', $end)
+                ->get();
+            } 
+            else if($status != 0 && $start == null || $end == null){
                 $boardcasts = $this->boardcasts
                 ->where('status', $request->status)->get();
             }
-            // if($status == 0 && $start == null &&  $end == null){
-            //     $boardcasts = $this->boardcasts 
-            //     ->get();
-            // } 
-            // elseif($start != null ||  $end != null){
-            //     $boardcasts = $this->boardcasts
-            //     // ->whereBetween('created_at', [$start, $end])
-            //     ->whereDate('created_at', '>=', $start)
-            //     ->whereDate('created_at', '<=', $end)                
-            //     ->get();
-            // } 
-            // elseif($status != 0 && $start == null || $end == null){
-            //     $boardcasts = $this->boardcasts
-            //     ->where('status', $request->status)
-            //     ->where('idBoardCast', 'like', '%'.$request->get('search').'%')   
-            //     ->get();
-            // }
-            // else{
-            //     $boardcasts = $this->boardcasts
-            //     ->whereBetween('created_at', array([$start, $end])) 
-            //     ->where('status', $request->connect)                 
-            //     ->where('idBoardCast', 'like', '%'.$request->get('search').'%') 
-            //     ->get();
-            // }
-            return json_encode($boardcasts);
+            else{
+                $boardcasts = $this->boardcasts
+                ->whereDate('created_at', '>=', $start)
+                ->whereDate('created_at', '<=', $end)
+                ->where('status', $request->status)    
+                ->get();
+            }
+
+            return response()->json($boardcasts);
         }
     }
 }

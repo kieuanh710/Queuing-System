@@ -12,9 +12,9 @@
                 <div class="col-sm-2">
                     <div class="form-group active-status">
                         <span>Tên dịch vụ</span>
-                        <select name="service" id="service" class="form-control filter-active">
+                        <select name="nameService" id="nameService" class="form-control filter-active">
                             <option selected="selected" value="0">Tất cả</option>
-                            @foreach ($serviceList as $list)
+                            @foreach ($boardcastList as $list)
                             <option value="{{$list->id}}">{{$list->nameService}}</option>
                             @endforeach
                         </select>
@@ -90,13 +90,10 @@
         <div class="card-body main">
             @include('admin.alert')
             <div class="table-responsive">
-                <!-- <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> -->
                 <table class="table table-bordered table-striped" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Số thứ tự</th>
-                            {{-- sort by
-                            <th><a href="?sort-by=nameDevice&sort-type={{$sortType}}">Tên thiết bị</a></th> --}}
                             <th>Tên khách hàng</th>
                             <th>Tên dịch vụ</th>
                             <th>Thời gian cấp</th>
@@ -111,7 +108,7 @@
                         @if(!empty($boardcastList))
                             @foreach ($boardcastList as $key => $item)
                                 <tr>
-                                    <th>{{$item->idBoardCast}}</th>
+                                    <th>{{$item->number}}</th>
                                     <th>{{$item->name}}</th>
                                     <th>{{$item->nameService}}</th>
                                     <th>{{$item->start_date}}</th>
@@ -128,14 +125,14 @@
                                             Bỏ qua
                                         @endif
                                     </th>
-                                    <th>{{$item->source}}</th>
-                                    <th><a href="{{route('boardcast.detail', ['idBoardCast'=>$item->idBoardCast])}}">Chi tiết</a></th>                              
+                                    <th> 
+                                        @if ($item->source == 1) Kiosk
+                                        @else Hệ thống
+                                        @endif
+                                    </th>
+                                    <th><a href="{{route('boardcast.detail', ['id'=>$item->id])}}">Chi tiết</a></th>                              
                                 </tr>
                         @endforeach
-                        @else 
-                            <tr>
-                                <td colspan="4">no data</td>
-                            </tr>
                         @endif
                     </tbody>
                 </table>
@@ -162,78 +159,79 @@
         $('#search').on('keyup', function () {
             getUsers();
         });
-        // $('#service').on('change', function () {
-        //     getUsers();
-        // });
-        // $('#status').on('change', function () {
-        //     getUsers();
-        // }); 
-        // $('#source').on('change', function () {
-        //     getUsers();
-        // });
-        // $('#start').on('change', function () {
-        //     getUsers();
-        // });
-        // $('#end').on('change', function () {
-        //     getUsers();
-        // });
+        $('#nameService').on('change', function () {
+            getUsers();
+        });
+        $('#status').on('change', function () {
+            getUsers();
+        }); 
+        $('#source').on('change', function () {
+            getUsers();
+        });
+        $('#start').on('change', function () {
+            getUsers();
+        });
+        $('#end').on('change', function () {
+            getUsers();
+        });
     });
 
     function getUsers() {
         var search = $('#search').val();
-        // var status = $('#status option:selected').val();
-        // var service = $('#service option:selected').val();
-        // var source = $('#source option:selected').val();
-        // var start = $('#start').val();
-        // var end = $('#end').val();
+        var status = $('#status option:selected').val();
+        var nameService = $('#nameService option:selected').text();
+        var source = $('#source option:selected').val();
+        var start = $('#start').val();
+        var end = $('#end').val();
 
-        // alert(search);
+        // alert(nameService);
 
         $.ajax({
             method: 'get',
             url: '{{route('filterSearchBoardCast')}}',
             dataType: 'json',
             data: {
-                // status: status,
-                // service: service,
-                // source: source,
-                // start: start,
-                // end: end,
+                status: status,
+                nameService: nameService,
+                source: source,
+                start: start,
+                end: end,
                 search: search,
             },
             success: function (data) {
                 console.log(data);
-                $('tbody').html(data);
-                // var table = '';
-                // $('tbody').html('');
-                // $.each(data, function (index, value) {
-                //     if (value.status == 1) {
-                //         value.status = "Đang chờ";
-                //     } elseif (value.status == 2) {
-                //         value.status = "Đã sử dụng";
-                //     } else{
-                //         value.status = "Bỏ qua";
-                //     }
+                // $('tbody').html(data);
+                var table = '';
+                $('tbody').html('');
+                $.each(data, function (index, value) {
+                    if (value.status == 1) {
+                        value.status = "Đang chờ";
+                    } else if (value.status == 2) {
+                        value.status = "Đã sử dụng";
+                    } else{
+                        value.status = "Bỏ qua";
+                    }
 
-                //     if (value.source == 1) {
-                //         value.source = "Kiosk";
-                //     } else{
-                //         value.source = "Hệ thống";
-                //     }
+                    if (value.source == 1) {
+                        value.source = "Kiosk";
+                    } else{
+                        value.source = "Hệ thống";
+                    }
 
-                //     table =
-                //         '<tr>\
-                //         <th>'+ value.number + '</th>\
-                //         <th>'+ value.name + '</th>\
-                //         <th>'+ value.nameService + '</th>\
-                //         <th>'+ value.start_date + '</th>\
-                //         <th>'+ value.start_date + '</th>\
-                //         <th>'+ value.source + '</th>\
-                //         <th><a href="{{route('service.update', ['id' => ' + $value -> id + '])}}">Cập nhật</a></th>\
-                //         </tr>';
-                //     $('tbody').append(table)
-                //     // console.log(table);
-                // })
+                    table =
+                        '<tr>\
+                            <th>'+ value.number + '</th>\
+                            <th>'+ value.name +'</th>\
+                            <th>'+ value.nameService + '</th>\
+                            <th>'+ value.start_date + '</th>\
+                            <th>'+ value.start_date + '</th>\
+                            <th>'+ value.status + '</th>\
+                            <th>'+ value.source + '</th>\
+                            <th>'+'<a href="/admin/manage/boardcast/detail?id='+ value.id + '">'+'Cập nhật</a>'+'</th>\
+                        </tr>';
+                        $('tbody').append(table)
+                    // console.log(table);
+                })
             }
 
         });

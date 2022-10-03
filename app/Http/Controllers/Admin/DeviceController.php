@@ -5,50 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Device;
+use App\Models\Service;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\LogActivity;
 class DeviceController extends Controller
 {
-    private $devices;
+    private $devices, $services;
     protected $deviceService;
     const _PER_PAGE = 10; // số hàng dữ liệu trên 1 bảng
     public function __construct(){
         $this->devices = new Device();
+        $this->services = new Service();
     }
     //Danh sách thiết bị
     public function index(Request $request){
         $title = 'Quản lý thiết bị';
-
-        // //Handle sort by
-        // $sortBy = $request->input('sort-by');
-        // $sortType = $request->input('sort-type');
-        // $allowSort = ['asc', 'desc'];
-
-        // if(!empty($sortType) && in_array($sortType, $allowSort)){
-        //     if($sortType=='desc'){
-        //         $sortType = 'asc';
-        //     }else{
-        //         $sortType = 'desc';
-        //     }
-        // }else {
-        //     $sortType = 'asc';
-        // }
-        // $sortArr = [
-        //     'sortBy' => $sortBy,
-        //     'sortType' => $sortType,
-        // ];
-
-        // $deviceList = $this->devices->getAllDevice($filters, $keyword, $sortArr, self::_PER_PAGE);
         $deviceList = $this->devices->getAllDevice(self::_PER_PAGE);
-        
-        //return view('manage.device.main', compact('title', 'deviceList'));
         return view('manage.device.main', compact('title', 'deviceList'));
     }
     // Thêm thiết bị
     public function add(){
         $title = 'Thêm thiết bị';
-        return view('manage.device.addDevice', compact('title'));
+        $serviceList = $this->services->getAllService(self::_PER_PAGE);
+        return view('manage.device.addDevice', compact('title', 'serviceList'));
     }
 
     public function postAdd(Request $request){
@@ -58,7 +38,7 @@ class DeviceController extends Controller
                 'nameDevice' => 'required',
                 'typeDevice' => 'required',
                 'ip_address' => 'required',
-                'username' => 'required|unique:users',
+                'username' => 'required',
                 'password' => 'required|min:6',
                 'service' => 'required',
             ],
@@ -69,7 +49,6 @@ class DeviceController extends Controller
                 'ip_address.required' => 'Nhập địa chỉ thiết bị',
                 'typeDevice.required' => 'Nhập loại thiết bị',
                 'username.required' => 'Nhập tên người dùng',
-                'username.unique' => 'Tên người dùng đã tồn tại vui lòng nhập tên khác',
                 'password.required' => 'Password ít nhất 6 kí tự',
                 'service.required' => 'Nhập dịch vụ sử dụng',
             ]);
@@ -110,7 +89,8 @@ class DeviceController extends Controller
         else {
             return redirect()->route('device')->with('success', 'Liên kết không tồn tại');
         }
-        return view('manage.device.updateDevice',compact('title', 'deviceDetail'));
+        $serviceList = $this->services->getAllService(self::_PER_PAGE);
+        return view('manage.device.updateDevice',compact('title', 'deviceDetail', 'serviceList'));
     }
     public function postUpdate(Request $request){
         $request->validate(
@@ -175,12 +155,12 @@ class DeviceController extends Controller
                 ->orwhere('service', 'like', '%'.$request->get('search').'%')   
                 ->get();
             }
-            
             if($active == 0 && $connect == 0){
                 $devices = $this->devices
                 ->where('nameDevice', 'like', '%'.$request->get('search').'%')   
                 ->orwhere('service', 'like', '%'.$request->get('search').'%')   
                 ->get();
+                
             } 
             elseif($active == 0 && $connect != 0){
                 $devices = $this->devices

@@ -5,8 +5,6 @@
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800 title">Quản lý dịch vụ</h1>
-    {{-- <form action="{{route('boardcast.postAdd')}}" method="post"> --}}
-
         <div class="card shadow mb-4" style="height: 604px">
             <div class="card-header py-3" style="padding: 1.5rem 1.25rem">
                 <h6 class="m-0 font-weight-bold text-primary" style="text-align:center; font-size:32px">Cấp số mới</h6>
@@ -18,8 +16,9 @@
                     <div class="col-sm-12">
                         <div class="form-group active-status boardcast">
                             <span>Dịch vụ khách hàng lựa chọn</span>
-                            <form action="{{route('boardcast.postAdd')}}" method="post">
                             
+                            <form action="" method="post">
+       
                             <select name="nameService" id="select" class="form-control filter-active">
                                 @foreach ($serviceList as $list)
                                 <option selected="selected" value="{{$list->id}}">{{$list->nameService}}</option>
@@ -32,15 +31,13 @@
                     <a href="{{route('boardcast')}}" class="btn btn-primary btn-cancel">
                         <span> Hủy bỏ</span>
                     </a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button  type="button" id="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                         In số
                     </button>
-                </form>
                 </div>
             </div>
         </div>
-    {{-- <form action="{{route('boardcast.postAdd')}}" method="post"> --}}
-        
+
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -72,9 +69,7 @@
                     </div>
                 </div>
             </div>
-            {{-- <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                In số
-            </button> --}}
+           
         </div>
     </form>
 </div>
@@ -103,7 +98,7 @@
             // alert(nameService);
 
             var date = new Date()
-            var start_date = date.toLocaleString();
+            var start_date = date.toLocaleDateString() + ' ' +  date.toLocaleTimeString();
             var end_date = date.toLocaleDateString() + ' ' + '17:00:00';
 
             document.getElementById("number").innerHTML = number;
@@ -116,7 +111,7 @@
                 url: '{{route('popup')}}',
                 data: {
                     number: number,
-                    nameService: service,
+                    nameService: nameService,
                     start_date: start_date,
                     end_date: end_date,
                 },

@@ -14,7 +14,7 @@ class LogActivity
     	$log['subject'] = $subject;
     	$log['username'] = $username;
     	$log['url'] = Request::fullUrl();
-    	$log['method'] = $time;
+    	$log['date'] = $time;
     	$log['ip'] = Request::ip();
     	$log['agent'] = Request::header('user-agent');
     	History::create($log);

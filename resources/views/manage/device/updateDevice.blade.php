@@ -36,9 +36,8 @@
                         <div class="form-group">
                             <label for="">Loại thiết bị *</label>
                             <select name="typeDevice" class="form-control">
-                                <option selected>Chọn loại thiết bị</option>
-                                <option value="{{old('typeDevice') ?? $deviceDetail->typeDevice}}">Kiosk</option>
-                                <option value="{{old('typeDevice') ?? $deviceDetail->typeDevice}}">Display Counter</option>
+                                <option value="Kiosk">Kiosk</option>
+                                <option value="Display counter">Display Counter</option>
                             </select>
                             {{-- <label for="">Loại thiết bị</label>
                             <input type="text" name="typeDevice" class="form-control" placeholder="Chọn loại thiết bị" value="{{old('typeDevice') ?? $deviceDetail->typeDevice}}"> --}}
@@ -59,7 +58,12 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="">Dịch vụ sử dụng *</label>
-                            <input type="text" name="service" class="form-control last" placeholder="Nhập dịch vụ sử dụng" value="{{old('service') ?? $deviceDetail->service}}">
+                            <select name="service" id="select" class="select form-control filter-active" >
+                                @foreach ($serviceList as $list)
+                                <option selected="selected" value="{{$list->nameService}}">{{$list->nameService}}</option>
+                                <label for="{{$list->id}}">{{$list->nameService}}</label>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <span class="col">* Là trường thông tin bắt buộc</span>

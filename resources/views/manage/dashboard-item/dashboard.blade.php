@@ -28,8 +28,6 @@
                             <div class="col-lg-3 col-6">
                                 <div href="{{route('boardcast')}}" class="small-box">
                                     <div class="inner">
-                                        {{-- <img src="/assets/img/Group.png" alt=""> --}}
-                                        {{-- <i class="icon-calendar fas fa-regular fa-calendar"></i> --}}
                                         <img src="/assets/img/capso.png" alt="">
                                         <p>Số thứ tự đã cấp</p>
                                     </div>
@@ -93,10 +91,21 @@
                                         <div class="col-lg-6">
                                             <div class="cart-chart--filter">
                                                 <span>Xem theo</span>
-                                                <div name="" id="">
-                                                    <a href="{{route('admin')}}">Ngày</a>
-                                                    <a href="{{route('week')}}">Tuần</a>
-                                                    <a href="{{route('month')}}">Thansg</a>
+                                                <div class="select-option">
+                                                    <div class="dropdown day-select" id="dropdown">
+                                                        <input type="text" name="day-status" id="day-status" placeholder="Ngày" readonly>
+                                                        <div class="option day-status">
+                                                            <div class="option-item active" onclick="chooseOption('day-status', 0)">
+                                                                <a href="{{route('admin')}}">Ngày</a>
+                                                            </div>
+                                                            <div class="option-item" onclick="chooseOption('day-status', 1)">
+                                                                <a href="{{route('week')}}">Tuần</a>
+                                                            </div>
+                                                            <div class="option-item" onclick="chooseOption('day-status', 2)">
+                                                                <a href="{{route('month')}}">Tháng</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,48 +120,34 @@
                         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                             <ul class="navbar-nav ml-auto">
                                 <!-- Nav Item - Message -->
-                                <li class="nav-item navbar-item dropdown no-arrow mx-1">
-                                    <a class="nav-link navbar-link dropdown-toggle" href="#" id="alertsDropdown"
+                                <li class="nav-item navbar-item dropdown no-arrow mx-1 show">
+                                    <a class="nav-link navbar-link dropdown-toggle" id="alertsDropdown"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-solid fa-bell notify"></i>
-                                        <!-- Counter - Message -->
-                                        <!-- <span class="badge badge-danger badge-counter">3+</span> -->
                                     </a>
                                     {{-- Thong bao --}}
-                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in "
                                         aria-labelledby="messagesDropdown">
                                         <h6 class="dropdown-header">
                                             Thông báo
                                         </h6>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate">Người dùng: Nguyễn Thị Thùy Dung</div>
-                                                <div class="small text-gray-500">Thời gian nhận số: 12h20 ngày 30/11/2021
+                                        <div class="scroll-box scrollbar scrollbar-primary">
+                                            <div class="function force-overflow">
+                                            @foreach($detail as $key=>$item)
+                                            <a class="dropdown-item" href="#">
+                                                <div class="font-weight-bold">
+                                                    <div class="text-truncate info-text">Người dùng: 
+                                                        <span>{{$item->name}}</span>
+                                                    </div>
+                                                    <div class="small text-gray-500 time-notify">Thời gian nhận số:  
+
+                                                        <span>{{$item->created_at}}</span>
+                                                    </div>
                                                 </div>
+                                            </a>
+                                            @endforeach
                                             </div>
-                                        </a>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate">Người dùng: Nguyễn Thị Thùy Dung</div>
-                                                <div class="small text-gray-500">Thời gian nhận số: 12h20 ngày 30/11/2021
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate">Người dùng: Nguyễn Thị Thùy Dung</div>
-                                                <div class="small text-gray-500">Thời gian nhận số: 12h20 ngày 30/11/2021
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate">Người dùng: Nguyễn Thị Thùy Dung</div>
-                                                <div class="small text-gray-500">Thời gian nhận số: 12h20 ngày 30/11/2021
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <!-- <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a> -->
+                                        </div>
                                     </div>
                                 </li>
     

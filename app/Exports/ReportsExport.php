@@ -15,9 +15,8 @@ class ReportsExport implements FromCollection
     {
         //return BoardCast::select('services.nameService');
         $reports = DB::table('boardcasts')
-        ->join('services', 'boardcasts.id_service', 'services.idService')
         ->join('accounts', 'boardcasts.id_account', 'accounts.id')
-        ->select('boardcasts.number', 'services.nameService', 'boardcasts.date','boardcasts.source',)
+        ->select('boardcasts.number', 'boardcasts.nameService', 'boardcasts.created_at','boardcasts.source',)
         ->get();
         return $reports;
     }

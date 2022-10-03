@@ -35,7 +35,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Mật khẩu *</label>
-                            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
+                            <i class="showpw showeye fas fa-eye-slash fa-light" id="togglePassword"></i>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -47,7 +48,11 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Nhập lại mật khẩu *</label>
-                            <input type="password" name="repassword" class="form-control" placeholder="Nhập lại mật khẩu">
+                            <input type="password" name="repassword"  id="repassword" class="form-control" placeholder="Nhập lại mật khẩu">
+                            <i class="showpw showeye fas fa-eye-slash fa-light" id="NewPassword"></i>
+                            {{-- @error('repassword')
+                                    <span style="color:red">{{$message}}</span>
+                                @enderror --}}
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -55,7 +60,7 @@
                             <label for="">Vai trò *</label>
                             <select name="role" id="role" class="form-control filter-active">
                                 @foreach ($roleList as $list)
-                                    <option value="{{$list->id}}">{{$list->nameRole}}</option>
+                                    <option value="{{$list->nameRole}}">{{$list->nameRole}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -65,9 +70,8 @@
                             <label for="">Tình trạng *</label>
                             <select name="active" class="form-control filter-active" >
                                 <div class="filter-active--item">
-                                    <option value="0">Tất cả</option>
-                                    <option value="active" {{request()->active=='active'?'selected':false}}>Hoạt động</option>
-                                    <option value="inactive" {{request()->active=='inactive'?'selected':false}}>Ngừng hoạt động</option>
+                                    <option value="1" {{request()->active=='1'?'selected':false}}>Hoạt động</option>
+                                    <option value="2" {{request()->active=='2'?'selected':false}}>Ngừng hoạt động</option>
                                 </div>
                             </select>
                         </div>

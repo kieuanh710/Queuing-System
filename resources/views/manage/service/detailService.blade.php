@@ -49,9 +49,9 @@
                                 <span>Tăng tự động:</span>
                             </div>
                             <div class="checkbox-item--last">
-                                <input type="text" name="">
+                                <input type="text" name="start" value="{{$detail->start}}">
                                 <span>đến</span>
-                                <input type="text" name="">
+                                <input type="text" name="end" value="{{$detail->end}}">
                             </div>
                         </div>
 
@@ -60,7 +60,7 @@
                                 <span>Prefix:</span>
                             </div>
                             <div class="checkbox-item--last">
-                                <input type="text" name="" class="check-input-detail">
+                                <input type="text" name="prefix" class="check-input-detail" value="{{$detail->prefix}}" >
                             </div>
                         </div>
                         <div class="checkbox-item">
@@ -172,10 +172,6 @@
 
                                     </tr>
                                     @endforeach
-                                    @else
-                                    <tr>
-                                        <td colspan="4">no data</td>
-                                    </tr>
                                     @endif
                                 </tbody>
                             </table>
@@ -243,27 +239,26 @@
             },
             success: function (data) {
                 console.log(data);
-        //         var table = '';
-        //         $('tbody').html('');
-        //         $.each(data, function (index, value) {
-        //             if (value.active == 1) {
-        //                 value.active = "Hoạt động";
-        //             } else {
-        //                 value.active = "Ngưng hoạt động";
-        //             }
+                var table = '';
+                $('tbody').html('');
+                $.each(data, function (index, value) {
+                    if (value.status == 1) {
+                        value.status = "Đang chờ";
+                    } else if(value.status == 2){
+                        value.status = "Đã sử dụng";
+                    }
+                    else {
+                        value.status = "Bỏ qua";
+                    }
 
-        //             table =
-        //                 '<tr>\
-        //                 <th>'+ value.idService + '</th>\
-        //                 <th>'+ value.nameService + '</th>\
-        //                 <th>'+ value.desService + '</th>\
-        //                 <th>'+ value.active + '</th>\
-        //                 <th>'+'<a href="{{route('service.detail', ['id'=>$item->id])}}">'+'Chi tiết</a>'+'</th>\
-        //                 <th>'+'<a href="{{route('service.update', ['id'=>$item->id])}}">'+'Cập nhật</a>'+'</th>\
-        //                 </tr>';
-        //             $('tbody').append(table)
-        //             // console.log(table);
-        //         })
+                    table =
+                        '<tr>\
+                        <th>'+ value.number + '</th>\
+                        <th>'+ value.status + '</th>\
+                        </tr>';
+                    $('tbody').append(table)
+                    // console.log(table);
+                })
             }
 
         });

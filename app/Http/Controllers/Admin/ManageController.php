@@ -3,10 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Image;
 use App\Models\BoardCast;
 use App\Models\Service;
 use App\Models\Device;
@@ -24,10 +20,12 @@ class ManageController extends Controller
     public function index(){
         $title = 'Dashboard';
         // bỏadcast
-        $total = BoardCast::select('number')->count();
-        $totalWait = BoardCast::where('number', '=', '1')->count();
-        $totalUsing = BoardCast::where('number', '=', '2')->count();
-        $totalPass = BoardCast::where('number', '=', '3')->count();
+        $total = BoardCast::select('status')->count();
+        $totalWait = BoardCast::where('status', '=', '1')->count();
+        $totalUsing = BoardCast::where('status', '=', '2')->count();
+        $totalPass = BoardCast::where('status', '=', '3')->count();
+        $detail = BoardCast::join('accounts', 'boardcasts.id_account', 'accounts.id')
+        ->select('accounts.name', 'boardcasts.created_at')->get();
 
         //Device
         $totalDevice = Device::select('idDevice')->count();
@@ -52,7 +50,7 @@ class ManageController extends Controller
         }
 
         return view('manage.dashboard-item.dashboard', 
-        compact('title', 'total', 'totalUsing', 'totalWait', 'totalPass',
+        compact('title','detail', 'total', 'totalUsing', 'totalWait', 'totalPass',
         'totalDevice', 'totalActiveDV', 'totalInactiveDV','totalService', 'totalActiveSV', 'totalInactiveSV'), 
         ['dataDay'=>$dataDay, 'days'=>$days, 'dayCount'=>$dayCount]);
         // return view('manage.dashboard', compact('title'));
@@ -60,10 +58,10 @@ class ManageController extends Controller
 
     public function month(){
         $title = 'Dashboard';
-        $total = BoardCast::select('number')->count();
-        $totalWait = BoardCast::where('number', '=', '1')->count();
-        $totalUsing = BoardCast::where('number', '=', '2')->count();
-        $totalPass = BoardCast::where('number', '=', '3')->count();
+        $total = BoardCast::select('status')->count();
+        $totalWait = BoardCast::where('status', '=', '1')->count();
+        $totalUsing = BoardCast::where('status', '=', '2')->count();
+        $totalPass = BoardCast::where('status', '=', '3')->count();
 
         //Device
         $totalDevice = Device::select('idDevice')->count();
@@ -95,10 +93,10 @@ class ManageController extends Controller
 
     public function week(){
         $title = 'Dashboard';
-        $total = BoardCast::select('number')->count();
-        $totalWait = BoardCast::where('number', '=', '1')->count();
-        $totalUsing = BoardCast::where('number', '=', '2')->count();
-        $totalPass = BoardCast::where('number', '=', '3')->count();
+        $total = BoardCast::select('status')->count();
+        $totalWait = BoardCast::where('status', '=', '1')->count();
+        $totalUsing = BoardCast::where('status', '=', '2')->count();
+        $totalPass = BoardCast::where('status', '=', '3')->count();
 
         //Device
         $totalDevice = Device::select('idDevice')->count();
@@ -128,26 +126,5 @@ class ManageController extends Controller
         ['dataWeek'=>$dataWeek, 'weeks'=>$weeks, 'weekCount'=>$weekCount]));
     }
 
-
-
-
-   
-    public function info(){
-        $title = "Tài khoản cá nhân";
-        return view('admin.users.info', compact('title'), array('user' => Auth::user()));
-    }
-    // upload avarta
-
-    public function upload(Request $request)
-    {
-        if($request->hasFile('avatar')){
-            $filename = $request->avatar->getClientOriginalName();
-            $request->avatar->storeAs('images',$filename,'public');
-            Auth()->user()->update(['avatar'=>$filename]);
-        }
-        return redirect()->back();
-    }
-
-    
 
 }

@@ -23,6 +23,16 @@ class RoleController extends Controller
         $title = 'Quản lý vai trò';
         $roleList = $this->roles->getAllRole(self::_PER_PAGE);
         $accountList = $this->accounts->getAllUser(self::_PER_PAGE);
+      
+        foreach ($roleList as $key => $role){
+            $i = 0;
+            foreach($accountList as $key => $users){
+                if ($users->role === $role->nameRole){
+                    $i++;
+                }
+            }
+            DB::table('roles')->where('nameRole' , $role->nameRole)->update(['count' => $i]);               
+        }
         return view('manage.system.role.main', compact('title', 'roleList', 'accountList'));
     }
 
@@ -34,15 +44,17 @@ class RoleController extends Controller
         // dd($request->all());
         $request->validate(
             [
-                'nameRole' => 'required',
+                'nameRole' => 'required|unique:roles',
                 'desRole' => 'required',
                 'function' => 'required',
             ],
             [
                 'nameRole.required' =>  'Nhập tên vai trò',
+                'nameRole.unique' =>  'Tên vai trò đã tồn tại',
                 'desRole.required' => 'Nhập mô tả vai trò',
                 'function.required' => 'Lựa chọn vai trò',
             ]);
+            
         // $this->roleservice->create($request);
         $dataInsert = [
             'nameRole' =>  $request->nameRole,
@@ -80,10 +92,12 @@ class RoleController extends Controller
             [
                 'nameRole' => 'required',
                 'desRole' => 'required',
+                'function' => 'required',
             ],
             [
                 'nameRole.required' =>  'Nhập tên vai trò',
                 'desRole.required' => 'Nhập mô tả vai trò',
+                'function.required' => 'Phân quyền vai trò',
             ]);
         $id = session('id');
         if(empty($id)){
@@ -93,9 +107,11 @@ class RoleController extends Controller
         $dataUpdate = [
             $request -> nameRole,
             $request -> desRole,
+            $request -> function,
             date('Y-m-d H:i:s')
         ];
-        //dd(session('id'));
+        // dd(session('id'));
+        // dd($dataUpdate);
         $this->roles->updateRole($dataUpdate, $id);
         LogActivity::addToLog('Cập nhật vai trò', Auth::user()->username, now());
         return redirect()->route('role')->with('success', 'Cập nhật vai trò thành công');

@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('nameService');
             $table->string('desService');
             $table->tinyInteger('active')->default(1);
-            $table->string('start_date');
-            $table->string('end_date');
-            $table->dateTime('date');
+            $table->integer('start');
+            $table->integer('end');
+            $table->integer('prefix');
+            $table->integer('sunfix');
             $table->timestamps();
         });
     }

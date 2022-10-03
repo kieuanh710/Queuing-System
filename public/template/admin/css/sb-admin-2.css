@@ -3219,16 +3219,20 @@ input[type="button"].btn-block {
   white-space: nowrap;
   background-color: transparent;
   border: 0;
+  height: 80px;
+}
+.dropdown-item:hover>span{
+  color: #000;
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
   color: #2e2f37;
   text-decoration: none;
-  background-color: #eaecf4;
+  background-color: #FFF2E7;;
 }
 
 .dropdown-item.active, .dropdown-item:active {
-  color: #fff;
+  /* color: #fff; */
   text-decoration: none;
   background-color: #4e73df;
 }
@@ -10341,7 +10345,7 @@ a:focus {
     right: 0;
   }
   .topbar .dropdown-list {
-    width: 20rem !important;
+    width: 360px !important;
   }
   .topbar .dropdown-list .dropdown-item .text-truncate {
     max-width: 13.375rem;

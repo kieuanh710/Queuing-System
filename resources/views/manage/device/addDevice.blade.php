@@ -61,9 +61,14 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="">Dịch vụ sử dụng *</label>
-                            <input type="text" name="service" class="form-control last" 
-                            placeholder="Nhập dịch vụ sử dụng" value="{{old('service')}}">
+                            <label  class="form-label select-label" for="">Dịch vụ sử dụng *</label>
+                            
+                            <select name="service" id="select" class="select form-control filter-active" >
+                                @foreach ($serviceList as $list)
+                                <option selected="selected" value="{{$list->nameService}}">{{$list->nameService}}</option>
+                                <label for="{{$list->id}}">{{$list->nameService}}</label>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <span class="col">* Là trường thông tin bắt buộc</span>

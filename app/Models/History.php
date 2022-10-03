@@ -12,7 +12,7 @@ class History extends Model
     use HasFactory;
     protected $table = 'log_activities';
     protected $fillable = [
-        'subject', 'url', 'method', 'ip', 'agent', 'username'
+        'subject', 'url', 'date', 'ip', 'agent', 'username'
     ];
     
     public function getAllHistory($perPage=null){

@@ -37,5 +37,7 @@
 <script src="/assets/js/main.js"></script>
 <script src="/assets/js/chart.js"></script>
 <script src="/assets/js/active.js"></script>
+<script src="/assets/js/selectCheck.js"></script>
+<script src="/assets/js/dropdown.js"></script>
 
 

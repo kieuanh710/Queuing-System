@@ -46,13 +46,13 @@
                 <div class="checkbox">
                     <div class="checkbox-item">
                         <div class="checkbox-item--first">
-                            <input type="checkbox" id="" name="">
+                            <input type="checkbox" id="" name="" value="1">
                             <span>Tăng tự động từ:</span>
                         </div>
                         <div class="checkbox-item--last">
-                            <input type="text" name="">
+                            <input type="text" name="start">
                             <span>đến</span>
-                            <input type="text" name="">
+                            <input type="text" name="end">
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                             <span>Prefix:</span>
                         </div>
                         <div class="checkbox-item--last">
-                            <input type="text" name="" class="check-input">
+                            <input type="text" name="prefix" class="check-input">
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
                             <span>Surfix:</span>
                         </div>
                         <div class="checkbox-item--last">
-                            <input type="text" name="" class="check-input">
+                            <input type="text" name="sunfix" class="check-input">
                         </div>
                     </div>
 
