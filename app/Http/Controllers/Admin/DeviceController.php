@@ -162,13 +162,13 @@ class DeviceController extends Controller
                 ->get();
                 
             } 
-            elseif($active == 0 && $connect != 0){
+            else if($active == 0 && $connect != 0){
                 $devices = $this->devices
                 ->where('connect', $connect) 
                 ->where('service', 'like', '%'.$request->get('search').'%')   
                 ->get();
             } 
-            elseif($active != 0  && $connect == 0){
+            else if($active != 0  && $connect == 0){
                 $devices = $this->devices
                 ->where('active', $request->active)
                 ->where('service', 'like', '%'.$request->get('search').'%')   

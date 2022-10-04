@@ -551,6 +551,10 @@ html {
     left: 83px !important;
     position: relative;
 }
+.title-newpw{
+    left:6px !important;
+    position: relative;
+}
 .btn {
     display: flex;
     flex-direction: row;

@@ -115,34 +115,6 @@
                 </table>
             </div>
         </div>
-        {{-- Pagination --}}
-
-        {{-- <div class="pagition">
-            <ul class="pagination" id="dataTable_paginate">
-                <li class="page-item  disabled" id="dataTable_previous">
-                    <i class="page-link fas fa-solid fa-caret-left"></i>
-                </li>
-                <li class="paginate_button page-item active">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                </li>
-                <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">1</a>
-                </li>
-                <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">1</a>
-                </li>
-                <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">1</a>
-                </li>
-                <li class="paginate_button page-item">
-                    <a href="#" aria-controls="dataTable" data-dt-idx="5" tabindex="0" class="page-link">1</a>
-                </li>
-                <li class="paginate_button page-item" id="dataTable_next">
-                    <i class="page-link fas fa-solid fa-caret-right"></i>
-                </li>
-            </ul>
-        </div>
-        --}}
     </div>
     <div class="d-flex justify-content-end">
         {{$serviceList->Links()}}

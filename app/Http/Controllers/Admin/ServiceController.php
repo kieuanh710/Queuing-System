@@ -17,13 +17,13 @@ class ServiceController extends Controller
         $this->boardcasts = new BoardCast();
     }
 
-    //Danh sách thiết bị
+    //Danh sách dịch vụ
     public function index(Request $request){
         $title = 'Quản lý dịch vụ';
         $serviceList = $this->services->getAllService(self::_PER_PAGE);
         return view('manage.service.main', compact('title','serviceList'));
     }
-    // Thêm thiết bị
+    // Thêm dịch vụ
     public function add(){
         $title = 'Thêm dịch vụ';
         return view('manage.service.addService', compact('title'));

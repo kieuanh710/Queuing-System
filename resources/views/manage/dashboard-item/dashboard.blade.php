@@ -120,31 +120,30 @@
                         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                             <ul class="navbar-nav ml-auto">
                                 <!-- Nav Item - Message -->
-                                <li class="nav-item navbar-item dropdown no-arrow mx-1 show">
+                                <li class="nav-item navbar-item dropdown no-arrow mx-1">
                                     <a class="nav-link navbar-link dropdown-toggle" id="alertsDropdown"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-solid fa-bell notify"></i>
                                     </a>
                                     {{-- Thong bao --}}
-                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in "
-                                        aria-labelledby="messagesDropdown">
+                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="messagesDropdown">
                                         <h6 class="dropdown-header">
                                             Thông báo
                                         </h6>
                                         <div class="scroll-box scrollbar scrollbar-primary">
                                             <div class="function force-overflow">
                                             @foreach($detail as $key=>$item)
-                                            <a class="dropdown-item" href="#">
-                                                <div class="font-weight-bold">
-                                                    <div class="text-truncate info-text">Người dùng: 
-                                                        <span>{{$item->name}}</span>
+                                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                                    <div class="font-weight-bold">
+                                                        <div class="text-truncate info-text">Người dùng: 
+                                                            <span>{{$item->name}}</span>
+                                                        </div>
+                                                        <div class="small text-gray-500 time-notify">Thời gian nhận số:  
+                                                            <span>{{$item->created_at}}</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="small text-gray-500 time-notify">Thời gian nhận số:  
-
-                                                        <span>{{$item->created_at}}</span>
-                                                    </div>
-                                                </div>
-                                            </a>
+                                                </a>
                                             @endforeach
                                             </div>
                                         </div>

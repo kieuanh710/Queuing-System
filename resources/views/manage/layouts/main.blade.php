@@ -29,7 +29,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - Message -->
                         <li class="nav-item navbar-item dropdown no-arrow mx-1">
-                            <a class="nav-link navbar-link dropdown-toggle" href="{{route('notify')}}" id="alertsDropdown" role="button"
+                            <a class="nav-link navbar-link dropdown-toggle" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-solid fa-bell notify"></i>
                                 <!-- Counter - Message -->

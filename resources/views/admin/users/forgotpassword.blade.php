@@ -16,7 +16,7 @@
                 <div class="form-login">
                     <form action="{{route('forgotpasswordPost')}}" method="post">
                         <div class="content-fg">
-                            <span class="title title-reset">Đặt lại mật khẩu</span>
+                            <span class="title title-newpw">Đặt lại mật khẩu</span>
                             <span class="title-des">Vui lòng nhập email để đặt lại mật khẩu của bạn</span>
                             <input class="input" type="text" name="email" placeholder="Enter your email" value="" required >
                             <p class="text-danger" style="text-align: left; color: red; margin-top: 5px">@error('email'){{ $message }} @enderror</p>

@@ -24,19 +24,18 @@
                                     <label class="heading">Mật khẩu</label>
                                     <input class="input" type="password" placeholder="Enter password"
                                     name="password" id="password" required>
-                                    <i class="showpw fas fa-eye-slash fa-light" id="togglePassword"></i>
-                                    
+                                    <i class="showpw showeye fas fa-eye-slash fa-light" id="togglePassword"></i>
                                 </div> 
                                 <div class="form-group form-1">
                                     <label class="heading">Nhập lại mật khẩu</label>
                                     <input class="input" type="password" placeholder="Enter password"
-                                    name="password_confirmation" id="password_confirmation"  required>
-                                    <i class="showpw fas fa-eye-slash fa-light" id="togglePassword"></i>
-                                    
+                                    name="password_confirmation" id="password_confirmation"  required> 
+                                    {{-- <i class="showpw fas fa-eye-slash fa-light" id="togglePassword"></i> --}}
+                                    <i class="showpw showeye fas fa-eye-slash fa-light" id="NewPassword"></i>
                                 </div>   
                                 @if(session('error'))
                                 <div class="alert alert-success"style="    
-                                    top: -18px;
+                                    top: 0px;
                                     position: relative;
                                     font-weight: 400;
                                     font-size: 14px;

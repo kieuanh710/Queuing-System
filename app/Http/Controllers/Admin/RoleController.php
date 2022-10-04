@@ -22,8 +22,9 @@ class RoleController extends Controller
     public function index(Request $request){
         $title = 'Quản lý vai trò';
         $roleList = $this->roles->getAllRole(self::_PER_PAGE);
-        $accountList = $this->accounts->getAllUser(self::_PER_PAGE);
+        $accountList = $this->accounts->getAllUser();
       
+        // dd($accountList);
         foreach ($roleList as $key => $role){
             $i = 0;
             foreach($accountList as $key => $users){
@@ -67,7 +68,7 @@ class RoleController extends Controller
         $this->roles->addRole($dataInsert);
         LogActivity::addToLog('Thêm vai trò', Auth::user()->username, now());
 
-        return redirect()->route('role')->with('success', 'Thêm thiết bị thành công');
+        return redirect()->route('role')->with('success', 'Thêm vai trò thành công');
     }
 
     public function update(Request $request, $id){

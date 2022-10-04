@@ -148,23 +148,8 @@ class AccountController extends Controller
         else {
             return back()->with('error', 'Mật khẩu nhập lại chưa chính xác');
         }
-
-    
-        // $dataUpdate = [
-        //     $request -> name,
-        //     $request -> phone,
-        //     $request -> email,
-        //     $request -> username,
-        //     $request -> password,
-        //     $request -> repassword,
-        //     $request -> role,
-        //     $request -> active,
-        //     date('Y-m-d H:i:s')
-        // ];
-        //dd(session('id'));
-        // $this->accounts->updateaccount($dataUpdate, $id);
         LogActivity::addToLog('Cập nhật tài khoản', Auth::user()->username, now());
-        return redirect()->route('account')->with('success', 'Cập nhật thiết bị thành công');
+        return redirect()->route('account')->with('success', 'Cập nhật tài khoản thành công');
     }
 
     public function getUsers(Request $request){

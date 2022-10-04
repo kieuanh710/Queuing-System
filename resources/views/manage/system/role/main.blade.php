@@ -108,8 +108,8 @@
                         <th>'+value.nameRole+'</th>\
                         <th>'+value.count+'</th>\
                         <th>'+value.desRole+'</th>\
+                        <th>'+'<a href="/admin/manage/system/role/update/'+ value.id + '">'+'Cập nhật</a>'+'</th>\
                         </tr>';
-                        // <th>'+'<a href="role/update/id'+$value->id+'">'+'Cập nhật</a>'+'</th>\
 
                     $('tbody').append(table)
                     // console.log(table);

@@ -74,7 +74,7 @@
                         @foreach($logs as $key => $log)
                         <tr>
                             <td>{{ $log->username }}</td>
-                            <td>{{ $log->method }}</td>
+                            <td>{{ $log->date }}</td>
                             <td>{{ $log->ip }}</td>
                             <td>{{ $log->subject }}</td>
                         </tr>
@@ -132,7 +132,7 @@
                     table =
                         '<tr>\
                         <th>'+ value.username + '</th>\
-                        <th>'+ value.method + '</th>\
+                        <th>'+ value.date + '</th>\
                         <th>'+ value.ip + '</th>\
                         <th>'+ value.subject + '</th>\
                         </tr>';

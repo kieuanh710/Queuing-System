@@ -24,6 +24,7 @@ class ManageController extends Controller
         $totalWait = BoardCast::where('status', '=', '1')->count();
         $totalUsing = BoardCast::where('status', '=', '2')->count();
         $totalPass = BoardCast::where('status', '=', '3')->count();
+
         $detail = BoardCast::join('accounts', 'boardcasts.id_account', 'accounts.id')
         ->select('accounts.name', 'boardcasts.created_at')->get();
 
@@ -62,6 +63,8 @@ class ManageController extends Controller
         $totalWait = BoardCast::where('status', '=', '1')->count();
         $totalUsing = BoardCast::where('status', '=', '2')->count();
         $totalPass = BoardCast::where('status', '=', '3')->count();
+        $detail = BoardCast::join('accounts', 'boardcasts.id_account', 'accounts.id')
+        ->select('accounts.name', 'boardcasts.created_at')->get();
 
         //Device
         $totalDevice = Device::select('idDevice')->count();
@@ -86,7 +89,7 @@ class ManageController extends Controller
         }
 
         return(view('manage.dashboard-item.dashboardMonth', 
-        compact('title', 'total', 'totalUsing', 'totalWait', 'totalPass',
+        compact('title', 'detail', 'total', 'totalUsing', 'totalWait', 'totalPass',
         'totalDevice', 'totalActiveDV', 'totalInactiveDV','totalService', 'totalActiveSV', 'totalInactiveSV'), 
         ['data'=>$data, 'months'=>$months, 'monthCount'=>$monthCount]));
     }
@@ -97,6 +100,9 @@ class ManageController extends Controller
         $totalWait = BoardCast::where('status', '=', '1')->count();
         $totalUsing = BoardCast::where('status', '=', '2')->count();
         $totalPass = BoardCast::where('status', '=', '3')->count();
+        
+        $detail = BoardCast::join('accounts', 'boardcasts.id_account', 'accounts.id')
+        ->select('accounts.name', 'boardcasts.created_at')->get();
 
         //Device
         $totalDevice = Device::select('idDevice')->count();
@@ -121,7 +127,7 @@ class ManageController extends Controller
         }
 
         return(view('manage.dashboard-item.dashboardWeek', 
-        compact('title', 'total', 'totalUsing', 'totalWait', 'totalPass',
+        compact('title', 'detail', 'total', 'totalUsing', 'totalWait', 'totalPass',
         'totalDevice', 'totalActiveDV', 'totalInactiveDV','totalService', 'totalActiveSV', 'totalInactiveSV'), 
         ['dataWeek'=>$dataWeek, 'weeks'=>$weeks, 'weekCount'=>$weekCount]));
     }
